@@ -1,0 +1,539 @@
+/*
+   Stackly Portal Dashboard Custom Stylesheet (dashboard.css)
+   Governs Admin, Cloud Manager, and Client consoles. Fits collapsible sidebars,
+   dynamic page panels, log terminals, and the splitscreen Email Center.
+*/
+
+.dashboard-wrapper {
+    display: flex;
+    min-height: 100vh;
+    background-color: #050d21;
+    color: var(--white);
+    overflow: hidden;
+}
+
+/* Sidebar Layout */
+.dashboard-sidebar {
+    width: 280px;
+    background-color: var(--primary-navy);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: var(--transition);
+}
+
+.dashboard-sidebar.collapsed {
+    left: -280px;
+}
+
+.sidebar-header {
+    padding: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--white);
+}
+
+.sidebar-logo span {
+    color: var(--cyan-accent);
+}
+
+.close-sidebar-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.2rem;
+    display: none; /* Only visible on mobile/tablet */
+}
+
+.sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 15px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-nav li a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 20px;
+    border-radius: 12px;
+    color: #94a3b8;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.sidebar-nav li a i {
+    width: 20px;
+    text-align: center;
+    font-size: 1.05rem;
+    color: #94a3b8;
+}
+
+.sidebar-nav li a:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-nav li.active a {
+    background-color: #0f3227 !important;
+    color: #10b981 !important;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15);
+}
+
+.sidebar-nav li.active a i {
+    color: #10b981 !important;
+}
+
+.sidebar-nav li a.logout-link,
+.sidebar-nav li a.logout-trigger-btn,
+.sidebar-footer a {
+    color: #ef4444 !important;
+    font-weight: 700;
+}
+
+.sidebar-nav li a.logout-link:hover,
+.sidebar-nav li a.logout-trigger-btn:hover,
+.sidebar-footer a:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #f87171 !important;
+}
+
+/* Hide Floating Color Theme Switcher Widget on Dashboards */
+.color-theme-widget {
+    display: none !important;
+}
+
+/* Main Dashboard Panel */
+.dashboard-main {
+    flex: 1;
+    margin-left: 280px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* Prevents flex flex-item clipping */
+    transition: var(--transition);
+}
+
+.dashboard-main.expanded {
+    margin-left: 0;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+    background-color: rgba(11, 27, 61, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.header-toggle-btn {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.3rem;
+}
+
+.dashboard-header-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.user-profile-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar-badge {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: var(--electric-blue);
+    color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+}
+
+.user-email-text {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Dashboard Content Wrapper */
+.dashboard-content {
+    padding: 40px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.dashboard-content-panel {
+    display: none;
+}
+
+.dashboard-content-panel.active {
+    display: block;
+}
+
+/* Statistics Metrics Cards */
+.metrics-grid-v3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.metric-card-v3 {
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    transition: var(--transition);
+}
+
+.metric-card-v3:hover {
+    border-color: rgba(0, 102, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+.metric-card-info h4 {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.metric-card-info .value {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.1;
+}
+
+.metric-card-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    background-color: rgba(0, 102, 255, 0.1);
+    color: var(--cyan-accent);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+/* Dashboard Analytics Widgets */
+.dashboard-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+@media(max-width: 992px) {
+    .dashboard-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.dashboard-widget {
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 30px;
+}
+
+.dashboard-widget h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: var(--white);
+}
+
+/* Interactive SVG Chart */
+.chart-container-v3 {
+    position: relative;
+    height: 250px;
+}
+
+/* Server Cards Container */
+.server-grid-v3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.server-card-v3 {
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 25px;
+    transition: var(--transition);
+}
+
+.server-card-v3:hover {
+    border-color: var(--electric-blue);
+    transform: translateY(-3px);
+}
+
+.server-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.server-status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--success-green);
+    display: inline-block;
+}
+
+.server-status-dot.offline {
+    background-color: var(--error-red);
+}
+
+.server-metrics-row {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.progress-bar-stackly {
+    background-color: rgba(255, 255, 255, 0.1);
+    height: 6px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    background-color: var(--electric-blue);
+    height: 100%;
+    width: 0;
+    transition: width 1s ease-in-out;
+}
+
+/* Splitscreen Email Center */
+.email-center-layout {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    height: calc(100vh - 220px);
+    background-color: rgba(255, 255, 255, 0.01);
+}
+
+.email-list-pane {
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.email-list-header {
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.email-search-input {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    padding: 8px 12px;
+    color: var(--white);
+    font-size: 0.85rem;
+    width: 100%;
+    outline: none;
+}
+
+.email-rows-container {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.email-row-item {
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.email-row-item:hover,
+.email-row-item.active {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.email-row-item.unread {
+    border-left: 3px solid var(--cyan-accent);
+}
+
+.email-item-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 5px;
+}
+
+.email-item-subject {
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.email-item-preview {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.email-detail-pane {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.email-detail-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 20px;
+}
+
+.email-detail-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.email-detail-sender {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.email-detail-body {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* System Logs Timeline */
+.timeline-logs-v3 {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.timeline-log-item {
+    display: flex;
+    gap: 15px;
+    font-size: 0.85rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    padding-bottom: 10px;
+}
+
+.log-timestamp {
+    color: var(--cyan-accent);
+    font-family: monospace;
+}
+
+.log-content {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.log-status {
+    font-weight: 700;
+}
+
+.log-status.info { color: var(--success-green); }
+.log-status.warning { color: var(--warning-yellow); }
+.log-status.critical { color: var(--error-red); }
+
+/* Responsive Dashboard Styles */
+@media (max-width: 992px) {
+    .dashboard-sidebar {
+        left: -280px;
+    }
+    
+    .dashboard-sidebar.active {
+        left: 0;
+    }
+    
+    .close-sidebar-btn {
+        display: block;
+    }
+    
+    .dashboard-main {
+        margin-left: 0 !important;
+    }
+    
+    .dashboard-header {
+        padding: 15px 20px;
+    }
+    
+    .dashboard-content {
+        padding: 20px;
+    }
+    
+    .email-center-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+    
+    .email-detail-pane {
+        display: none; /* Hidden on smaller screens until selected */
+    }
+    
+    .email-center-layout.viewing-detail .email-list-pane {
+        display: none;
+    }
+    
+    .email-center-layout.viewing-detail .email-detail-pane {
+        display: block;
+    }
+}
