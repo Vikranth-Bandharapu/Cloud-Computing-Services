@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Stackly Platform</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/dashboard.css">
+    <link rel="stylesheet" href="assets/responsive.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: { DEFAULT: '#D4AF37', light: '#F3E5AB', dark: '#AA8C2C' },
+                        navy: { DEFAULT: '#0b1b3d', dark: '#050d21' }
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-black text-white font-sans h-[100dvh] flex overflow-hidden">
+
+    <!-- SIDEBAR -->
+    <aside id="dashboard-sidebar" class="w-64 bg-[#0a0f1d] border-r border-white/10 flex flex-col hidden md:flex z-20 transition-all">
+        <div class="h-24 flex items-center justify-between px-6 border-b border-white/10">
+            <a href="admin-dashboard.html" class="flex items-center">
+                <img src="assets/stackly_logo.webp" alt="Stackly Logo" class="h-9">
+            </a>
+            <button id="close-sidebar-btn" onclick="toggleDashboardSidebar()" class="md:hidden text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-2">
+            <a href="#" onclick="switchTab(event, 'tab-dashboard', this)" class="flex items-center px-4 py-3 text-xs tracking-widest uppercase bg-gold/10 text-gold rounded-sm font-semibold"><i class="fas fa-home w-6 text-gold"></i> Dashboard</a>
+            <a href="#" onclick="switchTab(event, 'tab-orders', this)" class="flex items-center px-4 py-3 text-xs tracking-widest uppercase text-gray-400 hover:text-white hover:bg-white/5 rounded-sm transition-colors"><i class="fas fa-shopping-bag w-6"></i> Orders / Specs</a>
+            <a href="#" onclick="switchTab(event, 'tab-products', this)" class="flex items-center px-4 py-3 text-xs tracking-widest uppercase text-gray-400 hover:text-white hover:bg-white/5 rounded-sm transition-colors"><i class="fas fa-gem w-6"></i> Resources</a>
+            <a href="#" onclick="switchTab(event, 'tab-customers', this)" class="flex items-center px-4 py-3 text-xs tracking-widest uppercase text-gray-400 hover:text-white hover:bg-white/5 rounded-sm transition-colors"><i class="fas fa-users w-6"></i> Accounts</a>
+            <a href="#" onclick="switchTab(event, 'tab-reports', this)" class="flex items-center px-4 py-3 text-xs tracking-widest uppercase text-gray-400 hover:text-white hover:bg-white/5 rounded-sm transition-colors"><i class="fas fa-chart-line w-6"></i> Telemetry</a>
+            <a href="#" onclick="switchTab(event, 'tab-settings', this)" class="flex items-center px-4 py-3 text-xs tracking-widest uppercase text-gray-400 hover:text-white hover:bg-white/5 rounded-sm transition-colors"><i class="fas fa-cog w-6"></i> Settings</a>
+        </nav>
+        <div class="p-6 border-t border-white/10">
+            <a href="index.html" onclick="logout(event)" class="logout-trigger-btn flex items-center text-xs tracking-widest uppercase text-red-400 hover:text-red-300 transition-colors font-bold"><i class="fas fa-sign-out-alt w-6"></i> Logout</a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 flex flex-col min-w-0 h-full overflow-hidden relative z-10 bg-[#050d21]">
+        
+        <!-- TOPBAR -->
+        <header class="h-24 bg-[#0a0f1d] border-b border-white/10 flex items-center justify-between px-8 z-20">
+            <div class="flex items-center">
+                <button onclick="toggleDashboardSidebar()" class="md:hidden text-gray-400 hover:text-white mr-4"><i class="fas fa-bars text-xl"></i></button>
+                <a href="admin-dashboard.html" class="md:hidden block mr-4">
+                    <img src="assets/stackly_logo.webp" alt="Stackly Logo" class="h-8">
+                </a>
+                <h2 class="font-serif hidden md:block text-2xl text-gold">Executive Console Overview</h2>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="text-xs uppercase tracking-widest text-emerald-400 font-semibold bg-emerald-950/60 border border-emerald-500/30 px-3 py-1.5 rounded-full hidden sm:inline-block"><i class="fas fa-shield-halved mr-1.5"></i> SYSTEM SECURE</span>
+                <div class="flex items-center gap-3 bg-[#0f172a] border border-white/10 px-4 py-2 rounded-full shadow-lg">
+                    <div class="w-8 h-8 rounded-full bg-gold text-black font-bold flex items-center justify-center text-xs display-user-avatar" id="display-user-avatar">AD</div>
+                    <span class="text-xs text-white font-semibold display-user-email" id="display-user-email">admin@stackly.com</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- DASHBOARD SCROLL AREA -->
+        <div id="main-scroll-area" class="absolute top-24 left-0 right-0 bottom-0 overflow-y-auto overflow-x-hidden p-4 md:p-8">
+            
+            <!-- TAB 1: EXECUTIVE DASHBOARD -->
+            <div class="dashboard-tab" id="tab-dashboard">
+                
+                <!-- PROFILE CARD WIDGET -->
+                <div class="bg-[#0f172a] border border-white/10 rounded-xl p-6 mb-8 flex items-center gap-6 w-full md:w-max max-w-full shadow-xl">
+                    <div class="w-16 h-16 rounded-full bg-cyan-400 flex items-center justify-center flex-shrink-0 text-black shadow-lg">
+                        <i class="fas fa-user-gear text-3xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <h4 class="text-white text-xl md:text-2xl font-bold flex flex-wrap items-baseline gap-2">
+                            <span>Welcome, Administrator</span>
+                            <span class="text-cyan-400 text-sm md:text-base font-normal display-user-email" id="display-user-email">admin@stackly.com</span>
+                        </h4>
+                        <span class="text-gold text-xs tracking-widest uppercase mt-1 font-semibold" id="display-user-role">Platform Admin &bull; Full Privileges</span>
+                    </div>
+                </div>
+
+                <!-- EXECUTIVE OVERVIEW HEADER -->
+                <div class="flex flex-col md:flex-row justify-between md:items-end mb-8 gap-4">
+                    <div>
+                        <h3 class="font-serif text-3xl mb-2 text-white">Executive Overview</h3>
+                        <p class="text-sm text-gray-400">High-level cloud metrics and cluster node telemetry status.</p>
+                    </div>
+                    <select onchange="window.location.href='404.html'" class="bg-[#0f172a] border border-white/20 text-sm px-4 py-2 focus:outline-none focus:border-gold text-white rounded">
+                        <option>Last 30 Days</option>
+                        <option>This Quarter</option>
+                        <option>Year to Date</option>
+                    </select>
+                </div>
+
+                <!-- 4 METRIC STAT CARDS GRID -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div onclick="window.location.href='404.html'" class="bg-[#0f172a] p-6 border border-white/10 rounded-xl relative overflow-hidden group shadow-lg cursor-pointer">
+                        <div class="absolute right-0 top-0 text-gold opacity-10 text-8xl -mt-4 -mr-4 group-hover:scale-110 transition-transform"><i class="fas fa-dollar-sign"></i></div>
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-2 block font-semibold">Total Revenue</span>
+                        <h3 class="font-serif text-3xl mb-1 text-gold">$1,245,000</h3>
+                        <span class="text-xs text-emerald-400 font-semibold"><i class="fas fa-arrow-up mr-1"></i> 12.5% vs last month</span>
+                    </div>
+                    <div onclick="window.location.href='404.html'" class="bg-[#0f172a] p-6 border border-white/10 rounded-xl relative overflow-hidden group shadow-lg cursor-pointer">
+                        <div class="absolute right-0 top-0 text-gold opacity-10 text-8xl -mt-4 -mr-4 group-hover:scale-110 transition-transform"><i class="fas fa-shopping-bag"></i></div>
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-2 block font-semibold">Total Orders</span>
+                        <h3 class="font-serif text-3xl mb-1 text-white">1,420</h3>
+                        <span class="text-xs text-emerald-400 font-semibold"><i class="fas fa-arrow-up mr-1"></i> 8.2% vs last month</span>
+                    </div>
+                    <div onclick="window.location.href='404.html'" class="bg-[#0f172a] p-6 border border-white/10 rounded-xl relative overflow-hidden group shadow-lg cursor-pointer">
+                        <div class="absolute right-0 top-0 text-gold opacity-10 text-8xl -mt-4 -mr-4 group-hover:scale-110 transition-transform"><i class="fas fa-users"></i></div>
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-2 block font-semibold">Active Customers</span>
+                        <h3 class="font-serif text-3xl mb-1 text-white">890</h3>
+                        <span class="text-xs text-emerald-400 font-semibold"><i class="fas fa-arrow-up mr-1"></i> 2.1% vs last month</span>
+                    </div>
+                    <div onclick="window.location.href='404.html'" class="bg-[#0f172a] p-6 border border-white/10 rounded-xl relative overflow-hidden group shadow-lg cursor-pointer">
+                        <div class="absolute right-0 top-0 text-gold opacity-10 text-8xl -mt-4 -mr-4 group-hover:scale-110 transition-transform"><i class="fas fa-gem"></i></div>
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-2 block font-semibold">Avg. Order Value</span>
+                        <h3 class="font-serif text-3xl mb-1 text-white">$876</h3>
+                        <span class="text-xs text-red-400 font-semibold"><i class="fas fa-arrow-down mr-1"></i> 1.4% vs last month</span>
+                    </div>
+                </div>
+
+                <!-- REVENUE & DISTRIBUTION GRID -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+                    <!-- REVENUE BAR CHART -->
+                    <div class="lg:col-span-2 bg-[#0f172a] border border-white/10 rounded-xl p-6 shadow-lg">
+                        <h4 class="font-serif text-xl mb-6 text-white">Revenue Trend</h4>
+                        <div class="h-64 flex items-end justify-between gap-3 border-b border-l border-white/10 px-4 pb-2">
+                            <div onclick="window.location.href='404.html'" class="w-full bg-gold/20 hover:bg-gold transition-colors relative group rounded-t cursor-pointer" style="height: 40%">
+                                <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-black border border-white/20 text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity rounded text-gold">$45k</div>
+                            </div>
+                            <div onclick="window.location.href='404.html'" class="w-full bg-gold/30 hover:bg-gold transition-colors relative group rounded-t cursor-pointer" style="height: 60%">
+                                <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-black border border-white/20 text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity rounded text-gold">$65k</div>
+                            </div>
+                            <div onclick="window.location.href='404.html'" class="w-full bg-gold/40 hover:bg-gold transition-colors relative group rounded-t cursor-pointer" style="height: 50%">
+                                <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-black border border-white/20 text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity rounded text-gold">$55k</div>
+                            </div>
+                            <div onclick="window.location.href='404.html'" class="w-full bg-gold/50 hover:bg-gold transition-colors relative group rounded-t cursor-pointer" style="height: 80%">
+                                <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-black border border-white/20 text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity rounded text-gold">$85k</div>
+                            </div>
+                            <div onclick="window.location.href='404.html'" class="w-full bg-gold/80 hover:bg-gold transition-colors relative group rounded-t cursor-pointer" style="height: 70%">
+                                <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-black border border-white/20 text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity rounded text-gold">$70k</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RESOURCE DISTRIBUTION WIDGET -->
+                    <div class="bg-[#0f172a] border border-white/10 rounded-xl p-6 shadow-lg">
+                        <h4 class="font-serif text-xl mb-6 text-white">Resource Allocation</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs uppercase tracking-widest text-gray-400 mb-1 font-semibold">
+                                    <span>Compute Nodes</span>
+                                    <span class="text-gold">40%</span>
+                                </div>
+                                <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-gold h-full rounded-full" style="width: 40%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs uppercase tracking-widest text-gray-400 mb-1 font-semibold">
+                                    <span>S3 Storage Vaults</span>
+                                    <span class="text-gold">25%</span>
+                                </div>
+                                <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-gold h-full rounded-full" style="width: 25%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs uppercase tracking-widest text-gray-400 mb-1 font-semibold">
+                                    <span>Database Clusters</span>
+                                    <span class="text-gold">20%</span>
+                                </div>
+                                <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-gold h-full rounded-full" style="width: 20%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs uppercase tracking-widest text-gray-400 mb-1 font-semibold">
+                                    <span>DevSecOps Containers</span>
+                                    <span class="text-gold">15%</span>
+                                </div>
+                                <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-gold h-full rounded-full" style="width: 15%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- TAB 2: ORDERS / SPECS -->
+            <div class="dashboard-tab hidden" id="tab-orders">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h3 class="font-serif text-3xl mb-2 text-white">Deployment Orders & Provisioning</h3>
+                        <p class="text-sm text-gray-400">Track active infrastructure orders and instance scheduling.</p>
+                    </div>
+                    <button onclick="window.location.href='404.html'" class="bg-gold text-black px-4 py-2 rounded text-xs tracking-widest uppercase font-bold hover:bg-white transition-colors"><i class="fas fa-plus mr-2"></i> New Deployment</button>
+                </div>
+
+                <!-- TOP ORDERS STAT CARDS -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-[#0f172a] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Active Orders</span>
+                        <div class="text-2xl font-serif text-gold font-bold">48 Active</div>
+                        <span class="text-xs text-emerald-400 font-semibold">+12% this week</span>
+                    </div>
+                    <div class="bg-[#0f172a] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Monthly Billing</span>
+                        <div class="text-2xl font-serif text-white font-bold">$48,950 / mo</div>
+                        <span class="text-xs text-emerald-400 font-semibold">+8.5% MRR</span>
+                    </div>
+                    <div class="bg-[#0f172a] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Pending Queue</span>
+                        <div class="text-2xl font-serif text-cyan-400 font-bold">7 Provisioning</div>
+                        <span class="text-xs text-gray-400">Avg queue 4 mins</span>
+                    </div>
+                    <div class="bg-[#0f172a] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Completed SLA</span>
+                        <div class="text-2xl font-serif text-emerald-400 font-bold">1,420 Nodes</div>
+                        <span class="text-xs text-emerald-400 font-semibold">99.99% Uptime</span>
+                    </div>
+                </div>
+
+                <!-- ORDERS TABLE -->
+                <div class="bg-[#0f172a] border border-white/10 rounded-xl overflow-hidden shadow-xl mb-8">
+                    <div class="p-4 border-b border-white/10 flex flex-wrap justify-between items-center gap-4">
+                        <div class="flex gap-2">
+                            <span onclick="window.location.href='404.html'" class="px-3 py-1 bg-gold/20 text-gold text-xs rounded font-semibold cursor-pointer">All Orders (48)</span>
+                            <span onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/5 text-gray-400 hover:text-white text-xs rounded font-semibold cursor-pointer">Active (38)</span>
+                            <span onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/5 text-gray-400 hover:text-white text-xs rounded font-semibold cursor-pointer">Processing (7)</span>
+                        </div>
+                        <input type="text" placeholder="Search order ID or client..." class="bg-black border border-white/20 text-xs px-3 py-1.5 rounded text-white focus:outline-none focus:border-gold w-64">
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-gray-300">
+                            <thead class="bg-black/50 text-xs uppercase tracking-widest text-gray-400 border-b border-white/10">
+                                <tr>
+                                    <th class="p-4">Order ID</th>
+                                    <th class="p-4">Client Name</th>
+                                    <th class="p-4">Resource Package</th>
+                                    <th class="p-4">Date</th>
+                                    <th class="p-4">Monthly Rate</th>
+                                    <th class="p-4">Status</th>
+                                    <th class="p-4 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5">
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 font-mono text-gold">#ORD-9082</td>
+                                    <td class="p-4 font-semibold text-white">Apex Industries</td>
+                                    <td class="p-4">16-Core Sovereign Compute VM</td>
+                                    <td class="p-4 text-gray-400">Aug 31, 2026</td>
+                                    <td class="p-4 font-bold text-white">$4,800/mo</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 text-xs rounded-full font-semibold">Active</span></td>
+                                    <td class="p-4 text-right space-x-2">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Inspect</button>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-gold/20 hover:bg-gold text-gold hover:text-black text-xs rounded transition-colors">SLA</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 font-mono text-gold">#ORD-9081</td>
+                                    <td class="p-4 font-semibold text-white">Constructo Group</td>
+                                    <td class="p-4">50TB S3 Storage Vault</td>
+                                    <td class="p-4 text-gray-400">Aug 30, 2026</td>
+                                    <td class="p-4 font-bold text-white">$1,250/mo</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-cyan-950/80 text-cyan-400 border border-cyan-500/30 text-xs rounded-full font-semibold">Processing</span></td>
+                                    <td class="p-4 text-right space-x-2">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Inspect</button>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-gold/20 hover:bg-gold text-gold hover:text-black text-xs rounded transition-colors">SLA</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 font-mono text-gold">#ORD-9080</td>
+                                    <td class="p-4 font-semibold text-white">Emerald Hills</td>
+                                    <td class="p-4">PostgreSQL DB Cluster</td>
+                                    <td class="p-4 text-gray-400">Aug 28, 2026</td>
+                                    <td class="p-4 font-bold text-white">$2,400/mo</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 text-xs rounded-full font-semibold">Active</span></td>
+                                    <td class="p-4 text-right space-x-2">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Inspect</button>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-gold/20 hover:bg-gold text-gold hover:text-black text-xs rounded transition-colors">SLA</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 font-mono text-gold">#ORD-9079</td>
+                                    <td class="p-4 font-semibold text-white">GovTech National Authority</td>
+                                    <td class="p-4">DevSecOps Pipeline Node</td>
+                                    <td class="p-4 text-gray-400">Aug 25, 2026</td>
+                                    <td class="p-4 font-bold text-white">$6,900/mo</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 text-xs rounded-full font-semibold">Active</span></td>
+                                    <td class="p-4 text-right space-x-2">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Inspect</button>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-gold/20 hover:bg-gold text-gold hover:text-black text-xs rounded transition-colors">SLA</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 font-mono text-gold">#ORD-9078</td>
+                                    <td class="p-4 font-semibold text-white">CyberDefense Corp</td>
+                                    <td class="p-4">Quantum-Shield Enclave</td>
+                                    <td class="p-4 text-gray-400">Aug 24, 2026</td>
+                                    <td class="p-4 font-bold text-white">$9,500/mo</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 text-xs rounded-full font-semibold">Active</span></td>
+                                    <td class="p-4 text-right space-x-2">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Inspect</button>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-gold/20 hover:bg-gold text-gold hover:text-black text-xs rounded transition-colors">SLA</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 font-mono text-gold">#ORD-9077</td>
+                                    <td class="p-4 font-semibold text-white">BioGenetics Global</td>
+                                    <td class="p-4">AI Model Training Node</td>
+                                    <td class="p-4 text-gray-400">Aug 22, 2026</td>
+                                    <td class="p-4 font-bold text-white">$12,400/mo</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-cyan-950/80 text-cyan-400 border border-cyan-500/30 text-xs rounded-full font-semibold">Processing</span></td>
+                                    <td class="p-4 text-right space-x-2">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Inspect</button>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-gold/20 hover:bg-gold text-gold hover:text-black text-xs rounded transition-colors">SLA</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 font-mono text-gold">#ORD-9076</td>
+                                    <td class="p-4 font-semibold text-white">FinTech Vaults Ltd</td>
+                                    <td class="p-4">Hardware Security Module</td>
+                                    <td class="p-4 text-gray-400">Aug 20, 2026</td>
+                                    <td class="p-4 font-bold text-white">$3,600/mo</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 text-xs rounded-full font-semibold">Active</span></td>
+                                    <td class="p-4 text-right space-x-2">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Inspect</button>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-gold/20 hover:bg-gold text-gold hover:text-black text-xs rounded transition-colors">SLA</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 font-mono text-gold">#ORD-9075</td>
+                                    <td class="p-4 font-semibold text-white">Metro Rail Authority</td>
+                                    <td class="p-4">Edge Compute IoT Hub</td>
+                                    <td class="p-4 text-gray-400">Aug 18, 2026</td>
+                                    <td class="p-4 font-bold text-white">$1,800/mo</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 text-xs rounded-full font-semibold">Active</span></td>
+                                    <td class="p-4 text-right space-x-2">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Inspect</button>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-gold/20 hover:bg-gold text-gold hover:text-black text-xs rounded transition-colors">SLA</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: PRODUCTS / RESOURCES -->
+            <div class="dashboard-tab hidden" id="tab-products">
+                <div class="mb-6">
+                    <h3 class="font-serif text-3xl mb-2 text-white">Cloud Resource Catalog & Hardware Fleet</h3>
+                    <p class="text-sm text-gray-400">Configure virtual machines, block storage, AI accelerators, and Kubernetes clusters.</p>
+                </div>
+
+                <!-- TOP METRICS BANNER -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-[#0f172a] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Compute Capacity</span>
+                        <div class="text-2xl font-serif text-gold font-bold">2,048 Cores</div>
+                        <span class="text-xs text-emerald-400 font-semibold">32 Dedicated Hosts</span>
+                    </div>
+                    <div class="bg-[#0f172a] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">NVMe Vault Pool</span>
+                        <div class="text-2xl font-serif text-white font-bold">500 TB Volume</div>
+                        <span class="text-xs text-cyan-400 font-semibold">99.999% SLA</span>
+                    </div>
+                    <div class="bg-[#0f172a] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Active Pod Containers</span>
+                        <div class="text-2xl font-serif text-cyan-400 font-bold">890 Pods</div>
+                        <span class="text-xs text-emerald-400 font-semibold">Auto-Shield Active</span>
+                    </div>
+                    <div class="bg-[#0f172a] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Global Edge Regions</span>
+                        <div class="text-2xl font-serif text-emerald-400 font-bold">14 Regions</div>
+                        <span class="text-xs text-emerald-400 font-semibold">Anycast Routing</span>
+                    </div>
+                </div>
+
+                <!-- 8 RESOURCE CARDS GRID -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <!-- Resource Card 1 -->
+                    <div class="bg-[#0f172a] border border-white/10 rounded-xl p-6 flex flex-col justify-between group hover:border-gold/50 transition-colors shadow-lg">
+                        <div>
+                            <div class="w-12 h-12 rounded bg-gold/10 text-gold flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform"><i class="fas fa-server"></i></div>
+                            <h4 class="font-serif text-xl text-white mb-2">Compute Instance vCPU-64</h4>
+                            <p class="text-xs text-gray-400 mb-4">64 vCPU | 256GB RAM | 2TB NVMe SSD. Ultra-fast compute for high volume transactions.</p>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-serif text-gold mb-3">$1.85 / hr</div>
+                            <button onclick="window.location.href='404.html'" class="w-full py-2 bg-gold/20 hover:bg-gold text-gold hover:text-black text-xs tracking-widest uppercase font-bold rounded transition-colors">Spin Up Node</button>
+                        </div>
+                    </div>
+
+                    <!-- Resource Card 2 -->
+                    <div class="bg-[#0f172a] border border-white/10 rounded-xl p-6 flex flex-col justify-between group hover:border-gold/50 transition-colors shadow-lg">
+                        <div>
+                            <div class="w-12 h-12 rounded bg-gold/10 text-gold flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform"><i class="fas fa-database"></i></div>
+                            <h4 class="font-serif text-xl text-white mb-2">S3 Object Storage Vault</h4>
+                            <p class="text-xs text-gray-400 mb-4">50TB Primary Storage | SHA-256 Encryption | 99.99% Availability Guarantee.</p>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-serif text-gold mb-3">$850 / mo</div>
+                            <button onclick="window.location.href='404.html'" class="w-full py-2 bg-gold/20 hover:bg-gold text-gold hover:text-black text-xs tracking-widest uppercase font-bold rounded transition-colors">Provision Bucket</button>
+                        </div>
+                    </div>
+
+                    <!-- Resource Card 3 -->
+                    <div class="bg-[#0f172a] border border-white/10 rounded-xl p-6 flex flex-col justify-between group hover:border-gold/50 transition-colors shadow-lg">
+                        <div>
+                            <div class="w-12 h-12 rounded bg-gold/10 text-gold flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform"><i class="fas fa-cubes"></i></div>
+                            <h4 class="font-serif text-xl text-white mb-2">PostgreSQL DB Cluster</h4>
+                            <p class="text-xs text-gray-400 mb-4">Auto-Scaling Replicas | Microsecond Sync Engine | Multi-Zone Disaster Vaults.</p>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-serif text-gold mb-3">$1,400 / mo</div>
+                            <button onclick="window.location.href='404.html'" class="w-full py-2 bg-gold/20 hover:bg-gold text-gold hover:text-black text-xs tracking-widest uppercase font-bold rounded transition-colors">Launch Cluster</button>
+                        </div>
+                    </div>
+
+                    <!-- Resource Card 4 -->
+                    <div class="bg-[#0f172a] border border-white/10 rounded-xl p-6 flex flex-col justify-between group hover:border-gold/50 transition-colors shadow-lg">
+                        <div>
+                            <div class="w-12 h-12 rounded bg-gold/10 text-gold flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform"><i class="fas fa-layer-group"></i></div>
+                            <h4 class="font-serif text-xl text-white mb-2">Kubernetes SKE Engine</h4>
+                            <p class="text-xs text-gray-400 mb-4">Isolated Pod Namespace | Automated Pod Shielding | Auto Container Scaling.</p>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-serif text-gold mb-3">$2,100 / mo</div>
+                            <button onclick="window.location.href='404.html'" class="w-full py-2 bg-gold/20 hover:bg-gold text-gold hover:text-black text-xs tracking-widest uppercase font-bold rounded transition-colors">Deploy SKE Pod</button>
+                        </div>
+                    </div>
+
+                    <!-- Resource Card 5 -->
+                    <div class="bg-[#0f172a] border border-white/10 rounded-xl p-6 flex flex-col justify-between group hover:border-gold/50 transition-colors shadow-lg">
+                        <div>
+                            <div class="w-12 h-12 rounded bg-gold/10 text-gold flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform"><i class="fas fa-[#00e5ff] fa-brain"></i></div>
+                            <h4 class="font-serif text-xl text-white mb-2">GPU AI Accelerator Node</h4>
+                            <p class="text-xs text-gray-400 mb-4">8x NVIDIA H100 | 640GB VRAM | Tensor Core Acceleration for Deep Learning.</p>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-serif text-gold mb-3">$8.50 / hr</div>
+                            <button onclick="window.location.href='404.html'" class="w-full py-2 bg-gold/20 hover:bg-gold text-gold hover:text-black text-xs tracking-widest uppercase font-bold rounded transition-colors">Rent GPU Node</button>
+                        </div>
+                    </div>
+
+                    <!-- Resource Card 6 -->
+                    <div class="bg-[#0f172a] border border-white/10 rounded-xl p-6 flex flex-col justify-between group hover:border-gold/50 transition-colors shadow-lg">
+                        <div>
+                            <div class="w-12 h-12 rounded bg-gold/10 text-gold flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform"><i class="fas fa-shield-halved"></i></div>
+                            <h4 class="font-serif text-xl text-white mb-2">Quantum-Safe VPN Gateway</h4>
+                            <p class="text-xs text-gray-400 mb-4">IPsec Zero-Trust Tunnels | 100 Gbps Bandwidth | Post-Quantum Cryptography.</p>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-serif text-gold mb-3">$950 / mo</div>
+                            <button onclick="window.location.href='404.html'" class="w-full py-2 bg-gold/20 hover:bg-gold text-gold hover:text-black text-xs tracking-widest uppercase font-bold rounded transition-colors">Attach Gateway</button>
+                        </div>
+                    </div>
+
+                    <!-- Resource Card 7 -->
+                    <div class="bg-[#0f172a] border border-white/10 rounded-xl p-6 flex flex-col justify-between group hover:border-gold/50 transition-colors shadow-lg">
+                        <div>
+                            <div class="w-12 h-12 rounded bg-gold/10 text-gold flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform"><i class="fas fa-network-wired"></i></div>
+                            <h4 class="font-serif text-xl text-white mb-2">Global CDN Cache Server</h4>
+                            <p class="text-xs text-gray-400 mb-4">250 Edge PoPs | Anycast BGP Routing | Automated DDoS Mitigation Engine.</p>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-serif text-gold mb-3">$620 / mo</div>
+                            <button onclick="window.location.href='404.html'" class="w-full py-2 bg-gold/20 hover:bg-gold text-gold hover:text-black text-xs tracking-widest uppercase font-bold rounded transition-colors">Enable Edge PoP</button>
+                        </div>
+                    </div>
+
+                    <!-- Resource Card 8 -->
+                    <div class="bg-[#0f172a] border border-white/10 rounded-xl p-6 flex flex-col justify-between group hover:border-gold/50 transition-colors shadow-lg">
+                        <div>
+                            <div class="w-12 h-12 rounded bg-gold/10 text-gold flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform"><i class="fas fa-key"></i></div>
+                            <h4 class="font-serif text-xl text-white mb-2">Hardware Security Module</h4>
+                            <p class="text-xs text-gray-400 mb-4">FIPS 140-3 Level 4 Key Vault | Isolated Cryptographic Processing Enclave.</p>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-serif text-gold mb-3">$1,850 / mo</div>
+                            <button onclick="window.location.href='404.html'" class="w-full py-2 bg-gold/20 hover:bg-gold text-gold hover:text-black text-xs tracking-widest uppercase font-bold rounded transition-colors">Provision HSM</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: CUSTOMERS / ACCOUNTS -->
+            <div class="dashboard-tab hidden" id="tab-customers">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h3 class="font-serif text-3xl mb-2 text-white">Verified Accounts Directory</h3>
+                        <p class="text-sm text-gray-400">Manage platform users, roles, and IAM authorization tokens.</p>
+                    </div>
+                    <button onclick="window.location.href='404.html'" class="bg-gold text-black px-4 py-2 rounded text-xs tracking-widest uppercase font-bold hover:bg-white transition-colors"><i class="fas fa-user-plus mr-2"></i> Add Account</button>
+                </div>
+
+                <!-- IAM STATS CARDS -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-[#0f172a] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Total Enrolled Accounts</span>
+                        <div class="text-2xl font-serif text-gold font-bold">890 Users</div>
+                        <span class="text-xs text-emerald-400 font-semibold">+18 added this month</span>
+                    </div>
+                    <div class="bg-[#0f172a] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">MFA Enforcement</span>
+                        <div class="text-2xl font-serif text-emerald-400 font-bold">100% Active</div>
+                        <span class="text-xs text-emerald-400 font-semibold">Zero-Trust Shielded</span>
+                    </div>
+                    <div class="bg-[#0f172a] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Platform Admins</span>
+                        <div class="text-2xl font-serif text-cyan-400 font-bold">12 Superusers</div>
+                        <span class="text-xs text-gray-400">Strict Audit Log</span>
+                    </div>
+                    <div class="bg-[#0f172a] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Security Audit Score</span>
+                        <div class="text-2xl font-serif text-emerald-400 font-bold">99.8% Passed</div>
+                        <span class="text-xs text-emerald-400 font-semibold">Compliance Verified</span>
+                    </div>
+                </div>
+
+                <!-- ACCOUNTS TABLE -->
+                <div class="bg-[#0f172a] border border-white/10 rounded-xl overflow-hidden shadow-xl mb-8">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-gray-300">
+                            <thead class="bg-black/50 text-xs uppercase tracking-widest text-gray-400 border-b border-white/10">
+                                <tr>
+                                    <th class="p-4">User</th>
+                                    <th class="p-4">Email</th>
+                                    <th class="p-4">System Role</th>
+                                    <th class="p-4">2FA Shield</th>
+                                    <th class="p-4">Last Login</th>
+                                    <th class="p-4 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5">
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-cyan-400 text-black font-bold flex items-center justify-center">DR</div>
+                                        <span class="font-semibold text-white">Dr. Rodriguez</span>
+                                    </td>
+                                    <td class="p-4 text-gray-400">rodriguez@tax.gov</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-gold/20 text-gold border border-gold/30 text-xs rounded-full font-semibold">Platform Admin</span></td>
+                                    <td class="p-4"><span class="text-emerald-400 text-xs font-semibold"><i class="fas fa-shield-check mr-1"></i> Enforced</span></td>
+                                    <td class="p-4 text-gray-400">12 mins ago</td>
+                                    <td class="p-4 text-right">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Permissions</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-purple-400 text-black font-bold flex items-center justify-center">SJ</div>
+                                        <span class="font-semibold text-white">Sarah Jenkins</span>
+                                    </td>
+                                    <td class="p-4 text-gray-400">sarah.j@constructo.io</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-cyan-950 text-cyan-400 border border-cyan-500/30 text-xs rounded-full font-semibold">Cloud Manager</span></td>
+                                    <td class="p-4"><span class="text-emerald-400 text-xs font-semibold"><i class="fas fa-shield-check mr-1"></i> Enforced</span></td>
+                                    <td class="p-4 text-gray-400">2 hours ago</td>
+                                    <td class="p-4 text-right">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Permissions</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-emerald-400 text-black font-bold flex items-center justify-center">MV</div>
+                                        <span class="font-semibold text-white">Marcus Vance</span>
+                                    </td>
+                                    <td class="p-4 text-gray-400">marcus@apex.com</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-gray-800 text-gray-300 border border-gray-600 text-xs rounded-full font-semibold">User / Client</span></td>
+                                    <td class="p-4"><span class="text-emerald-400 text-xs font-semibold"><i class="fas fa-shield-check mr-1"></i> Enforced</span></td>
+                                    <td class="p-4 text-gray-400">Yesterday</td>
+                                    <td class="p-4 text-right">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Permissions</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-pink-400 text-black font-bold flex items-center justify-center">ER</div>
+                                        <span class="font-semibold text-white">Elena Rostova</span>
+                                    </td>
+                                    <td class="p-4 text-gray-400">elena@stackly.com</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-gold/20 text-gold border border-gold/30 text-xs rounded-full font-semibold">DevSecOps Lead</span></td>
+                                    <td class="p-4"><span class="text-emerald-400 text-xs font-semibold"><i class="fas fa-shield-check mr-1"></i> Enforced</span></td>
+                                    <td class="p-4 text-gray-400">5 mins ago</td>
+                                    <td class="p-4 text-right">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Permissions</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-yellow-400 text-black font-bold flex items-center justify-center">JV</div>
+                                        <span class="font-semibold text-white">Jonathan Vance</span>
+                                    </td>
+                                    <td class="p-4 text-gray-400">j.vance@govtech.org</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-cyan-950 text-cyan-400 border border-cyan-500/30 text-xs rounded-full font-semibold">Security Auditor</span></td>
+                                    <td class="p-4"><span class="text-emerald-400 text-xs font-semibold"><i class="fas fa-shield-check mr-1"></i> Enforced</span></td>
+                                    <td class="p-4 text-gray-400">3 hours ago</td>
+                                    <td class="p-4 text-right">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Permissions</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-indigo-400 text-black font-bold flex items-center justify-center">AM</div>
+                                        <span class="font-semibold text-white">Amina Al-Mansoor</span>
+                                    </td>
+                                    <td class="p-4 text-gray-400">amina@bio-genetics.io</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-gray-800 text-gray-300 border border-gray-600 text-xs rounded-full font-semibold">Billing Admin</span></td>
+                                    <td class="p-4"><span class="text-emerald-400 text-xs font-semibold"><i class="fas fa-shield-check mr-1"></i> Enforced</span></td>
+                                    <td class="p-4 text-gray-400">1 day ago</td>
+                                    <td class="p-4 text-right">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Permissions</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-blue-400 text-black font-bold flex items-center justify-center">CW</div>
+                                        <span class="font-semibold text-white">Chen Wei</span>
+                                    </td>
+                                    <td class="p-4 text-gray-400">chen.wei@fintech.net</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-cyan-950 text-cyan-400 border border-cyan-500/30 text-xs rounded-full font-semibold">Infrastructure Eng</span></td>
+                                    <td class="p-4"><span class="text-emerald-400 text-xs font-semibold"><i class="fas fa-shield-check mr-1"></i> Enforced</span></td>
+                                    <td class="p-4 text-gray-400">4 days ago</td>
+                                    <td class="p-4 text-right">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Permissions</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: REPORTS / TELEMETRY -->
+            <div class="dashboard-tab hidden" id="tab-reports">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h3 class="font-serif text-3xl mb-2 text-white">Live Telemetry & Real-Time Audits</h3>
+                        <p class="text-sm text-gray-400">Monitor system logs, RAM workload, and network security scans.</p>
+                    </div>
+                    <button onclick="window.location.href='404.html'" class="bg-gold text-black px-4 py-2 rounded text-xs tracking-widest uppercase font-bold hover:bg-white transition-colors"><i class="fas fa-download mr-2"></i> Export Logs</button>
+                </div>
+
+                <!-- LIVE METRICS GAUGES -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div onclick="window.location.href='404.html'" class="bg-[#0f172a] p-5 border border-white/10 rounded-xl cursor-pointer">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">CPU Workload</span>
+                        <div class="text-2xl font-serif text-gold mb-2">64%</div>
+                        <div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+                            <div class="bg-gold h-full rounded-full" style="width: 64%"></div>
+                        </div>
+                    </div>
+                    <div onclick="window.location.href='404.html'" class="bg-[#0f172a] p-5 border border-white/10 rounded-xl cursor-pointer">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">RAM Utilization</span>
+                        <div class="text-2xl font-serif text-cyan-400 mb-2">48%</div>
+                        <div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+                            <div class="bg-cyan-400 h-full rounded-full" style="width: 48%"></div>
+                        </div>
+                    </div>
+                    <div onclick="window.location.href='404.html'" class="bg-[#0f172a] p-5 border border-white/10 rounded-xl cursor-pointer">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">S3 IOPS Throughput</span>
+                        <div class="text-2xl font-serif text-emerald-400 mb-2">92%</div>
+                        <div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+                            <div class="bg-emerald-400 h-full rounded-full" style="width: 92%"></div>
+                        </div>
+                    </div>
+                    <div onclick="window.location.href='404.html'" class="bg-[#0f172a] p-5 border border-white/10 rounded-xl cursor-pointer">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Network Bandwidth</span>
+                        <div class="text-2xl font-serif text-purple-400 mb-2">1.2 Gbps</div>
+                        <div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+                            <div class="bg-purple-400 h-full rounded-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LIVE TERMINAL LOGS -->
+                <div class="bg-[#0f172a] border border-white/10 rounded-xl p-6 shadow-xl mb-8">
+                    <h4 class="font-serif text-xl mb-4 text-white"><i class="fas fa-terminal text-gold mr-2"></i> Live Console Stream</h4>
+                    <div class="bg-black p-4 rounded-lg font-monospace text-xs leading-6 text-emerald-400 space-y-2 border border-white/10">
+                        <div>[09:32:04] [INFO] Heartbeat check passed for US-East cluster (16/16 nodes operational).</div>
+                        <div>[09:32:15] [SEC] SHA-256 Zero-Trust tunnel verified for Client #8092.</div>
+                        <div>[09:32:40] [AUTO-SCALE] Added 2 pod replicas in SKE Namespace #4.</div>
+                        <div>[09:33:01] [AUDIT] Incident response scanner verified clean telemetry. Uptime 99.99%.</div>
+                        <div>[09:33:14] [NET] BGP Anycast routing updated across 14 Edge PoPs.</div>
+                        <div>[09:33:30] [DB] PostgreSQL WAL log stream synchronized with zero lag.</div>
+                        <div>[09:33:45] [BACKUP] Snapshot backup #9082 saved to Glacier Storage.</div>
+                    </div>
+                </div>
+
+                <!-- REGIONAL UPTIME STATUS GRID -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-[#0f172a] p-5 border border-white/10 rounded-xl">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-semibold text-white">US-East (N. Virginia)</span>
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                        </div>
+                        <div class="text-lg font-bold text-gold">99.99%</div>
+                        <span class="text-xs text-gray-400">12ms Latency</span>
+                    </div>
+                    <div class="bg-[#0f172a] p-5 border border-white/10 rounded-xl">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-semibold text-white">EU-West (Frankfurt)</span>
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                        </div>
+                        <div class="text-lg font-bold text-gold">100.00%</div>
+                        <span class="text-xs text-gray-400">18ms Latency</span>
+                    </div>
+                    <div class="bg-[#0f172a] p-5 border border-white/10 rounded-xl">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-semibold text-white">AP-South (Tokyo)</span>
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                        </div>
+                        <div class="text-lg font-bold text-gold">99.98%</div>
+                        <span class="text-xs text-gray-400">24ms Latency</span>
+                    </div>
+                    <div class="bg-[#0f172a] p-5 border border-white/10 rounded-xl">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-semibold text-white">SA-East (São Paulo)</span>
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                        </div>
+                        <div class="text-lg font-bold text-gold">99.95%</div>
+                        <span class="text-xs text-gray-400">45ms Latency</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 6: SETTINGS -->
+            <div class="dashboard-tab hidden" id="tab-settings">
+                <div class="mb-6">
+                    <h3 class="font-serif text-3xl mb-2 text-white">Platform & Console Settings</h3>
+                    <p class="text-sm text-gray-400">Configure global parameters, security keys, and theme settings.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <!-- SECTION 1: MASTER CONFIG -->
+                    <div class="bg-[#0f172a] border border-white/10 rounded-xl p-6 shadow-xl">
+                        <h4 class="font-serif text-xl mb-4 text-gold"><i class="fas fa-sliders mr-2"></i> Master Platform Settings</h4>
+                        <form onsubmit="if(event) event.preventDefault(); window.location.href='404.html';">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">Console Master Name</label>
+                                    <input type="text" value="Stackly Executive Console" class="w-full bg-black border border-white/20 text-sm px-4 py-2.5 rounded text-white focus:outline-none focus:border-gold">
+                                </div>
+                                <div>
+                                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">Notification Contact Email</label>
+                                    <input type="email" value="admin@stackly.com" class="w-full bg-black border border-white/20 text-sm px-4 py-2.5 rounded text-white focus:outline-none focus:border-gold">
+                                </div>
+                                <div>
+                                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">Session Auto-Timeout</label>
+                                    <select class="w-full bg-black border border-white/20 text-sm px-4 py-2.5 rounded text-white focus:outline-none focus:border-gold">
+                                        <option>15 Minutes</option>
+                                        <option>30 Minutes</option>
+                                        <option>1 Hour</option>
+                                    </select>
+                                </div>
+                                <div class="pt-2">
+                                    <button type="submit" onclick="window.location.href='404.html'" class="bg-gold text-black px-6 py-2.5 rounded text-xs tracking-widest uppercase font-bold hover:bg-white transition-colors">Save Profile Settings</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- SECTION 2: SECURITY & API -->
+                    <div class="bg-[#0f172a] border border-white/10 rounded-xl p-6 shadow-xl">
+                        <h4 class="font-serif text-xl mb-4 text-gold"><i class="fas fa-key mr-2"></i> API & Security Parameters</h4>
+                        <form onsubmit="if(event) event.preventDefault(); window.location.href='404.html';">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">API Master Access Token</label>
+                                    <div class="flex gap-2">
+                                        <input type="text" readonly value="stk_live_98472938174981729384" class="w-full bg-black/60 border border-white/10 text-sm px-4 py-2.5 rounded font-mono text-gold">
+                                        <button type="button" onclick="window.location.href='404.html'" class="px-4 py-2.5 bg-gold/20 hover:bg-gold text-gold hover:text-black text-xs font-bold rounded transition-colors">Regenerate</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">Security IP Whitelist Filter</label>
+                                    <input type="text" value="192.168.1.0/24, 10.0.0.0/8" class="w-full bg-black border border-white/20 text-sm px-4 py-2.5 rounded text-white focus:outline-none focus:border-gold">
+                                </div>
+                                <div>
+                                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">Webhook Secret Signature</label>
+                                    <input type="text" readonly value="whsec_892739481723948" class="w-full bg-black/60 border border-white/10 text-sm px-4 py-2.5 rounded font-mono text-cyan-400">
+                                </div>
+                                <div class="pt-2">
+                                    <button type="submit" onclick="window.location.href='404.html'" class="bg-gold text-black px-6 py-2.5 rounded text-xs tracking-widest uppercase font-bold hover:bg-white transition-colors">Save API Keys</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/main.js"></script>
+    <script src="assets/dashboard.js"></script>
+    <script src="assets/auth.js"></script>
+    <script>
+        function toggleDashboardSidebar() {
+            const sidebar = document.getElementById('dashboard-sidebar');
+            if (sidebar) {
+                sidebar.classList.toggle('hidden');
+            }
+        }
+        function switchTab(e, tabId, element) {
+            if (e) e.preventDefault();
+            const tabs = document.querySelectorAll('.dashboard-tab');
+            tabs.forEach(t => t.classList.add('hidden'));
+            const target = document.getElementById(tabId);
+            if (target) target.classList.remove('hidden');
+
+            const navLinks = document.querySelectorAll('#dashboard-sidebar nav a');
+            navLinks.forEach(l => {
+                l.classList.remove('bg-gold/10', 'text-gold', 'font-semibold');
+                l.classList.add('text-gray-400');
+            });
+            element.classList.remove('text-gray-400');
+            element.classList.add('bg-gold/10', 'text-gold', 'font-semibold');
+        }
+        function logout(e) {
+            if (e) e.preventDefault();
+            sessionStorage.removeItem('logged-in-user-email');
+            sessionStorage.removeItem('logged-in-user-role');
+            localStorage.setItem('auth-toast-msg', 'Logged out successfully.');
+            localStorage.setItem('auth-toast-type', 'success');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
+
+
+
+

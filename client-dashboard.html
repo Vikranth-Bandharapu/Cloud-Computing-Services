@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Stackly Client Portal. Manage compute slots, check file storage usage, download invoices, submit incident reports.">
+    <title>Client Gateway Dashboard - Stackly Cloud</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/dashboard.css">
+    <link rel="stylesheet" href="assets/responsive.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: { DEFAULT: '#D4AF37', light: '#F3E5AB', dark: '#AA8C2C' },
+                        cyan: { DEFAULT: '#00e5ff', dark: '#0099b8' },
+                        navy: { DEFAULT: '#0b1b3d', dark: '#050d21' }
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-black text-white font-sans h-[100dvh] flex overflow-hidden">
+
+    <!-- USER SIDEBAR NAVIGATION -->
+    <aside id="dashboard-sidebar" class="w-64 bg-[#081226] border-r border-white/10 flex flex-col hidden md:flex z-20 transition-all">
+        <div class="h-24 flex items-center justify-between px-6 border-b border-white/10">
+            <a href="client-dashboard.html" class="flex items-center">
+                <img src="assets/stackly_logo.webp" alt="Stackly Logo" class="h-9">
+            </a>
+            <button id="close-sidebar-btn" onclick="toggleDashboardSidebar()" class="md:hidden text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-2">
+            <a href="#" onclick="switchTab(event, 'tab-user-overview', this)" class="flex items-center px-4 py-3 text-xs tracking-widest uppercase bg-cyan/10 text-cyan rounded-sm font-semibold"><i class="fas fa-cubes w-6 text-cyan"></i> My Services</a>
+            <a href="#" onclick="switchTab(event, 'tab-user-storage', this)" class="flex items-center px-4 py-3 text-xs tracking-widest uppercase text-gray-400 hover:text-white hover:bg-white/5 rounded-sm transition-colors"><i class="fas fa-hard-drive w-6"></i> Cloud Storage</a>
+            <a href="#" onclick="switchTab(event, 'tab-user-billing', this)" class="flex items-center px-4 py-3 text-xs tracking-widest uppercase text-gray-400 hover:text-white hover:bg-white/5 rounded-sm transition-colors"><i class="fas fa-file-invoice-dollar w-6"></i> Billing & Subscriptions</a>
+            <a href="#" onclick="switchTab(event, 'tab-user-support', this)" class="flex items-center px-4 py-3 text-xs tracking-widest uppercase text-gray-400 hover:text-white hover:bg-white/5 rounded-sm transition-colors"><i class="fas fa-headset w-6"></i> Support Tickets</a>
+            <a href="#" onclick="switchTab(event, 'tab-user-profile', this)" class="flex items-center px-4 py-3 text-xs tracking-widest uppercase text-gray-400 hover:text-white hover:bg-white/5 rounded-sm transition-colors"><i class="fas fa-user-gear w-6"></i> Account Profile</a>
+        </nav>
+        <div class="p-6 border-t border-white/10">
+            <a href="index.html" onclick="logout(event)" class="logout-trigger-btn flex items-center text-xs tracking-widest uppercase text-red-400 hover:text-red-300 transition-colors font-bold"><i class="fas fa-sign-out-alt w-6"></i> Logout</a>
+        </div>
+    </aside>
+
+    <!-- MAIN WORKSPACE CONTENT -->
+    <main class="flex-1 flex flex-col min-w-0 h-full overflow-hidden relative z-10 bg-[#040a17]">
+        
+        <!-- USER TOPBAR -->
+        <header class="h-24 bg-[#081226] border-b border-white/10 flex items-center justify-between px-8 z-20">
+            <div class="flex items-center">
+                <button onclick="toggleDashboardSidebar()" class="md:hidden text-gray-400 hover:text-white mr-4"><i class="fas fa-bars text-xl"></i></button>
+                <a href="client-dashboard.html" class="md:hidden block mr-4">
+                    <img src="assets/stackly_logo.webp" alt="Stackly Logo" class="h-8">
+                </a>
+                <h2 class="font-serif hidden md:block text-2xl text-cyan">Client Gateway Console</h2>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="text-xs uppercase tracking-widest text-cyan-400 font-semibold bg-cyan-950/60 border border-cyan-500/30 px-3 py-1.5 rounded-full hidden sm:inline-block"><i class="fas fa-circle-check mr-1.5 text-cyan"></i> CLIENT ACCOUNT</span>
+                <div class="flex items-center gap-3 bg-[#0b1730] border border-white/10 px-4 py-2 rounded-full shadow-lg">
+                    <div class="w-8 h-8 rounded-full bg-emerald-400 text-black font-bold flex items-center justify-center text-xs display-user-avatar" id="display-user-avatar">CU</div>
+                    <span class="text-xs text-white font-semibold display-user-email" id="display-user-email">user@stackly.com</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- DASHBOARD CONTENT SCROLL AREA -->
+        <div id="main-scroll-area" class="absolute top-24 left-0 right-0 bottom-0 overflow-y-auto overflow-x-hidden p-4 md:p-8">
+            
+            <!-- TAB 1: MY SERVICES & OVERVIEW -->
+            <div class="dashboard-tab" id="tab-user-overview">
+                
+                <!-- USER PROFILE CARD WIDGET -->
+                <div class="bg-[#0b1730] border border-white/10 rounded-xl p-6 mb-8 flex items-center gap-6 w-full md:w-max max-w-full shadow-xl">
+                    <div class="w-16 h-16 rounded-full bg-emerald-400 flex items-center justify-center flex-shrink-0 text-black shadow-lg font-bold text-2xl">
+                        CU
+                    </div>
+                    <div class="flex flex-col">
+                        <h4 class="text-white text-xl md:text-2xl font-bold flex flex-wrap items-baseline gap-2">
+                            <span>Welcome, Client User</span>
+                            <span class="text-cyan-400 text-sm md:text-base font-normal display-user-email" id="display-user-email">user@stackly.com</span>
+                        </h4>
+                        <span class="text-emerald-400 text-xs tracking-widest uppercase mt-1 font-semibold" id="display-user-role">User Scope &bull; Standard Tier</span>
+                    </div>
+                </div>
+
+                <!-- OVERVIEW METRICS GRID -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div onclick="window.location.href='404.html'" class="bg-[#0b1730] p-6 border border-white/10 rounded-xl relative overflow-hidden group shadow-lg cursor-pointer">
+                        <div class="absolute right-0 top-0 text-cyan opacity-10 text-8xl -mt-4 -mr-4 group-hover:scale-110 transition-transform"><i class="fas fa-server"></i></div>
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-2 block font-semibold">Active VM Instances</span>
+                        <h3 class="font-serif text-3xl mb-1 text-cyan">4 VMs Running</h3>
+                        <span class="text-xs text-emerald-400 font-semibold"><i class="fas fa-check-circle mr-1"></i> All Nodes Healthy</span>
+                    </div>
+                    <div onclick="window.location.href='404.html'" class="bg-[#0b1730] p-6 border border-white/10 rounded-xl relative overflow-hidden group shadow-lg cursor-pointer">
+                        <div class="absolute right-0 top-0 text-cyan opacity-10 text-8xl -mt-4 -mr-4 group-hover:scale-110 transition-transform"><i class="fas fa-hard-drive"></i></div>
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-2 block font-semibold">Storage Quota Used</span>
+                        <h3 class="font-serif text-3xl mb-1 text-white">420 GB / 1 TB</h3>
+                        <span class="text-xs text-cyan-400 font-semibold">42% Capacity Used</span>
+                    </div>
+                    <div onclick="window.location.href='404.html'" class="bg-[#0b1730] p-6 border border-white/10 rounded-xl relative overflow-hidden group shadow-lg cursor-pointer">
+                        <div class="absolute right-0 top-0 text-cyan opacity-10 text-8xl -mt-4 -mr-4 group-hover:scale-110 transition-transform"><i class="fas fa-file-invoice-dollar"></i></div>
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-2 block font-semibold">Current Month Billing</span>
+                        <h3 class="font-serif text-3xl mb-1 text-white">$185.00</h3>
+                        <span class="text-xs text-emerald-400 font-semibold">Paid & Up-to-Date</span>
+                    </div>
+                    <div onclick="window.location.href='404.html'" class="bg-[#0b1730] p-6 border border-white/10 rounded-xl relative overflow-hidden group shadow-lg cursor-pointer">
+                        <div class="absolute right-0 top-0 text-cyan opacity-10 text-8xl -mt-4 -mr-4 group-hover:scale-110 transition-transform"><i class="fas fa-headset"></i></div>
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-2 block font-semibold">Support Tickets</span>
+                        <h3 class="font-serif text-3xl mb-1 text-white">0 Open</h3>
+                        <span class="text-xs text-gray-400">Response time &lt; 15m</span>
+                    </div>
+                </div>
+
+                <!-- CLIENT SERVERS TABLE -->
+                <div class="bg-[#0b1730] border border-white/10 rounded-xl overflow-hidden shadow-xl mb-8">
+                    <div class="p-4 border-b border-white/10 flex justify-between items-center">
+                        <h4 class="font-serif text-xl text-white"><i class="fas fa-cubes text-cyan mr-2"></i> My Active Compute Instance Slots</h4>
+                        <button onclick="window.location.href='404.html'" class="px-4 py-2 bg-cyan/20 text-cyan hover:bg-cyan hover:text-black rounded text-xs tracking-widest uppercase font-bold transition-colors"><i class="fas fa-plus mr-1"></i> Deploy New Server</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-gray-300">
+                            <thead class="bg-black/50 text-xs uppercase tracking-widest text-gray-400 border-b border-white/10">
+                                <tr>
+                                    <th class="p-4">Server Name</th>
+                                    <th class="p-4">Region</th>
+                                    <th class="p-4">IP Address</th>
+                                    <th class="p-4">Specs</th>
+                                    <th class="p-4">Status</th>
+                                    <th class="p-4 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5">
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 font-bold text-white">Web-App-Production</td>
+                                    <td class="p-4 text-gray-400">US-East (N. Virginia)</td>
+                                    <td class="p-4 font-mono text-cyan">192.168.1.104</td>
+                                    <td class="p-4 text-xs">8 vCPU / 32GB RAM</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-xs rounded-full font-semibold">Running</span></td>
+                                    <td class="p-4 text-right space-x-2">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Restart</button>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs rounded transition-colors">Console Logs</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 font-bold text-white">Dev-Database-Replica</td>
+                                    <td class="p-4 text-gray-400">EU-West (Frankfurt)</td>
+                                    <td class="p-4 font-mono text-cyan">10.0.4.12</td>
+                                    <td class="p-4 text-xs">16 vCPU / 64GB RAM</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-xs rounded-full font-semibold">Running</span></td>
+                                    <td class="p-4 text-right space-x-2">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Restart</button>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs rounded transition-colors">Console Logs</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 font-bold text-white">Staging-Api-Node</td>
+                                    <td class="p-4 text-gray-400">AP-South (Tokyo)</td>
+                                    <td class="p-4 font-mono text-cyan">172.16.0.45</td>
+                                    <td class="p-4 text-xs">4 vCPU / 16GB RAM</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-xs rounded-full font-semibold">Running</span></td>
+                                    <td class="p-4 text-right space-x-2">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Restart</button>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs rounded transition-colors">Console Logs</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 font-bold text-white">Microservice-Auth-Gateway</td>
+                                    <td class="p-4 text-gray-400">US-West (Oregon)</td>
+                                    <td class="p-4 font-mono text-cyan">192.168.2.88</td>
+                                    <td class="p-4 text-xs">4 vCPU / 16GB RAM</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-xs rounded-full font-semibold">Running</span></td>
+                                    <td class="p-4 text-right space-x-2">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Restart</button>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs rounded transition-colors">Console Logs</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 font-bold text-white">Redis-Cache-Cluster</td>
+                                    <td class="p-4 text-gray-400">EU-West (Frankfurt)</td>
+                                    <td class="p-4 font-mono text-cyan">10.0.4.50</td>
+                                    <td class="p-4 text-xs">8 vCPU / 32GB RAM</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-xs rounded-full font-semibold">Running</span></td>
+                                    <td class="p-4 text-right space-x-2">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Restart</button>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs rounded transition-colors">Console Logs</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 font-bold text-white">Analytics-Processing-Worker</td>
+                                    <td class="p-4 text-gray-400">US-East (N. Virginia)</td>
+                                    <td class="p-4 font-mono text-cyan">192.168.1.200</td>
+                                    <td class="p-4 text-xs">16 vCPU / 64GB RAM</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-xs rounded-full font-semibold">Running</span></td>
+                                    <td class="p-4 text-right space-x-2">
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Restart</button>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs rounded transition-colors">Console Logs</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- WEEKLY WORKLOAD CHART -->
+                <div class="bg-[#0b1730] border border-white/10 rounded-xl p-6 shadow-xl mb-8">
+                    <h4 class="font-serif text-xl text-white mb-6"><i class="fas fa-chart-line text-cyan mr-2"></i> Weekly vCPU Workload Utilization</h4>
+                    <div class="h-48 flex items-end justify-between gap-3 border-b border-l border-white/10 px-4 pb-2">
+                        <div onclick="window.location.href='404.html'" class="w-full bg-cyan/20 hover:bg-cyan transition-colors relative group rounded-t cursor-pointer" style="height: 62%">
+                            <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-black border border-white/20 text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity rounded text-cyan">Mon: 62%</div>
+                        </div>
+                        <div onclick="window.location.href='404.html'" class="w-full bg-cyan/40 hover:bg-cyan transition-colors relative group rounded-t cursor-pointer" style="height: 78%">
+                            <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-black border border-white/20 text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity rounded text-cyan">Tue: 78%</div>
+                        </div>
+                        <div onclick="window.location.href='404.html'" class="w-full bg-cyan/30 hover:bg-cyan transition-colors relative group rounded-t cursor-pointer" style="height: 54%">
+                            <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-black border border-white/20 text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity rounded text-cyan">Wed: 54%</div>
+                        </div>
+                        <div onclick="window.location.href='404.html'" class="w-full bg-cyan/60 hover:bg-cyan transition-colors relative group rounded-t cursor-pointer" style="height: 82%">
+                            <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-black border border-white/20 text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity rounded text-cyan">Thu: 82%</div>
+                        </div>
+                        <div onclick="window.location.href='404.html'" class="w-full bg-cyan/50 hover:bg-cyan transition-colors relative group rounded-t cursor-pointer" style="height: 70%">
+                            <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-black border border-white/20 text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity rounded text-cyan">Fri: 70%</div>
+                        </div>
+                        <div onclick="window.location.href='404.html'" class="w-full bg-cyan/40 hover:bg-cyan transition-colors relative group rounded-t cursor-pointer" style="height: 68%">
+                            <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-black border border-white/20 text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity rounded text-cyan">Sat: 68%</div>
+                        </div>
+                        <div onclick="window.location.href='404.html'" class="w-full bg-cyan/80 hover:bg-cyan transition-colors relative group rounded-t cursor-pointer" style="height: 75%">
+                            <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-black border border-white/20 text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity rounded text-cyan">Sun: 75%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: STORAGE -->
+            <div class="dashboard-tab hidden" id="tab-user-storage">
+                <div class="mb-6">
+                    <h3 class="font-serif text-3xl mb-2 text-white">My Cloud File Storage Vaults</h3>
+                    <p class="text-sm text-gray-400">Check bucket capacity, object downloads, and backup retention policies.</p>
+                </div>
+
+                <!-- STORAGE STAT BANNER -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-[#0b1730] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Primary Storage Used</span>
+                        <div class="text-2xl font-serif text-cyan font-bold">420 GB / 1 TB</div>
+                        <span class="text-xs text-cyan-400 font-semibold">42% Capacity</span>
+                    </div>
+                    <div class="bg-[#0b1730] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Total Objects</span>
+                        <div class="text-2xl font-serif text-white font-bold">14,820 Files</div>
+                        <span class="text-xs text-emerald-400 font-semibold">Indexed SHA-256</span>
+                    </div>
+                    <div class="bg-[#0b1730] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Snapshot Retention</span>
+                        <div class="text-2xl font-serif text-emerald-400 font-bold">30 Days</div>
+                        <span class="text-xs text-emerald-400 font-semibold">Daily Automated</span>
+                    </div>
+                    <div class="bg-[#0b1730] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Encryption Vault</span>
+                        <div class="text-2xl font-serif text-emerald-400 font-bold">AES-256</div>
+                        <span class="text-xs text-emerald-400 font-semibold">Hardware Key Active</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-[#0b1730] border border-white/10 rounded-xl p-6 shadow-lg">
+                        <h4 class="font-serif text-xl text-white mb-4"><i class="fas fa-database text-cyan mr-2"></i> Primary Production Vault</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs text-gray-400 mb-1">
+                                    <span>Used Storage</span>
+                                    <span class="text-cyan font-bold">420 GB / 1000 GB</span>
+                                </div>
+                                <div class="w-full bg-white/10 h-3 rounded-full overflow-hidden">
+                                    <div class="bg-cyan h-full rounded-full" style="width: 42%"></div>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-400 space-y-1">
+                                <div>&bull; SHA-256 AES Encryption: <span class="text-emerald-400 font-semibold">Active</span></div>
+                                <div>&bull; Multi-AZ Replication: <span class="text-emerald-400 font-semibold">Enabled</span></div>
+                            </div>
+                            <button onclick="window.location.href='404.html'" class="px-4 py-2 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs uppercase font-bold rounded transition-colors">Manage Vault Keys</button>
+                        </div>
+                    </div>
+                    <div class="bg-[#0b1730] border border-white/10 rounded-xl p-6 shadow-lg">
+                        <h4 class="font-serif text-xl text-white mb-4"><i class="fas fa-snowflake text-cyan mr-2"></i> Glacier Cold Archive Vault</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs text-gray-400 mb-1">
+                                    <span>Cold Storage Volume</span>
+                                    <span class="text-cyan font-bold">850 GB</span>
+                                </div>
+                                <div class="w-full bg-white/10 h-3 rounded-full overflow-hidden">
+                                    <div class="bg-cyan/60 h-full rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-400 space-y-1">
+                                <div>&bull; Access Latency: <span class="text-cyan font-semibold">Instant Retrieval</span></div>
+                                <div>&bull; Zero-Trust Access Protocol: <span class="text-emerald-400 font-semibold">Enforced</span></div>
+                            </div>
+                            <button onclick="window.location.href='404.html'" class="px-4 py-2 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs uppercase font-bold rounded transition-colors">Browse Cold Files</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AUTOMATED SNAPSHOT BACKUPS TABLE -->
+                <div class="bg-[#0b1730] border border-white/10 rounded-xl overflow-hidden shadow-xl mb-8">
+                    <div class="p-4 border-b border-white/10 flex justify-between items-center">
+                        <h4 class="font-serif text-xl text-white"><i class="fas fa-clock-rotate-left text-cyan mr-2"></i> Automated Snapshot Backups</h4>
+                        <button onclick="window.location.href='404.html'" class="px-4 py-2 bg-white/10 hover:bg-white/20 text-xs text-white rounded font-bold">Create Immediate Snapshot</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-gray-300">
+                            <thead class="bg-black/50 text-xs uppercase tracking-widest text-gray-400 border-b border-white/10">
+                                <tr>
+                                    <th class="p-4">Snapshot Name</th>
+                                    <th class="p-4">Size</th>
+                                    <th class="p-4">Schedule</th>
+                                    <th class="p-4">Status</th>
+                                    <th class="p-4 text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5">
+                                <tr class="hover:bg-white/5">
+                                    <td class="p-4 font-mono text-cyan">Daily-Snapshot-2026-08-31</td>
+                                    <td class="p-4">120 GB</td>
+                                    <td class="p-4 text-gray-400">Automated Daily 02:00 UTC</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 text-xs rounded-full font-semibold">Restorable</span></td>
+                                    <td class="p-4 text-right"><button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Restore</button></td>
+                                </tr>
+                                <tr class="hover:bg-white/5">
+                                    <td class="p-4 font-mono text-cyan">Daily-Snapshot-2026-08-30</td>
+                                    <td class="p-4">118 GB</td>
+                                    <td class="p-4 text-gray-400">Automated Daily 02:00 UTC</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 text-xs rounded-full font-semibold">Restorable</span></td>
+                                    <td class="p-4 text-right"><button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Restore</button></td>
+                                </tr>
+                                <tr class="hover:bg-white/5">
+                                    <td class="p-4 font-mono text-cyan">Daily-Snapshot-2026-08-29</td>
+                                    <td class="p-4">119 GB</td>
+                                    <td class="p-4 text-gray-400">Automated Daily 02:00 UTC</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 text-xs rounded-full font-semibold">Restorable</span></td>
+                                    <td class="p-4 text-right"><button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Restore</button></td>
+                                </tr>
+                                <tr class="hover:bg-white/5">
+                                    <td class="p-4 font-mono text-cyan">Weekly-Full-Archive-Aug</td>
+                                    <td class="p-4">420 GB</td>
+                                    <td class="p-4 text-gray-400">System Full Backup</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 text-xs rounded-full font-semibold">Restorable</span></td>
+                                    <td class="p-4 text-right"><button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Restore</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: BILLING -->
+            <div class="dashboard-tab hidden" id="tab-user-billing">
+                <div class="mb-6">
+                    <h3 class="font-serif text-3xl mb-2 text-white">Billing & Subscription History</h3>
+                    <p class="text-sm text-gray-400">Download invoice PDFs and manage auto-renewal payment methods.</p>
+                </div>
+
+                <!-- BILLING SUMMARY BANNER -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-[#0b1730] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Monthly Subscription</span>
+                        <div class="text-2xl font-serif text-cyan font-bold">$185.00 / mo</div>
+                        <span class="text-xs text-emerald-400 font-semibold">Standard Active Tier</span>
+                    </div>
+                    <div class="bg-[#0b1730] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Next Renewal Date</span>
+                        <div class="text-2xl font-serif text-white font-bold">Sept 01, 2026</div>
+                        <span class="text-xs text-cyan-400 font-semibold">Auto-Renewal ON</span>
+                    </div>
+                    <div class="bg-[#0b1730] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Payment Method</span>
+                        <div class="text-2xl font-serif text-emerald-400 font-bold">Visa **** 4892</div>
+                        <span class="text-xs text-emerald-400 font-semibold">Verified Card</span>
+                    </div>
+                    <div class="bg-[#0b1730] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Billing Contact</span>
+                        <div class="text-lg font-serif text-white font-bold truncate">user@stackly.com</div>
+                        <span class="text-xs text-gray-400">PDF Receipts Sent</span>
+                    </div>
+                </div>
+
+                <!-- BILLING HISTORY TABLE -->
+                <div class="bg-[#0b1730] border border-white/10 rounded-xl overflow-hidden shadow-xl mb-8">
+                    <div class="p-4 border-b border-white/10 flex justify-between items-center">
+                        <h4 class="font-serif text-xl text-white"><i class="fas fa-receipt text-cyan mr-2"></i> Invoices & Payment Receipts</h4>
+                        <button onclick="window.location.href='404.html'" class="px-4 py-2 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs uppercase font-bold rounded transition-colors">Update Card Method</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-gray-300">
+                            <thead class="bg-black/50 text-xs uppercase tracking-widest text-gray-400 border-b border-white/10">
+                                <tr>
+                                    <th class="p-4">Invoice #</th>
+                                    <th class="p-4">Date</th>
+                                    <th class="p-4">Amount</th>
+                                    <th class="p-4">Payment Method</th>
+                                    <th class="p-4">Status</th>
+                                    <th class="p-4 text-right">Download</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5">
+                                <tr class="hover:bg-white/5">
+                                    <td class="p-4 font-mono text-cyan">#INV-2026-08</td>
+                                    <td class="p-4">Aug 01, 2026</td>
+                                    <td class="p-4 font-bold text-white">$185.00</td>
+                                    <td class="p-4">Visa ending in **** 4892</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 text-xs rounded-full font-semibold">Paid</span></td>
+                                    <td class="p-4 text-right"><button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">PDF Invoice</button></td>
+                                </tr>
+                                <tr class="hover:bg-white/5">
+                                    <td class="p-4 font-mono text-cyan">#INV-2026-07</td>
+                                    <td class="p-4">Jul 01, 2026</td>
+                                    <td class="p-4 font-bold text-white">$185.00</td>
+                                    <td class="p-4">Visa ending in **** 4892</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 text-xs rounded-full font-semibold">Paid</span></td>
+                                    <td class="p-4 text-right"><button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">PDF Invoice</button></td>
+                                </tr>
+                                <tr class="hover:bg-white/5">
+                                    <td class="p-4 font-mono text-cyan">#INV-2026-06</td>
+                                    <td class="p-4">Jun 01, 2026</td>
+                                    <td class="p-4 font-bold text-white">$185.00</td>
+                                    <td class="p-4">Visa ending in **** 4892</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 text-xs rounded-full font-semibold">Paid</span></td>
+                                    <td class="p-4 text-right"><button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">PDF Invoice</button></td>
+                                </tr>
+                                <tr class="hover:bg-white/5">
+                                    <td class="p-4 font-mono text-cyan">#INV-2026-05</td>
+                                    <td class="p-4">May 01, 2026</td>
+                                    <td class="p-4 font-bold text-white">$185.00</td>
+                                    <td class="p-4">Visa ending in **** 4892</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 text-xs rounded-full font-semibold">Paid</span></td>
+                                    <td class="p-4 text-right"><button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">PDF Invoice</button></td>
+                                </tr>
+                                <tr class="hover:bg-white/5">
+                                    <td class="p-4 font-mono text-cyan">#INV-2026-04</td>
+                                    <td class="p-4">Apr 01, 2026</td>
+                                    <td class="p-4 font-bold text-white">$185.00</td>
+                                    <td class="p-4">Visa ending in **** 4892</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 text-xs rounded-full font-semibold">Paid</span></td>
+                                    <td class="p-4 text-right"><button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">PDF Invoice</button></td>
+                                </tr>
+                                <tr class="hover:bg-white/5">
+                                    <td class="p-4 font-mono text-cyan">#INV-2026-03</td>
+                                    <td class="p-4">Mar 01, 2026</td>
+                                    <td class="p-4 font-bold text-white">$185.00</td>
+                                    <td class="p-4">Visa ending in **** 4892</td>
+                                    <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 text-xs rounded-full font-semibold">Paid</span></td>
+                                    <td class="p-4 text-right"><button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">PDF Invoice</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: SUPPORT TICKETS -->
+            <div class="dashboard-tab hidden" id="tab-user-support">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h3 class="font-serif text-3xl mb-2 text-white">Technical Support Desk</h3>
+                        <p class="text-sm text-gray-400">Open a ticket or chat with cloud support engineers 24/7.</p>
+                    </div>
+                    <button onclick="window.location.href='404.html'" class="px-4 py-2 bg-cyan text-black font-bold rounded text-xs uppercase tracking-widest hover:bg-white transition-colors"><i class="fas fa-plus mr-1"></i> New Support Ticket</button>
+                </div>
+
+                <!-- SUPPORT SLA BANNER -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-[#0b1730] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Open Tickets</span>
+                        <div class="text-2xl font-serif text-cyan font-bold">0 Open</div>
+                        <span class="text-xs text-emerald-400 font-semibold">All Resolved</span>
+                    </div>
+                    <div class="bg-[#0b1730] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Resolved History</span>
+                        <div class="text-2xl font-serif text-white font-bold">12 Closed</div>
+                        <span class="text-xs text-emerald-400 font-semibold">100% Satisfaction</span>
+                    </div>
+                    <div class="bg-[#0b1730] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Avg Response Time</span>
+                        <div class="text-2xl font-serif text-emerald-400 font-bold">&lt; 12 Mins</div>
+                        <span class="text-xs text-emerald-400 font-semibold">Ultra SLA Speed</span>
+                    </div>
+                    <div class="bg-[#0b1730] p-5 border border-white/10 rounded-xl">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mb-1 block">Support Tier</span>
+                        <div class="text-2xl font-serif text-cyan font-bold">Enterprise 24/7</div>
+                        <span class="text-xs text-cyan-400 font-semibold">Direct Phone + Chat</span>
+                    </div>
+                </div>
+
+                <!-- NEW TICKET SUBMISSION FORM & HISTORY -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+                    <!-- TICKET FORM -->
+                    <div class="lg:col-span-1 bg-[#0b1730] border border-white/10 rounded-xl p-6 shadow-xl">
+                        <h4 class="font-serif text-xl text-white mb-4"><i class="fas fa-headset text-cyan mr-2"></i> Submit Support Request</h4>
+                        <form onsubmit="if(event) event.preventDefault(); window.location.href='404.html';">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-1 font-semibold">Ticket Subject</label>
+                                    <input type="text" placeholder="e.g. Request DNS SSL Config" class="w-full bg-black border border-white/20 text-sm px-3 py-2 rounded text-white focus:outline-none focus:border-cyan">
+                                </div>
+                                <div>
+                                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-1 font-semibold">Severity Priority</label>
+                                    <select class="w-full bg-black border border-white/20 text-sm px-3 py-2 rounded text-white focus:outline-none focus:border-cyan">
+                                        <option>Low - General Query</option>
+                                        <option>Medium - Configuration Issue</option>
+                                        <option>High - Server Slowdown</option>
+                                        <option>Critical - SLA Incident</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-1 font-semibold">Issue Description</label>
+                                    <textarea rows="3" placeholder="Describe issue details..." class="w-full bg-black border border-white/20 text-sm px-3 py-2 rounded text-white focus:outline-none focus:border-cyan"></textarea>
+                                </div>
+                                <button type="submit" onclick="window.location.href='404.html'" class="w-full py-2.5 bg-cyan text-black font-bold text-xs uppercase tracking-widest rounded hover:bg-white transition-colors">Submit Ticket</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- RECENT TICKET HISTORY -->
+                    <div class="lg:col-span-2 bg-[#0b1730] border border-white/10 rounded-xl p-6 shadow-xl">
+                        <h4 class="font-serif text-xl text-white mb-4"><i class="fas fa-history text-cyan mr-2"></i> Recent Ticket History</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm text-gray-300">
+                                <thead class="bg-black/50 text-xs uppercase tracking-widest text-gray-400 border-b border-white/10">
+                                    <tr>
+                                        <th class="p-3">Ticket ID</th>
+                                        <th class="p-3">Subject</th>
+                                        <th class="p-3">Priority</th>
+                                        <th class="p-3">Status</th>
+                                        <th class="p-3">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-white/5">
+                                    <tr class="hover:bg-white/5">
+                                        <td class="p-3 font-mono text-cyan">#TCK-4089</td>
+                                        <td class="p-3 font-semibold text-white">S3 Vault CORS Policy Configuration</td>
+                                        <td class="p-3 text-xs"><span class="px-2 py-0.5 bg-gray-800 text-gray-300 rounded">Low</span></td>
+                                        <td class="p-3"><span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 text-xs rounded-full font-semibold">Resolved</span></td>
+                                        <td class="p-3 text-gray-400 text-xs">Aug 20, 2026</td>
+                                    </tr>
+                                    <tr class="hover:bg-white/5">
+                                        <td class="p-3 font-mono text-cyan">#TCK-4012</td>
+                                        <td class="p-3 font-semibold text-white">SSL Certificate Auto-Renewal Verification</td>
+                                        <td class="p-3 text-xs"><span class="px-2 py-0.5 bg-cyan-950 text-cyan-400 rounded">Medium</span></td>
+                                        <td class="p-3"><span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 text-xs rounded-full font-semibold">Resolved</span></td>
+                                        <td class="p-3 text-gray-400 text-xs">Jul 14, 2026</td>
+                                    </tr>
+                                    <tr class="hover:bg-white/5">
+                                        <td class="p-3 font-mono text-cyan">#TCK-3980</td>
+                                        <td class="p-3 font-semibold text-white">Upgrade RAM on Dev-Database Node</td>
+                                        <td class="p-3 text-xs"><span class="px-2 py-0.5 bg-cyan-950 text-cyan-400 rounded">Medium</span></td>
+                                        <td class="p-3"><span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 text-xs rounded-full font-semibold">Resolved</span></td>
+                                        <td class="p-3 text-gray-400 text-xs">Jun 02, 2026</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: PROFILE -->
+            <div class="dashboard-tab hidden" id="tab-user-profile">
+                <div class="mb-6">
+                    <h3 class="font-serif text-3xl mb-2 text-white">Client Account Profile</h3>
+                    <p class="text-sm text-gray-400">Update personal details, password, and two-factor authentication.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <!-- PERSONAL DETAILS -->
+                    <div class="bg-[#0b1730] border border-white/10 rounded-xl p-6 shadow-xl">
+                        <h4 class="font-serif text-xl text-white mb-4"><i class="fas fa-id-card text-cyan mr-2"></i> Personal Details & Organization</h4>
+                        <form onsubmit="if(event) event.preventDefault(); window.location.href='404.html';">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">Client Display Name</label>
+                                    <input type="text" value="Client User" class="w-full bg-black border border-white/20 text-sm px-4 py-2.5 rounded text-white focus:outline-none focus:border-cyan">
+                                </div>
+                                <div>
+                                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">Registered Email Address</label>
+                                    <input type="email" readonly value="user@stackly.com" class="w-full bg-black/60 border border-white/10 text-sm px-4 py-2.5 rounded text-gray-400">
+                                </div>
+                                <div>
+                                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">Contact Phone Number</label>
+                                    <input type="tel" value="+1 (555) 019-2834" class="w-full bg-black border border-white/20 text-sm px-4 py-2.5 rounded text-white focus:outline-none focus:border-cyan">
+                                </div>
+                                <div>
+                                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">Company / Organization</label>
+                                    <input type="text" value="Acme Tech Solutions" class="w-full bg-black border border-white/20 text-sm px-4 py-2.5 rounded text-white focus:outline-none focus:border-cyan">
+                                </div>
+                                <div class="pt-2">
+                                    <button type="submit" onclick="window.location.href='404.html'" class="px-6 py-2.5 bg-cyan text-black font-bold text-xs uppercase tracking-widest rounded hover:bg-white transition-colors">Save Personal Info</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- SECURITY & PASSWORD -->
+                    <div class="bg-[#0b1730] border border-white/10 rounded-xl p-6 shadow-xl">
+                        <h4 class="font-serif text-xl text-white mb-4"><i class="fas fa-lock text-cyan mr-2"></i> Security & Authentication</h4>
+                        <form onsubmit="if(event) event.preventDefault(); window.location.href='404.html';">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">Current Password</label>
+                                    <input type="password" placeholder="••••••••" class="w-full bg-black border border-white/20 text-sm px-4 py-2.5 rounded text-white focus:outline-none focus:border-cyan">
+                                </div>
+                                <div>
+                                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">New Password</label>
+                                    <input type="password" placeholder="Enter new password" class="w-full bg-black border border-white/20 text-sm px-4 py-2.5 rounded text-white focus:outline-none focus:border-cyan">
+                                </div>
+                                <div>
+                                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">Confirm New Password</label>
+                                    <input type="password" placeholder="Confirm new password" class="w-full bg-black border border-white/20 text-sm px-4 py-2.5 rounded text-white focus:outline-none focus:border-cyan">
+                                </div>
+                                <div class="p-3 bg-black/40 border border-white/10 rounded flex justify-between items-center">
+                                    <div>
+                                        <span class="text-xs font-semibold text-white d-block">Two-Factor Authentication (2FA)</span>
+                                        <span class="text-xs text-emerald-400">Hardware Token Active</span>
+                                    </div>
+                                    <button type="button" onclick="window.location.href='404.html'" class="px-3 py-1 bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-xs rounded font-bold">Manage 2FA</button>
+                                </div>
+                                <div class="pt-2">
+                                    <button type="submit" onclick="window.location.href='404.html'" class="px-6 py-2.5 bg-cyan text-black font-bold text-xs uppercase tracking-widest rounded hover:bg-white transition-colors">Update Password</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/main.js"></script>
+    <script src="assets/dashboard.js"></script>
+    <script src="assets/auth.js"></script>
+    <script>
+        function toggleDashboardSidebar() {
+            const sidebar = document.getElementById('dashboard-sidebar');
+            if (sidebar) {
+                sidebar.classList.toggle('hidden');
+            }
+        }
+        function switchTab(e, tabId, element) {
+            if (e) e.preventDefault();
+            const tabs = document.querySelectorAll('.dashboard-tab');
+            tabs.forEach(t => t.classList.add('hidden'));
+            const target = document.getElementById(tabId);
+            if (target) target.classList.remove('hidden');
+
+            const navLinks = document.querySelectorAll('#dashboard-sidebar nav a');
+            navLinks.forEach(l => {
+                l.classList.remove('bg-cyan/10', 'text-cyan', 'font-semibold');
+                l.classList.add('text-gray-400');
+            });
+            element.classList.remove('text-gray-400');
+            element.classList.add('bg-cyan/10', 'text-cyan', 'font-semibold');
+        }
+        function logout(e) {
+            if (e) e.preventDefault();
+            sessionStorage.removeItem('logged-in-user-email');
+            sessionStorage.removeItem('logged-in-user-role');
+            localStorage.setItem('auth-toast-msg', 'Logged out successfully.');
+            localStorage.setItem('auth-toast-type', 'success');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
+
+
+
+
