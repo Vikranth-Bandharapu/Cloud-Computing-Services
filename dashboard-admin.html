@@ -49,6 +49,16 @@
             <a href="#" onclick="switchTab(event, 'tab-reports', this)" class="flex items-center px-4 py-3 text-xs tracking-widest uppercase text-gray-400 hover:text-white hover:bg-white/5 rounded-sm transition-colors"><i class="fas fa-chart-line w-6"></i> Telemetry</a>
             <a href="#" onclick="switchTab(event, 'tab-settings', this)" class="flex items-center px-4 py-3 text-xs tracking-widest uppercase text-gray-400 hover:text-white hover:bg-white/5 rounded-sm transition-colors"><i class="fas fa-cog w-6"></i> Settings</a>
         </nav>
+
+        <!-- SIDEBAR ADMIN PROFILE EMAIL CARD -->
+        <div class="px-4 py-3 mx-4 mb-4 bg-[#0f172a] border border-white/10 rounded-xl flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-gold text-black font-bold flex items-center justify-center text-xs flex-shrink-0 display-user-avatar" id="display-user-avatar">AD</div>
+            <div class="flex flex-col min-w-0">
+                <span class="text-xs text-white font-semibold truncate display-user-email" id="display-user-email">admin@stackly.com</span>
+                <span class="text-[10px] text-gold font-semibold uppercase">Admin Privileges</span>
+            </div>
+        </div>
+
         <div class="p-6 border-t border-white/10">
             <a href="index.html" onclick="logout(event)" class="logout-trigger-btn flex items-center text-xs tracking-widest uppercase text-red-400 hover:text-red-300 transition-colors font-bold"><i class="fas fa-sign-out-alt w-6"></i> Logout</a>
         </div>
@@ -57,22 +67,14 @@
     <!-- MAIN CONTENT AREA -->
     <main class="flex-1 flex flex-col min-w-0 h-full overflow-hidden relative z-10 bg-[#050d21]" style="min-height: 100vh; height: 100vh;">
         
-        <!-- TOPBAR -->
-        <header class="h-24 bg-[#0a0f1d] border-b border-white/10 flex items-center justify-between px-8 z-20">
-            <div class="flex items-center">
-                <button onclick="toggleDashboardSidebar()" class="md:hidden text-gray-400 hover:text-white mr-4"><i class="fas fa-bars text-xl"></i></button>
-                <a href="admin-dashboard.html" class="md:hidden block mr-4">
-                    <img src="assets/stackly_logo.webp" alt="Stackly Logo" class="h-8">
-                </a>
-                <h2 class="font-serif hidden md:block text-2xl text-gold">Executive Console Overview</h2>
-            </div>
-            <div class="flex items-center space-x-4">
-                <span class="text-xs uppercase tracking-widest text-emerald-400 font-semibold bg-emerald-950/60 border border-emerald-500/30 px-3 py-1.5 rounded-full hidden sm:inline-block"><i class="fas fa-shield-halved mr-1.5"></i> SYSTEM SECURE</span>
-                <div class="flex items-center gap-3 bg-[#0f172a] border border-white/10 px-4 py-2 rounded-full shadow-lg">
-                    <div class="w-8 h-8 rounded-full bg-gold text-black font-bold flex items-center justify-center text-xs display-user-avatar" id="display-user-avatar">AD</div>
-                    <span class="text-xs text-white font-semibold display-user-email" id="display-user-email">admin@stackly.com</span>
-                </div>
-            </div>
+        <!-- ADMIN TOPBAR (CENTERED LOGO, NO TEXT BADGE) -->
+        <header class="h-24 bg-[#0a0f1d] border-b border-white/10 relative flex items-center justify-center px-4 md:px-8 z-20">
+            <button onclick="toggleDashboardSidebar()" class="absolute left-6 text-gray-400 hover:text-white border-0 bg-transparent" aria-label="Toggle Sidebar Navigation">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+            <a href="admin-dashboard.html" class="inline-flex items-center justify-center mx-auto">
+                <img src="assets/stackly_logo.webp" alt="Stackly Logo" style="height: 38px;">
+            </a>
         </header>
 
         <!-- DASHBOARD SCROLL AREA -->
@@ -817,28 +819,9 @@
     <script src="assets/main.js"></script>
     <script src="assets/dashboard.js"></script>
     <script src="assets/auth.js"></script>
+    <script src="assets/auth.js"></script>
+    <script src="assets/dashboard.js"></script>
     <script>
-        function toggleDashboardSidebar() {
-            const sidebar = document.getElementById('dashboard-sidebar');
-            if (sidebar) {
-                sidebar.classList.toggle('hidden');
-            }
-        }
-        function switchTab(e, tabId, element) {
-            if (e) e.preventDefault();
-            const tabs = document.querySelectorAll('.dashboard-tab');
-            tabs.forEach(t => t.classList.add('hidden'));
-            const target = document.getElementById(tabId);
-            if (target) target.classList.remove('hidden');
-
-            const navLinks = document.querySelectorAll('#dashboard-sidebar nav a');
-            navLinks.forEach(l => {
-                l.classList.remove('bg-gold/10', 'text-gold', 'font-semibold');
-                l.classList.add('text-gray-400');
-            });
-            element.classList.remove('text-gray-400');
-            element.classList.add('bg-gold/10', 'text-gold', 'font-semibold');
-        }
         function logout(e) {
             if (e) e.preventDefault();
             sessionStorage.removeItem('logged-in-user-email');
