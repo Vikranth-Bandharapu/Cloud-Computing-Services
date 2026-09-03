@@ -268,6 +268,46 @@
             </div>
         </section>
 
+        <!-- SECTION 11: SERVICES FAQ ACCORDION -->
+        <section id="sec-services-faq" class="py-5" style="background-color: #030818;">
+            <div class="container py-4">
+                <div class="text-center max-w-3xl mx-auto mb-5" data-aos="fade-up">
+                    <span class="text-cyan font-weight-700 uppercase tracking-widest font-size-0.85">Services FAQ</span>
+                    <h2 class="text-white font-weight-800 fs-1 mt-2">Cloud Services Questions & Answers</h2>
+                    <p class="text-white-50 fs-6">Everything you need to know about virtual instance scaling, S3 storage, and database replication.</p>
+                </div>
+                <div class="max-w-4xl mx-auto d-flex flex-column gap-3" data-aos="fade-up">
+                    <div class="faq-item">
+                        <button class="faq-header-btn" onclick="toggleFAQ('sfaq-1')">
+                            <span>How fast are virtual cloud compute instances provisioned?</span>
+                            <i class="fas fa-chevron-down" id="sfaq-1-icon"></i>
+                        </button>
+                        <div class="faq-body" id="sfaq-1">
+                            New virtual compute instances and Kubernetes worker nodes are instantiated and accessible via SSH/API within 15 seconds.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-header-btn" onclick="toggleFAQ('sfaq-2')">
+                            <span>Are S3 Object Vaults compatible with standard AWS S3 APIs?</span>
+                            <i class="fas fa-chevron-down" id="sfaq-2-icon"></i>
+                        </button>
+                        <div class="faq-body" id="sfaq-2">
+                            Yes! Stackly S3 Vaults are 100% S3-API compliant, supporting AWS CLI, Terraform, rclone, and standard S3 SDKs.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-header-btn" onclick="toggleFAQ('sfaq-3')">
+                            <span>What database engine versions are supported for active replication?</span>
+                            <i class="fas fa-chevron-down" id="sfaq-3-icon"></i>
+                        </button>
+                        <div class="faq-body" id="sfaq-3">
+                            We support PostgreSQL 14+, MySQL 8.0+, Redis 7+, and MongoDB 6+ with automated point-in-time snapshot recovery.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- SECTION 10: ARCHITECT CONSULTATION CTA (NEW SECTION 5 - ELECTRIC VIOLET #0c0926) -->
         <section id="sec-service-cta" class="py-5 text-center" style="background: linear-gradient(135deg, #0c0926 0%, #160938 100%);">
             <div class="container py-5" data-aos="zoom-in">

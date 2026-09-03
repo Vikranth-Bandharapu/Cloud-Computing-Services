@@ -73,9 +73,7 @@
             <button onclick="toggleDashboardSidebar()" class="absolute left-6 text-gray-400 hover:text-white border-0 bg-transparent" aria-label="Toggle Sidebar Navigation">
                 <i class="fas fa-bars text-xl"></i>
             </button>
-            <a href="client-dashboard.html" class="inline-flex items-center justify-center mx-auto">
-                <img src="assets/stackly_logo.webp" alt="Stackly Logo" style="height: 38px;">
-            </a>
+            
         </header>
 
         <!-- DASHBOARD CONTENT SCROLL AREA -->
@@ -133,15 +131,15 @@
                         <button onclick="window.location.href='404.html'" class="px-4 py-2 bg-cyan/20 text-cyan hover:bg-cyan hover:text-black rounded text-xs tracking-widest uppercase font-bold transition-colors"><i class="fas fa-plus mr-1"></i> Deploy New Server</button>
                     </div>
                     <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm text-gray-300">
+                        <table class="w-full min-w-[900px] text-left text-sm text-gray-300">
                             <thead class="bg-black/50 text-xs uppercase tracking-widest text-gray-400 border-b border-white/10">
                                 <tr>
-                                    <th class="p-4">Server Name</th>
-                                    <th class="p-4">Region</th>
-                                    <th class="p-4">IP Address</th>
-                                    <th class="p-4">Specs</th>
-                                    <th class="p-4">Status</th>
-                                    <th class="p-4 text-right">Actions</th>
+                                    <th class="p-4 whitespace-nowrap">Server Name</th>
+                                    <th class="p-4 whitespace-nowrap">Region</th>
+                                    <th class="p-4 whitespace-nowrap">IP Address</th>
+                                    <th class="p-4 whitespace-nowrap">Specs</th>
+                                    <th class="p-4 whitespace-nowrap">Status</th>
+                                    <th class="p-4 text-right whitespace-nowrap">Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-white/5">
@@ -151,10 +149,9 @@
                                     <td class="p-4 font-mono text-cyan">192.168.1.104</td>
                                     <td class="p-4 text-xs">8 vCPU / 32GB RAM</td>
                                     <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-xs rounded-full font-semibold">Running</span></td>
-                                    <td class="p-4 text-right space-x-2">
+                                    <td class="p-4 text-right whitespace-nowrap"><div class="inline-flex items-center justify-end gap-2">
                                         <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Restart</button>
-                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs rounded transition-colors">Console Logs</button>
-                                    </td>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs rounded transition-colors">Console Logs</button></div></td>
                                 </tr>
                                 <tr class="hover:bg-white/5 transition-colors">
                                     <td class="p-4 font-bold text-white">Dev-Database-Replica</td>
@@ -162,10 +159,9 @@
                                     <td class="p-4 font-mono text-cyan">10.0.4.12</td>
                                     <td class="p-4 text-xs">16 vCPU / 64GB RAM</td>
                                     <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-xs rounded-full font-semibold">Running</span></td>
-                                    <td class="p-4 text-right space-x-2">
+                                    <td class="p-4 text-right whitespace-nowrap"><div class="inline-flex items-center justify-end gap-2">
                                         <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Restart</button>
-                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs rounded transition-colors">Console Logs</button>
-                                    </td>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs rounded transition-colors">Console Logs</button></div></td>
                                 </tr>
                                 <tr class="hover:bg-white/5 transition-colors">
                                     <td class="p-4 font-bold text-white">Staging-Api-Node</td>
@@ -173,10 +169,9 @@
                                     <td class="p-4 font-mono text-cyan">172.16.0.45</td>
                                     <td class="p-4 text-xs">4 vCPU / 16GB RAM</td>
                                     <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-xs rounded-full font-semibold">Running</span></td>
-                                    <td class="p-4 text-right space-x-2">
+                                    <td class="p-4 text-right whitespace-nowrap"><div class="inline-flex items-center justify-end gap-2">
                                         <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Restart</button>
-                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs rounded transition-colors">Console Logs</button>
-                                    </td>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs rounded transition-colors">Console Logs</button></div></td>
                                 </tr>
                                 <tr class="hover:bg-white/5 transition-colors">
                                     <td class="p-4 font-bold text-white">Microservice-Auth-Gateway</td>
@@ -184,10 +179,9 @@
                                     <td class="p-4 font-mono text-cyan">192.168.2.88</td>
                                     <td class="p-4 text-xs">4 vCPU / 16GB RAM</td>
                                     <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-xs rounded-full font-semibold">Running</span></td>
-                                    <td class="p-4 text-right space-x-2">
+                                    <td class="p-4 text-right whitespace-nowrap"><div class="inline-flex items-center justify-end gap-2">
                                         <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Restart</button>
-                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs rounded transition-colors">Console Logs</button>
-                                    </td>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs rounded transition-colors">Console Logs</button></div></td>
                                 </tr>
                                 <tr class="hover:bg-white/5 transition-colors">
                                     <td class="p-4 font-bold text-white">Redis-Cache-Cluster</td>
@@ -195,10 +189,9 @@
                                     <td class="p-4 font-mono text-cyan">10.0.4.50</td>
                                     <td class="p-4 text-xs">8 vCPU / 32GB RAM</td>
                                     <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-xs rounded-full font-semibold">Running</span></td>
-                                    <td class="p-4 text-right space-x-2">
+                                    <td class="p-4 text-right whitespace-nowrap"><div class="inline-flex items-center justify-end gap-2">
                                         <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Restart</button>
-                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs rounded transition-colors">Console Logs</button>
-                                    </td>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs rounded transition-colors">Console Logs</button></div></td>
                                 </tr>
                                 <tr class="hover:bg-white/5 transition-colors">
                                     <td class="p-4 font-bold text-white">Analytics-Processing-Worker</td>
@@ -206,10 +199,9 @@
                                     <td class="p-4 font-mono text-cyan">192.168.1.200</td>
                                     <td class="p-4 text-xs">16 vCPU / 64GB RAM</td>
                                     <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-xs rounded-full font-semibold">Running</span></td>
-                                    <td class="p-4 text-right space-x-2">
+                                    <td class="p-4 text-right whitespace-nowrap"><div class="inline-flex items-center justify-end gap-2">
                                         <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Restart</button>
-                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs rounded transition-colors">Console Logs</button>
-                                    </td>
+                                        <button onclick="window.location.href='404.html'" class="px-3 py-1 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs rounded transition-colors">Console Logs</button></div></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -324,13 +316,13 @@
                         <button onclick="window.location.href='404.html'" class="px-4 py-2 bg-white/10 hover:bg-white/20 text-xs text-white rounded font-bold">Create Immediate Snapshot</button>
                     </div>
                     <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm text-gray-300">
+                        <table class="w-full min-w-[900px] text-left text-sm text-gray-300">
                             <thead class="bg-black/50 text-xs uppercase tracking-widest text-gray-400 border-b border-white/10">
                                 <tr>
                                     <th class="p-4">Snapshot Name</th>
                                     <th class="p-4">Size</th>
                                     <th class="p-4">Schedule</th>
-                                    <th class="p-4">Status</th>
+                                    <th class="p-4 whitespace-nowrap">Status</th>
                                     <th class="p-4 text-right">Action</th>
                                 </tr>
                             </thead>
@@ -340,7 +332,7 @@
                                     <td class="p-4">120 GB</td>
                                     <td class="p-4 text-gray-400">Automated Daily 02:00 UTC</td>
                                     <td class="p-4"><span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 text-xs rounded-full font-semibold">Restorable</span></td>
-                                    <td class="p-4 text-right"><button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Restore</button></td>
+                                    <td class="p-4 text-right"><button onclick="window.location.href='404.html'" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-xs text-white rounded">Restore</button></div></td>
                                 </tr>
                                 <tr class="hover:bg-white/5">
                                     <td class="p-4 font-mono text-cyan">Daily-Snapshot-2026-08-30</td>
@@ -407,14 +399,14 @@
                         <button onclick="window.location.href='404.html'" class="px-4 py-2 bg-cyan/20 hover:bg-cyan text-cyan hover:text-black text-xs uppercase font-bold rounded transition-colors">Update Card Method</button>
                     </div>
                     <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm text-gray-300">
+                        <table class="w-full min-w-[900px] text-left text-sm text-gray-300">
                             <thead class="bg-black/50 text-xs uppercase tracking-widest text-gray-400 border-b border-white/10">
                                 <tr>
                                     <th class="p-4">Invoice #</th>
                                     <th class="p-4">Date</th>
                                     <th class="p-4">Amount</th>
                                     <th class="p-4">Payment Method</th>
-                                    <th class="p-4">Status</th>
+                                    <th class="p-4 whitespace-nowrap">Status</th>
                                     <th class="p-4 text-right">Download</th>
                                 </tr>
                             </thead>
@@ -512,7 +504,7 @@
                     <!-- TICKET FORM -->
                     <div class="lg:col-span-1 bg-[#0b1730] border border-white/10 rounded-xl p-6 shadow-xl">
                         <h4 class="font-serif text-xl text-white mb-4"><i class="fas fa-headset text-cyan mr-2"></i> Submit Support Request</h4>
-                        <form onsubmit="if(event) event.preventDefault(); window.location.href='404.html';">
+                        <form >
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-xs uppercase tracking-widest text-gray-400 mb-1 font-semibold">Ticket Subject</label>
@@ -531,7 +523,7 @@
                                     <label class="block text-xs uppercase tracking-widest text-gray-400 mb-1 font-semibold">Issue Description</label>
                                     <textarea rows="3" placeholder="Describe issue details..." class="w-full bg-black border border-white/20 text-sm px-3 py-2 rounded text-white focus:outline-none focus:border-cyan"></textarea>
                                 </div>
-                                <button type="submit" onclick="window.location.href='404.html'" class="w-full py-2.5 bg-cyan text-black font-bold text-xs uppercase tracking-widest rounded hover:bg-white transition-colors">Submit Ticket</button>
+                                <button type="submit" class="w-full py-2.5 bg-cyan text-black font-bold text-xs uppercase tracking-widest rounded hover:bg-white transition-colors">Submit Ticket</button>
                             </div>
                         </form>
                     </div>
@@ -540,7 +532,7 @@
                     <div class="lg:col-span-2 bg-[#0b1730] border border-white/10 rounded-xl p-6 shadow-xl">
                         <h4 class="font-serif text-xl text-white mb-4"><i class="fas fa-history text-cyan mr-2"></i> Recent Ticket History</h4>
                         <div class="overflow-x-auto">
-                            <table class="w-full text-left text-sm text-gray-300">
+                            <table class="w-full min-w-[900px] text-left text-sm text-gray-300">
                                 <thead class="bg-black/50 text-xs uppercase tracking-widest text-gray-400 border-b border-white/10">
                                     <tr>
                                         <th class="p-3">Ticket ID</th>
@@ -590,11 +582,11 @@
                     <!-- PERSONAL DETAILS -->
                     <div class="bg-[#0b1730] border border-white/10 rounded-xl p-6 shadow-xl">
                         <h4 class="font-serif text-xl text-white mb-4"><i class="fas fa-id-card text-cyan mr-2"></i> Personal Details & Organization</h4>
-                        <form onsubmit="if(event) event.preventDefault(); window.location.href='404.html';">
+                        <form >
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">Client Display Name</label>
-                                    <input type="text" value="Client User" class="w-full bg-black border border-white/20 text-sm px-4 py-2.5 rounded text-white focus:outline-none focus:border-cyan">
+                                    <input type="text" placeholder="Enter display name" class="w-full bg-black border border-white/20 text-sm px-4 py-2.5 rounded text-white focus:outline-none focus:border-cyan">
                                 </div>
                                 <div>
                                     <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">Registered Email Address</label>
@@ -602,14 +594,14 @@
                                 </div>
                                 <div>
                                     <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">Contact Phone Number</label>
-                                    <input type="tel" value="+1 (555) 019-2834" class="w-full bg-black border border-white/20 text-sm px-4 py-2.5 rounded text-white focus:outline-none focus:border-cyan">
+                                    <input type="tel" placeholder="Enter contact phone (+1 555 019 2834)" class="w-full bg-black border border-white/20 text-sm px-4 py-2.5 rounded text-white focus:outline-none focus:border-cyan">
                                 </div>
                                 <div>
                                     <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">Company / Organization</label>
-                                    <input type="text" value="Acme Tech Solutions" class="w-full bg-black border border-white/20 text-sm px-4 py-2.5 rounded text-white focus:outline-none focus:border-cyan">
+                                    <input type="text" placeholder="Enter company / organization" class="w-full bg-black border border-white/20 text-sm px-4 py-2.5 rounded text-white focus:outline-none focus:border-cyan">
                                 </div>
                                 <div class="pt-2">
-                                    <button type="submit" onclick="window.location.href='404.html'" class="px-6 py-2.5 bg-cyan text-black font-bold text-xs uppercase tracking-widest rounded hover:bg-white transition-colors">Save Personal Info</button>
+                                    <button type="submit" class="px-6 py-2.5 bg-cyan text-black font-bold text-xs uppercase tracking-widest rounded hover:bg-white transition-colors">Save Personal Info</button>
                                 </div>
                             </div>
                         </form>
@@ -618,7 +610,7 @@
                     <!-- SECURITY & PASSWORD -->
                     <div class="bg-[#0b1730] border border-white/10 rounded-xl p-6 shadow-xl">
                         <h4 class="font-serif text-xl text-white mb-4"><i class="fas fa-lock text-cyan mr-2"></i> Security & Authentication</h4>
-                        <form onsubmit="if(event) event.preventDefault(); window.location.href='404.html';">
+                        <form >
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">Current Password</label>
@@ -640,7 +632,7 @@
                                     <button type="button" onclick="window.location.href='404.html'" class="px-3 py-1 bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-xs rounded font-bold">Manage 2FA</button>
                                 </div>
                                 <div class="pt-2">
-                                    <button type="submit" onclick="window.location.href='404.html'" class="px-6 py-2.5 bg-cyan text-black font-bold text-xs uppercase tracking-widest rounded hover:bg-white transition-colors">Update Password</button>
+                                    <button type="submit" class="px-6 py-2.5 bg-cyan text-black font-bold text-xs uppercase tracking-widest rounded hover:bg-white transition-colors">Update Password</button>
                                 </div>
                             </div>
                         </form>
@@ -669,6 +661,11 @@
     </script>
 </body>
 </html>
+
+
+
+
+
 
 
 

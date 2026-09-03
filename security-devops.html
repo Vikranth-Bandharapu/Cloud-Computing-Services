@@ -241,6 +241,37 @@
             </div>
         </section>
 
+        <!-- SECTION 11: SECURITY & DEVSECOPS FAQ ACCORDION -->
+        <section id="sec-security-faq" class="py-5" style="background-color: #050b1a;">
+            <div class="container py-4">
+                <div class="text-center max-w-3xl mx-auto mb-5" data-aos="fade-up">
+                    <span class="text-cyan font-weight-700 uppercase tracking-widest font-size-0.85">Cybersecurity FAQ</span>
+                    <h2 class="text-white font-weight-800 fs-1 mt-2">DevSecOps & Compliance Questions</h2>
+                    <p class="text-white-50 fs-6">Learn how Stackly safeguards data at rest, data in transit, and CI/CD deployment pipelines.</p>
+                </div>
+                <div class="max-w-4xl mx-auto d-flex flex-column gap-3" data-aos="fade-up">
+                    <div class="faq-item">
+                        <button class="faq-header-btn" onclick="toggleFAQ('secfaq-1')">
+                            <span>How does Stackly manage encryption keys for customer data?</span>
+                            <i class="fas fa-chevron-down" id="secfaq-1-icon"></i>
+                        </button>
+                        <div class="faq-body" id="secfaq-1">
+                            Keys are stored and rotated inside dedicated Hardware Security Modules (HSM) certified to FIPS 140-2 Level 3 standards with full customer KMS control.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-header-btn" onclick="toggleFAQ('secfaq-2')">
+                            <span>Are automated penetration test reports available for compliance audits?</span>
+                            <i class="fas fa-chevron-down" id="secfaq-2-icon"></i>
+                        </button>
+                        <div class="faq-body" id="secfaq-2">
+                            Yes! Third-party penetration test reports and SOC 2 Type II audit attestations are available to enterprise customers under NDA.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- SECTION 10: DEVSECOPS CONSULTATION CTA (NEW SECTION 5 - ELECTRIC GRADIENT #0d0928) -->
         <section id="sec-sec-cta" class="py-5 text-center" style="background: linear-gradient(135deg, #0d0928 0%, #170938 100%);">
             <div class="container py-5" data-aos="zoom-in">

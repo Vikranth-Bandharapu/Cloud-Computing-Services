@@ -159,26 +159,33 @@
                     <span class="text-cyan font-weight-700 uppercase tracking-widest font-size-0.85">Verified Audits</span>
                     <h2 class="text-white font-weight-800 fs-1 mt-2">Certified Compliance Metrics</h2>
                 </div>
-                <div class="row justify-content-center g-4">
-                    <div class="col-md-4" data-aos="zoom-in">
-                        <div class="ui-glass-card p-4" style="background: rgba(255,255,255,0.03);">
-                            <i class="fas fa-certificate text-gold fs-2 mb-2 d-block"></i>
+                <div class="row g-4 justify-content-center">
+                    <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                        <div class="ui-glass-card p-4 h-100 d-flex flex-column justify-content-center align-items-center text-center" style="background: rgba(255,255,255,0.03); min-height: 160px;">
+                            <i class="fas fa-certificate text-cyan fs-2 mb-2 d-block"></i>
                             <h3 class="text-white font-weight-700 fs-4 mb-1">SOC2 Type II</h3>
                             <span class="text-cyan font-size-0.85 font-weight-600">Audited Annually</span>
                         </div>
                     </div>
-                    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="ui-glass-card p-4" style="background: rgba(255,255,255,0.03);">
-                            <i class="fas fa-notes-medical text-gold fs-2 mb-2 d-block"></i>
+                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="ui-glass-card p-4 h-100 d-flex flex-column justify-content-center align-items-center text-center" style="background: rgba(255,255,255,0.03); min-height: 160px;">
+                            <i class="fas fa-notes-medical text-emerald fs-2 mb-2 d-block"></i>
                             <h3 class="text-white font-weight-700 fs-4 mb-1">HIPAA Compliant</h3>
-                            <span class="text-cyan font-size-0.85 font-weight-600">Health Vault Certified</span>
+                            <span class="text-emerald font-size-0.85 font-weight-600">Health Vault Certified</span>
                         </div>
                     </div>
-                    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="ui-glass-card p-4" style="background: rgba(255,255,255,0.03);">
-                            <i class="fas fa-shield-check text-gold fs-2 mb-2 d-block"></i>
+                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="ui-glass-card p-4 h-100 d-flex flex-column justify-content-center align-items-center text-center" style="background: rgba(255,255,255,0.03); min-height: 160px;">
+                            <i class="fas fa-shield-halved text-purple fs-2 mb-2 d-block"></i>
                             <h3 class="text-white font-weight-700 fs-4 mb-1">ISO 27001</h3>
-                            <span class="text-cyan font-size-0.85 font-weight-600">Information Security</span>
+                            <span class="text-purple font-size-0.85 font-weight-600">Information Security</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="ui-glass-card p-4 h-100 d-flex flex-column justify-content-center align-items-center text-center" style="background: rgba(255,255,255,0.03); min-height: 160px;">
+                            <i class="fas fa-credit-card text-warning fs-2 mb-2 d-block"></i>
+                            <h3 class="text-white font-weight-700 fs-4 mb-1">PCI-DSS Level 1</h3>
+                            <span class="text-warning font-size-0.85 font-weight-600">Fintech Vault Security</span>
                         </div>
                     </div>
                 </div>
@@ -320,6 +327,46 @@
                             <i class="fab fa-rust text-cyan display-5 mb-3"></i>
                             <h5 class="text-white font-weight-700 mb-2">Rust SHA-256 Vaults</h5>
                             <p class="text-white-50 font-size-0.85 mb-0">High-performance Rust libraries for zero-memory leakage encryption.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 11: ABOUT US FREQUENTLY ASKED QUESTIONS (FAQ) -->
+        <section id="sec-about-faq" class="py-5" style="background-color: #030a1a;">
+            <div class="container py-4">
+                <div class="text-center max-w-3xl mx-auto mb-5" data-aos="fade-up">
+                    <span class="text-cyan font-weight-700 uppercase tracking-widest font-size-0.85">Got Questions?</span>
+                    <h2 class="text-white font-weight-800 fs-1 mt-2">Frequently Asked Questions</h2>
+                    <p class="text-white-50 fs-6">Learn more about our sovereign infrastructure, data center facilities, and compliance guarantees.</p>
+                </div>
+                <div class="max-w-4xl mx-auto d-flex flex-column gap-3" data-aos="fade-up">
+                    <div class="faq-item">
+                        <button class="faq-header-btn" onclick="toggleFAQ('afaq-1')">
+                            <span>Where are Stackly's primary sovereign data centers located?</span>
+                            <i class="fas fa-chevron-down" id="afaq-1-icon"></i>
+                        </button>
+                        <div class="faq-body" id="afaq-1">
+                            Stackly operates primary Tier-IV sovereign datacenters in Salem, Tamil Nadu, India, with high-speed BGP Anycast edge routing hubs in Mumbai and Singapore.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-header-btn" onclick="toggleFAQ('afaq-2')">
+                            <span>What security compliance standards do Stackly facilities meet?</span>
+                            <i class="fas fa-chevron-down" id="afaq-2-icon"></i>
+                        </button>
+                        <div class="faq-body" id="afaq-2">
+                            All facilities are certified for ISO 27001, SOC 2 Type II, HIPAA enterprise compliance, and enforce Zero-Trust Hardware Security Module (HSM) data encryption.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-header-btn" onclick="toggleFAQ('afaq-3')">
+                            <span>How does Stackly achieve a 1.12 PUE green energy rating?</span>
+                            <i class="fas fa-chevron-down" id="afaq-3-icon"></i>
+                        </button>
+                        <div class="faq-body" id="afaq-3">
+                            We utilize closed-loop liquid submersion cooling technology combined with 100% certified renewable hydro and solar power purchasing agreements.
                         </div>
                     </div>
                 </div>
