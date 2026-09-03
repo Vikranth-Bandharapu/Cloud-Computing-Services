@@ -175,31 +175,31 @@
                 </div>
                 <div class="row g-4 text-center">
                     <div class="col-md-3" data-aos="fade-up">
-                        <div class="ui-glass-card p-4 h-100" style="background: rgba(255,255,255,0.03);">
-                            <div class="w-14 h-14 rounded-circle bg-cyan text-black font-bold flex-center mx-auto mb-3 fs-4">AK</div>
+                        <div class="ui-glass-card p-4 h-100">
+                            <div class="author-avatar-badge mb-3">AK</div>
                             <h5 class="text-white font-weight-700 mb-1">Alex K.</h5>
-                            <span class="text-cyan font-size-0.8 d-block">Principal BGP Engineer</span>
+                            <span class="text-cyan font-size-0.8 d-block font-weight-600">Principal BGP Engineer</span>
                         </div>
                     </div>
                     <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
-                        <div class="ui-glass-card p-4 h-100" style="background: rgba(255,255,255,0.03);">
-                            <div class="w-14 h-14 rounded-circle bg-purple-400 text-black font-bold flex-center mx-auto mb-3 fs-4">PM</div>
+                        <div class="ui-glass-card p-4 h-100">
+                            <div class="author-avatar-badge mb-3" style="background: linear-gradient(135deg, #7c3aed 0%, #00e5ff 100%);">PM</div>
                             <h5 class="text-white font-weight-700 mb-1">Priya M.</h5>
-                            <span class="text-cyan font-size-0.8 d-block">Kubernetes SKE Lead</span>
+                            <span class="text-cyan font-size-0.8 d-block font-weight-600">Kubernetes SKE Lead</span>
                         </div>
                     </div>
                     <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
-                        <div class="ui-glass-card p-4 h-100" style="background: rgba(255,255,255,0.03);">
-                            <div class="w-14 h-14 rounded-circle bg-emerald-400 text-black font-bold flex-center mx-auto mb-3 fs-4">RT</div>
+                        <div class="ui-glass-card p-4 h-100">
+                            <div class="author-avatar-badge mb-3" style="background: linear-gradient(135deg, #059669 0%, #00e5ff 100%);">RT</div>
                             <h5 class="text-white font-weight-700 mb-1">Robert T.</h5>
-                            <span class="text-cyan font-size-0.8 d-block">Zero-Trust Architect</span>
+                            <span class="text-cyan font-size-0.8 d-block font-weight-600">Zero-Trust Architect</span>
                         </div>
                     </div>
                     <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
-                        <div class="ui-glass-card p-4 h-100" style="background: rgba(255,255,255,0.03);">
-                            <div class="w-14 h-14 rounded-circle bg-warning text-black font-bold flex-center mx-auto mb-3 fs-4">NL</div>
+                        <div class="ui-glass-card p-4 h-100">
+                            <div class="author-avatar-badge mb-3" style="background: linear-gradient(135deg, #d97706 0%, #7c3aed 100%);">NL</div>
                             <h5 class="text-white font-weight-700 mb-1">Nina L.</h5>
-                            <span class="text-cyan font-size-0.8 d-block">Database Replication Lead</span>
+                            <span class="text-cyan font-size-0.8 d-block font-weight-600">Database Replication Lead</span>
                         </div>
                     </div>
                 </div>
@@ -209,10 +209,10 @@
         <!-- SECTION 7: WEEKLY ARCHITECTURE NEWSLETTER (#021a15) -->
         <section id="sec-newsletter" class="py-5 text-center" style="background-color: #021a15;">
             <div class="container py-5 max-w-xl mx-auto" data-aos="fade-up">
-                <span class="text-emerald font-weight-700 uppercase tracking-widest font-size-0.85">Stay Updated</span>
+                <span class="text-cyan font-weight-700 uppercase tracking-widest font-size-0.85">Stay Updated</span>
                 <h2 class="text-white font-weight-800 fs-2 mt-2 mb-3">Subscribe to Stackly Engineering Dispatch</h2>
                 <p class="text-white-50 font-size-0.9 mb-4">Weekly technical articles, Rust benchmarks, and Kubernetes release notes delivered to your inbox.</p>
-                <form onsubmit="event.preventDefault(); window.location.href='404.html';" class="d-flex gap-2">
+                <form id="blog-newsletter-form" class="d-flex gap-2" novalidate>
                     <input type="email" class="form-control bg-dark text-white border-secondary py-2" required placeholder="engineer@company.com">
                     <button type="submit" class="btn btn-cta-header px-4 font-weight-700">Subscribe</button>
                 </form>
@@ -363,10 +363,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="assets/main.js"></script>
+    <script src="assets/validation.js"></script>
+<script src="assets/main.js"></script>
     <script src="assets/animations.js"></script>
 </body>
 </html>
+
+
+
 
 
 
