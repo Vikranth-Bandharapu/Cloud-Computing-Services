@@ -151,6 +151,32 @@ body.drawer-open {
     color: var(--cyan-accent);
 }
 
+/* Highly Visible Glowing Cyan Active Navigation Badge & Indicator */
+.nav-public-item a.active,
+.mobile-drawer-menu .mobile-drawer-item a.active {
+    color: #00e5ff !important;
+    font-weight: 700 !important;
+    background: rgba(0, 229, 255, 0.14) !important;
+    border: 1px solid rgba(0, 229, 255, 0.4) !important;
+    border-radius: 20px !important;
+    padding: 8px 18px !important;
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.3) !important;
+    position: relative;
+}
+
+.nav-public-item a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 18px;
+    height: 3px;
+    background: #00e5ff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #00e5ff;
+}
+
 .dropdown-parent {
     position: relative;
 }
@@ -988,6 +1014,52 @@ select option {
 .ref-auth-card {
     opacity: 1 !important;
     visibility: visible !important;
+}
+
+/* Glassmorphic FAQ Accordion Engine */
+.faq-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    border-color: rgba(0, 229, 255, 0.3);
+    box-shadow: 0 8px 25px rgba(0, 229, 255, 0.1);
+}
+
+.faq-header-btn {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+}
+
+.faq-header-btn i.fa-chevron-down {
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    color: #00e5ff;
+}
+
+.faq-body {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0 24px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
 }
 
 /* Dashboard Drawer Background Scroll Lock Engine */

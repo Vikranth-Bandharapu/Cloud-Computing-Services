@@ -403,35 +403,4 @@ function initEmailCenter() {
     }
 }
 
-/* Global Dashboard Action Redirection to 404.html */
-document.addEventListener('click', (e) => {
-    const btn = e.target.closest('button, input[type="submit"], input[type="button"], a.btn, .btn');
-    if (!btn) return;
 
-    // Exclude tab switchers, sidebar toggle, close drawer, and logout
-    if (
-        btn.classList.contains('logout-trigger-btn') ||
-        btn.classList.contains('header-toggle-btn') ||
-        btn.classList.contains('theme-btn') ||
-        btn.id === 'close-sidebar-btn' ||
-        (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes('switchTab')) ||
-        (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes('logout')) ||
-        (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes('toggleDashboardSidebar'))
-    ) {
-        return;
-    }
-
-    // If inside a dashboard view, redirect to 404.html
-    if (document.querySelector('.dashboard-tab') || document.getElementById('dashboard-sidebar')) {
-        e.preventDefault();
-        e.stopPropagation();
-        window.location.href = '404.html';
-    }
-}, true);
-
-document.addEventListener('submit', (e) => {
-    if (document.querySelector('.dashboard-tab') || document.getElementById('dashboard-sidebar')) {
-        e.preventDefault();
-        window.location.href = '404.html';
-    }
-}, true);

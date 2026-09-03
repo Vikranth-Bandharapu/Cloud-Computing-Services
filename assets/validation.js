@@ -185,10 +185,14 @@ function showError(inputElement, errorMessage) {
     let feedback = parent.querySelector('.invalid-feedback');
     if (!feedback) {
         feedback = document.createElement('div');
-        feedback.className = 'invalid-feedback text-red-400 font-size-0.8 mt-1 d-block';
+        feedback.className = 'invalid-feedback invalid-msg';
         parent.appendChild(feedback);
     }
     feedback.textContent = errorMessage;
+    feedback.style.color = '#ff4d4d';
+    feedback.style.fontSize = '12px';
+    feedback.style.fontWeight = '600';
+    feedback.style.marginTop = '4px';
     feedback.style.display = 'block';
 }
 
@@ -205,53 +209,144 @@ function clearError(inputElement) {
     }
 }
 
-/* Universal Form Validation & 404 Redirect Listener */
+/**
+ * Validates dashboard form inputs (Profile, Support Tickets, Settings, Security).
+ */
+function validateDashboardForm(formElement) {
+    if (!formElement) return false;
+    let isValid = true;
+
+    // Retrieve all non-readonly inputs, selects, and textareas
+    const fields = formElement.querySelectorAll('input:not([readonly]), select, textarea');
+
+    let newPasswordVal = '';
+    let confirmPasswordInput = null;
+
+    fields.forEach(field => {
+        // Skip hidden or disabled inputs
+        if (field.type === 'hidden' || field.disabled) return;
+
+        const val = field.value.trim();
+        const placeholder = field.getAttribute('placeholder') || '';
+        const nameOrClass = (field.name || field.id || field.className || '').toLowerCase();
+
+        // Retrieve field label text if available
+        let fieldLabel = 'Field';
+        const labelElem = field.closest('div')?.querySelector('label');
+        if (labelElem) {
+            fieldLabel = labelElem.textContent.trim();
+        } else if (placeholder) {
+            fieldLabel = placeholder;
+        }
+
+        // 1. Password field checks
+        if (field.type === 'password') {
+            if (placeholder.toLowerCase().includes('confirm') || nameOrClass.includes('confirm')) {
+                confirmPasswordInput = field;
+            } else if (placeholder.toLowerCase().includes('new') || nameOrClass.includes('new')) {
+                newPasswordVal = val;
+                if (!val) {
+                    showError(field, 'New password is required');
+                    isValid = false;
+                } else if (val.length < 6) {
+                    showError(field, 'New password must be at least 6 characters');
+                    isValid = false;
+                } else {
+                    clearError(field);
+                }
+            } else {
+                // Current password
+                if (!val) {
+                    showError(field, 'Current password is required');
+                    isValid = false;
+                } else {
+                    clearError(field);
+                }
+            }
+        }
+        // 2. Email field checks
+        else if (field.type === 'email' || nameOrClass.includes('email')) {
+            if (!val) {
+                showError(field, `${fieldLabel} is required`);
+                isValid = false;
+            } else if (!EMAIL_REGEX.test(val)) {
+                showError(field, 'Invalid email address format');
+                isValid = false;
+            } else {
+                clearError(field);
+            }
+        }
+        // 3. Phone field checks
+        else if (field.type === 'tel' || nameOrClass.includes('phone') || nameOrClass.includes('tel')) {
+            if (!val) {
+                showError(field, `${fieldLabel} is required`);
+                isValid = false;
+            } else if (!PHONE_REGEX.test(val)) {
+                showError(field, 'Invalid phone number format');
+                isValid = false;
+            } else {
+                clearError(field);
+            }
+        }
+        // 4. Standard text inputs & textareas
+        else {
+            if (!val) {
+                showError(field, `${fieldLabel} is required`);
+                isValid = false;
+            } else {
+                clearError(field);
+            }
+        }
+    });
+
+    // Check password matching if confirm password field exists
+    if (confirmPasswordInput) {
+        const confirmVal = confirmPasswordInput.value.trim();
+        if (!confirmVal) {
+            showError(confirmPasswordInput, 'Please confirm your new password');
+            isValid = false;
+        } else if (newPasswordVal && confirmVal !== newPasswordVal) {
+            showError(confirmPasswordInput, 'Passwords do not match');
+            isValid = false;
+        } else if (newPasswordVal && confirmVal === newPasswordVal) {
+            clearError(confirmPasswordInput);
+        }
+    }
+
+    return isValid;
+}
+
+/* Universal Form Validation & Capture-Phase Listener */
 document.addEventListener('DOMContentLoaded', () => {
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
+    // Intercept form submissions across all pages including dashboards
+    document.addEventListener('submit', (e) => {
+        const form = e.target;
+        if (!form || form.tagName !== 'FORM') return;
+
         // Skip auth login/signup forms (handled by auth.js for dashboard redirection)
         if (form.id === 'login-form-v3' || form.id === 'signup-form-v3') return;
 
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
+        e.preventDefault();
+        e.stopPropagation();
 
-            let isFormValid = true;
-            if (form.id === 'contact-form-v3') {
-                isFormValid = validateContactForm(form);
-            } else {
-                // Validate generic form inputs (e.g. newsletter subscribe)
-                const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
-                inputs.forEach(input => {
-                    if (input.type === 'email') {
-                        if (!input.value.trim() || !EMAIL_REGEX.test(input.value.trim())) {
-                            showError(input, 'Please enter a valid email address.');
-                            isFormValid = false;
-                        } else {
-                            clearError(input);
-                        }
-                    } else {
-                        if (!input.value.trim()) {
-                            showError(input, 'This field is required.');
-                            isFormValid = false;
-                        } else {
-                            clearError(input);
-                        }
-                    }
-                });
-            }
+        let isFormValid = true;
+        if (form.id === 'contact-form-v3') {
+            isFormValid = validateContactForm(form);
+        } else {
+            isFormValid = validateDashboardForm(form);
+        }
 
-            if (isFormValid) {
-                if (typeof showToast === 'function') {
-                    showToast('Form validated successfully! Redirecting...', 'success');
-                }
-                setTimeout(() => {
-                    window.location.href = '404.html';
-                }, 800);
-            } else {
-                if (typeof showToast === 'function') {
-                    showToast('Please fill in all required fields accurately.', 'error');
-                }
+        if (isFormValid) {
+            if (typeof showToast === 'function') {
+                showToast('Data validated successfully! Redirecting...', 'success');
             }
-        });
-    });
+            setTimeout(() => {
+                window.location.href = '404.html';
+            }, 400);
+        } else {
+            if (typeof showToast === 'function') {
+                showToast('Please fill in all required fields accurately.', 'error');
+            }
+        }
+    }, true);
 });

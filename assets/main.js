@@ -8,7 +8,25 @@ document.addEventListener('DOMContentLoaded', () => {
     initFAQAccordions();
     initGlobalCTARouting();
     initThemeSwitcher();
+    highlightActivePageNav();
 });
+
+/* Dynamic Active Page Navbar Highlighter */
+function highlightActivePageNav() {
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('.nav-public-menu a, .mobile-drawer-menu a');
+
+    navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (!href) return;
+        
+        if (href === currentPath || (currentPath === '' && href === 'index.html') || (currentPath === '/' && href === 'index.html')) {
+            link.classList.add('active');
+        } else if (href !== '#' && !href.startsWith('javascript:')) {
+            link.classList.remove('active');
+        }
+    });
+}
 
 /* Interactive Color Panel Theme Switcher */
 function initThemeSwitcher() {
@@ -165,6 +183,16 @@ function initGlobalCTARouting() {
         // Skip 404 page entirely
         if (window.location.pathname.indexOf('404.html') !== -1) return;
 
+        // Skip any form elements or buttons inside forms (handled exclusively by validation.js)
+        if (e.target.closest('form') || e.target.type === 'submit') {
+            return;
+        }
+
+        // Skip FAQ accordions (Bootstrap .accordion-button and custom .faq-header-btn)
+        if (e.target.closest('.accordion-button') || e.target.closest('.accordion-item') || e.target.closest('.accordion') || e.target.closest('.faq-header-btn') || e.target.closest('.faq-item') || e.target.closest('.faq-body')) {
+            return;
+        }
+
         const ctaBtn = e.target.closest('a.btn, button.btn, .btn-cta, .btn-primary-stackly, .btn-hero-cta, [class*="btn-"], section a, section button');
         if (!ctaBtn) return;
 
@@ -174,8 +202,8 @@ function initGlobalCTARouting() {
         }
 
         const href = ctaBtn.getAttribute('href');
-        // Do not block topbar header links, auth login/signup pages, back buttons, navbar menu links, theme switcher, or 404 page buttons
-        if (ctaBtn.classList.contains('btn-back-auth') || ctaBtn.closest('.ref-auth-card') || ctaBtn.closest('.auth-page-container') || href === 'login.html' || href === 'signup.html' || href === 'signin.html' || href === 'index.html' || ctaBtn.closest('.header-public') || ctaBtn.closest('.nav-public-menu') || ctaBtn.closest('.logo-link') || ctaBtn.closest('.hamburger-public') || ctaBtn.closest('.close-drawer-btn') || ctaBtn.closest('.color-theme-widget') || ctaBtn.closest('.error-card-reference')) {
+        // Do not block topbar header links, auth login/signup pages, back buttons, navbar menu links, theme switcher, faq buttons, or 404 page buttons
+        if (ctaBtn.classList.contains('accordion-button') || ctaBtn.classList.contains('faq-header-btn') || ctaBtn.closest('.faq-item') || ctaBtn.closest('.accordion-item') || ctaBtn.classList.contains('btn-back-auth') || ctaBtn.closest('.ref-auth-card') || ctaBtn.closest('.auth-page-container') || href === 'login.html' || href === 'signup.html' || href === 'signin.html' || href === 'index.html' || ctaBtn.closest('.header-public') || ctaBtn.closest('.nav-public-menu') || ctaBtn.closest('.logo-link') || ctaBtn.closest('.hamburger-public') || ctaBtn.closest('.close-drawer-btn') || ctaBtn.closest('.color-theme-widget') || ctaBtn.closest('.error-card-reference')) {
             return;
         }
 
@@ -184,3 +212,26 @@ function initGlobalCTARouting() {
         window.location.href = '404.html';
     });
 }
+
+/* Universal Smooth FAQ Accordion Toggle Handler */
+window.toggleFAQ = function(faqId) {
+    const body = document.getElementById(faqId);
+    const icon = document.getElementById(faqId + '-icon');
+    if (!body) return;
+
+    const isOpen = body.style.maxHeight && body.style.maxHeight !== '0px';
+
+    if (isOpen) {
+        body.style.maxHeight = '0px';
+        body.style.opacity = '0';
+        body.style.paddingTop = '0px';
+        body.style.paddingBottom = '0px';
+        if (icon) icon.style.transform = 'rotate(0deg)';
+    } else {
+        body.style.maxHeight = '300px';
+        body.style.opacity = '1';
+        body.style.paddingTop = '15px';
+        body.style.paddingBottom = '15px';
+        if (icon) icon.style.transform = 'rotate(180deg)';
+    }
+};
