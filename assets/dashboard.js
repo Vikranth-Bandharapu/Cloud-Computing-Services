@@ -4,9 +4,31 @@
    real-time graphs updates, and the splitscreen Email Center.
 */
 
+function resetDashboardScrollToTop() {
+    dashSavedScrollY = 0;
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+    const mainScrollArea = document.getElementById('main-scroll-area');
+    if (mainScrollArea) {
+        mainScrollArea.scrollTop = 0;
+    }
+    const dashboardWrapper = document.querySelector('.dashboard-wrapper');
+    if (dashboardWrapper) {
+        dashboardWrapper.scrollTop = 0;
+    }
+    const activeTab = document.querySelector('.dashboard-tab.active') || document.querySelector('.dashboard-tab:not(.hidden)');
+    if (activeTab) {
+        activeTab.scrollTop = 0;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Check if we are on a dashboard page
-    const isDashboard = document.querySelector('.dashboard-wrapper');
+    resetDashboardScrollToTop();
+    setTimeout(resetDashboardScrollToTop, 50);
+    setTimeout(resetDashboardScrollToTop, 150);
+
+    const isDashboard = document.querySelector('.dashboard-wrapper') || document.getElementById('main-scroll-area') || document.getElementById('dashboard-sidebar');
     if (!isDashboard) return;
 
     initDashboardNavigation();
@@ -136,6 +158,9 @@ window.switchTab = function(arg1, arg2, arg3) {
         targetTab.style.display = 'block';
     }
 
+    // Reset scroll position to top
+    resetDashboardScrollToTop();
+
     // Highlight sidebar active link
     const navLinks = document.querySelectorAll('#dashboard-sidebar nav a, #dashboard-sidebar a');
     navLinks.forEach(link => {
@@ -158,6 +183,10 @@ window.switchTab = function(arg1, arg2, arg3) {
         if (overlay) overlay.style.display = 'none';
         unlockDashBackground();
     }
+
+    // Always reset scroll position to top when switching tabs
+    resetDashboardScrollToTop();
+    setTimeout(resetDashboardScrollToTop, 20);
 };
 
 /* --- 2. Desktop & Mobile Sidebar Toggling --- */
