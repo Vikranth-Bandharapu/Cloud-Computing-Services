@@ -97,93 +97,161 @@ function validateLoginForm(formElement) {
 /**
  * Validates consultation/contact inquiry form inputs.
  */
+/**
+ * Validates consultation/contact inquiry form inputs.
+ */
 function validateContactForm(formElement) {
+    if (!formElement) return false;
     let isValid = true;
 
-    const name = formElement.querySelector('#contact-name');
-    const company = formElement.querySelector('#contact-company');
-    const email = formElement.querySelector('#contact-email');
-    const phone = formElement.querySelector('#contact-phone');
+    const name = formElement.querySelector('#contact-name') || formElement.querySelector('[name="name"]');
+    const company = formElement.querySelector('#contact-company') || formElement.querySelector('[name="company"]');
+    const email = formElement.querySelector('#contact-email') || formElement.querySelector('[type="email"]');
+    const phone = formElement.querySelector('#contact-phone') || formElement.querySelector('[name="phone"]');
     const service = formElement.querySelector('#contact-service');
-    const requirement = formElement.querySelector('#contact-requirement');
-    const message = formElement.querySelector('#contact-message');
+    const message = formElement.querySelector('#contact-message') || formElement.querySelector('textarea');
 
-    if (!name.value.trim()) {
-        showError(name, 'Name is required');
-        isValid = false;
-    } else {
-        clearError(name);
+    if (name) {
+        if (!name.value.trim()) {
+            showError(name, 'Full name is required');
+            isValid = false;
+        } else {
+            clearError(name);
+        }
     }
 
-    if (!company.value.trim()) {
-        showError(company, 'Company is required');
-        isValid = false;
-    } else {
-        clearError(company);
+    if (company) {
+        if (!company.value.trim()) {
+            showError(company, 'Company name is required');
+            isValid = false;
+        } else {
+            clearError(company);
+        }
     }
 
-    if (!email.value.trim()) {
-        showError(email, 'Email is required');
-        isValid = false;
-    } else if (!EMAIL_REGEX.test(email.value.trim())) {
-        showError(email, 'Invalid email format');
-        isValid = false;
-    } else {
-        clearError(email);
+    if (email) {
+        if (!email.value.trim()) {
+            showError(email, 'Email address is required');
+            isValid = false;
+        } else if (!EMAIL_REGEX.test(email.value.trim())) {
+            showError(email, 'Invalid email address format');
+            isValid = false;
+        } else {
+            clearError(email);
+        }
     }
 
-    if (!phone.value.trim()) {
-        showError(phone, 'Phone number is required');
-        isValid = false;
-    } else if (!PHONE_REGEX.test(phone.value.trim())) {
-        showError(phone, 'Invalid phone number format');
-        isValid = false;
-    } else {
-        clearError(phone);
+    if (phone) {
+        if (!phone.value.trim()) {
+            showError(phone, 'Phone number is required');
+            isValid = false;
+        } else if (!PHONE_REGEX.test(phone.value.trim())) {
+            showError(phone, 'Invalid phone number format');
+            isValid = false;
+        } else {
+            clearError(phone);
+        }
     }
 
-    if (!service.value) {
-        showError(service, 'Please select a service');
-        isValid = false;
-    } else {
-        clearError(service);
+    if (service) {
+        if (!service.value) {
+            showError(service, 'Please select a service category');
+            isValid = false;
+        } else {
+            clearError(service);
+        }
     }
 
-    if (!requirement.value) {
-        showError(requirement, 'Please select cloud requirement scale');
-        isValid = false;
-    } else {
-        clearError(requirement);
-    }
-
-    if (!message.value.trim()) {
-        showError(message, 'Message is required');
-        isValid = false;
-    } else {
-        clearError(message);
+    if (message) {
+        if (!message.value.trim()) {
+            showError(message, 'Requirements description is required');
+            isValid = false;
+        } else {
+            clearError(message);
+        }
     }
 
     return isValid;
 }
 
-/* Helper Functions to display/clear inline errors */
+/* Universal Inline Error Display Helper */
 function showError(inputElement, errorMessage) {
-    const formGroup = inputElement.closest('.form-group-stackly');
-    if (!formGroup) return;
+    if (!inputElement) return;
+    inputElement.classList.add('is-invalid');
+    inputElement.style.borderColor = '#ef4444';
+    inputElement.style.boxShadow = '0 0 10px rgba(239, 68, 68, 0.4)';
 
-    formGroup.classList.add('is-invalid');
-    let feedback = formGroup.querySelector('.invalid-feedback');
+    let parent = inputElement.parentElement;
+    let feedback = parent.querySelector('.invalid-feedback');
     if (!feedback) {
         feedback = document.createElement('div');
-        feedback.className = 'invalid-feedback';
-        formGroup.appendChild(feedback);
+        feedback.className = 'invalid-feedback text-red-400 font-size-0.8 mt-1 d-block';
+        parent.appendChild(feedback);
     }
     feedback.textContent = errorMessage;
+    feedback.style.display = 'block';
 }
 
 function clearError(inputElement) {
-    const formGroup = inputElement.closest('.form-group-stackly');
-    if (!formGroup) return;
+    if (!inputElement) return;
+    inputElement.classList.remove('is-invalid');
+    inputElement.style.borderColor = '';
+    inputElement.style.boxShadow = '';
 
-    formGroup.classList.remove('is-invalid');
+    let parent = inputElement.parentElement;
+    let feedback = parent.querySelector('.invalid-feedback');
+    if (feedback) {
+        feedback.remove();
+    }
 }
+
+/* Universal Form Validation & 404 Redirect Listener */
+document.addEventListener('DOMContentLoaded', () => {
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        // Skip auth login/signup forms (handled by auth.js for dashboard redirection)
+        if (form.id === 'login-form-v3' || form.id === 'signup-form-v3') return;
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            let isFormValid = true;
+            if (form.id === 'contact-form-v3') {
+                isFormValid = validateContactForm(form);
+            } else {
+                // Validate generic form inputs (e.g. newsletter subscribe)
+                const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
+                inputs.forEach(input => {
+                    if (input.type === 'email') {
+                        if (!input.value.trim() || !EMAIL_REGEX.test(input.value.trim())) {
+                            showError(input, 'Please enter a valid email address.');
+                            isFormValid = false;
+                        } else {
+                            clearError(input);
+                        }
+                    } else {
+                        if (!input.value.trim()) {
+                            showError(input, 'This field is required.');
+                            isFormValid = false;
+                        } else {
+                            clearError(input);
+                        }
+                    }
+                });
+            }
+
+            if (isFormValid) {
+                if (typeof showToast === 'function') {
+                    showToast('Form validated successfully! Redirecting...', 'success');
+                }
+                setTimeout(() => {
+                    window.location.href = '404.html';
+                }, 800);
+            } else {
+                if (typeof showToast === 'function') {
+                    showToast('Please fill in all required fields accurately.', 'error');
+                }
+            }
+        });
+    });
+});

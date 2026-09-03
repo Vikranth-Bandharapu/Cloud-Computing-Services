@@ -22,21 +22,105 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* --- Global Dashboard Sidebar & Tab Switcher Functions --- */
+let dashSavedScrollY = 0;
+
+function lockDashBackground() {
+    dashSavedScrollY = window.scrollY;
+    const mainScrollArea = document.getElementById('main-scroll-area');
+    if (mainScrollArea) {
+        mainScrollArea.style.overflow = 'hidden';
+        mainScrollArea.style.pointerEvents = 'none';
+        mainScrollArea.style.touchAction = 'none';
+    }
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${dashSavedScrollY}px`;
+    document.body.style.width = '100%';
+    document.body.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
+    document.body.classList.add('drawer-open', 'dashboard-drawer-open');
+}
+
+function unlockDashBackground() {
+    const mainScrollArea = document.getElementById('main-scroll-area');
+    if (mainScrollArea) {
+        mainScrollArea.style.overflow = 'auto';
+        mainScrollArea.style.pointerEvents = 'auto';
+        mainScrollArea.style.touchAction = 'auto';
+    }
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.body.style.overflow = '';
+    document.body.style.touchAction = '';
+    document.body.classList.remove('drawer-open', 'dashboard-drawer-open');
+    window.scrollTo(0, dashSavedScrollY);
+}
+
+function getDashOverlay() {
+    let overlay = document.getElementById('dash-drawer-overlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'dash-drawer-overlay';
+        overlay.style.cssText = 'position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.75); backdrop-filter:blur(4px); z-index:9998; display:none; transition:opacity 0.3s;';
+        document.body.appendChild(overlay);
+        overlay.addEventListener('click', () => {
+            if (typeof window.toggleDashboardSidebar === 'function') {
+                window.toggleDashboardSidebar();
+            }
+        });
+    }
+    return overlay;
+}
+
 window.toggleDashboardSidebar = function() {
-    const sidebar = document.getElementById('dashboard-sidebar') || document.querySelector('.dashboard-sidebar');
+    const sidebar = document.getElementById('dashboard-sidebar') || document.querySelector('#dashboard-sidebar');
     if (!sidebar) return;
 
-    sidebar.classList.toggle('active');
-    sidebar.classList.toggle('mobile-sidebar-open');
+    const overlay = getDashOverlay();
+    const isVisible = sidebar.style.display === 'flex' || sidebar.classList.contains('mobile-sidebar-open') || sidebar.classList.contains('active');
+
+    if (isVisible) {
+        sidebar.style.display = 'none';
+        sidebar.classList.remove('mobile-sidebar-open', 'active');
+        sidebar.classList.add('hidden');
+        if (overlay) overlay.style.display = 'none';
+        unlockDashBackground();
+    } else {
+        sidebar.style.display = 'flex';
+        sidebar.style.position = 'fixed';
+        sidebar.style.top = '0';
+        sidebar.style.left = '0';
+        sidebar.style.height = '100vh';
+        sidebar.style.width = '280px';
+        sidebar.style.zIndex = '99999';
+        sidebar.style.backgroundColor = '#081226';
+        sidebar.classList.add('mobile-sidebar-open', 'active');
+        sidebar.classList.remove('hidden');
+        if (overlay) overlay.style.display = 'block';
+        lockDashBackground();
+    }
 };
 
-window.switchTab = function(evt, tabId) {
-    if (evt) {
+window.switchTab = function(arg1, arg2, arg3) {
+    let evt = null;
+    let tabId = '';
+    let linkEl = null;
+
+    if (typeof arg1 === 'string') {
+        tabId = arg1;
+        linkEl = arg2;
+    } else {
+        evt = arg1;
+        tabId = arg2;
+        linkEl = arg3 || (evt ? evt.currentTarget : null);
+    }
+
+    if (evt && typeof evt.preventDefault === 'function') {
         evt.preventDefault();
         evt.stopPropagation();
     }
 
-    // Hide all tabs
+    // Hide all dashboard tabs
     const tabPanels = document.querySelectorAll('.dashboard-tab');
     tabPanels.forEach(panel => {
         panel.classList.add('hidden');
@@ -52,20 +136,27 @@ window.switchTab = function(evt, tabId) {
         targetTab.style.display = 'block';
     }
 
-    // Highlight sidebar link
-    const navLinks = document.querySelectorAll('#dashboard-sidebar a');
+    // Highlight sidebar active link
+    const navLinks = document.querySelectorAll('#dashboard-sidebar nav a, #dashboard-sidebar a');
     navLinks.forEach(link => {
-        link.classList.remove('active', 'bg-white/10', 'text-white');
+        link.classList.remove('active', 'bg-white/10', 'bg-gold/10', 'bg-cyan/10', 'text-gold', 'text-cyan', 'text-white', 'font-semibold');
+        link.classList.add('text-gray-400');
     });
 
-    if (evt && evt.currentTarget) {
-        evt.currentTarget.classList.add('active', 'bg-white/10', 'text-white');
+    if (linkEl && linkEl.classList) {
+        linkEl.classList.add('active', 'bg-white/10', 'text-white', 'font-semibold');
+        linkEl.classList.remove('text-gray-400');
     }
 
-    // Auto close drawer on mobile after selection
+    // Auto close drawer on mobile & unlock body scroll after selection
     const sidebar = document.getElementById('dashboard-sidebar');
-    if (sidebar) {
-        sidebar.classList.remove('active', 'mobile-sidebar-open');
+    const overlay = document.getElementById('dash-drawer-overlay');
+    if (sidebar && window.innerWidth < 768) {
+        sidebar.style.display = 'none';
+        sidebar.classList.remove('mobile-sidebar-open', 'active');
+        sidebar.classList.add('hidden');
+        if (overlay) overlay.style.display = 'none';
+        unlockDashBackground();
     }
 };
 
