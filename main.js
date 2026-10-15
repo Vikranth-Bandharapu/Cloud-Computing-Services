@@ -142,21 +142,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const btn = e.target.closest('button, .btn, .btn-cta, .action-cta, a.btn, [data-cta]');
     if (!btn) return;
 
-    // Ignore interactive UI components, normal navigation, and sidebar components
+    // Allow navigation links inside header/navbar, auth buttons, and interactive UI components
     if (btn.classList.contains('mobile-toggle') ||
         btn.classList.contains('sidebar-toggle') ||
         btn.classList.contains('accordion-header') ||
-        btn.classList.contains('open-article-btn') ||
-        btn.classList.contains('close-reader') ||
         btn.classList.contains('sidebar-link') ||
-        btn.closest('.sidebar')) {
-      return;
-    }
-
-    const href = btn.getAttribute('href');
-
-    // Allow Login link and Home / Back navigation
-    if (href === 'login.html' || (href && href.endsWith('login.html'))) {
+        btn.classList.contains('category-badge') ||
+        btn.closest('.category-filters') ||
+        btn.closest('.sidebar') ||
+        btn.closest('.auth-buttons') ||
+        btn.closest('.nav-menu')) {
       return;
     }
 
@@ -170,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Every other CTA button on the website redirects to 404.html
+    // In complete web, all CTA buttons redirect to 404.html
     e.preventDefault();
     e.stopPropagation();
     window.location.href = '404.html';

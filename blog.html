@@ -59,18 +59,18 @@
     <!-- 3. Categories -->
     <section data-aos="fade-up" class="py-4 bg-light" style="padding-top: 3rem; padding-bottom: 3rem;">
         <div class="container text-center">
-            <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
-                <a href="#featured-section" class="badge badge-primary" style="padding: 0.75rem 1.5rem; font-size: 0.95rem;">All Articles</a>
-                <a href="#strategy-section" class="badge" style="background:white; border:1px solid #ccc; color:var(--text-main); padding: 0.75rem 1.5rem; font-size: 0.95rem;">Support Strategy</a>
-                <a href="#automation-section" class="badge" style="background:white; border:1px solid #ccc; color:var(--text-main); padding: 0.75rem 1.5rem; font-size: 0.95rem;">AI & Automation</a>
-                <a href="#productivity-section" class="badge" style="background:white; border:1px solid #ccc; color:var(--text-main); padding: 0.75rem 1.5rem; font-size: 0.95rem;">Productivity</a>
-                <a href="#latest-articles" class="badge" style="background:white; border:1px solid #ccc; color:var(--text-main); padding: 0.75rem 1.5rem; font-size: 0.95rem;">Team Leadership</a>
+            <div class="category-filters" style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+                <a href="#featured-section" class="badge category-badge active" data-category="all">All Articles</a>
+                <a href="#strategy-section" class="badge category-badge" data-category="strategy">Support Strategy</a>
+                <a href="#automation-section" class="badge category-badge" data-category="automation">AI & Automation</a>
+                <a href="#productivity-section" class="badge category-badge" data-category="productivity">Productivity</a>
+                <a href="#latest-articles" class="badge category-badge" data-category="leadership">Team Leadership</a>
             </div>
         </div>
     </section>
 
     <!-- 4. Featured Article -->
-    <section data-aos="fade-up">
+    <section data-aos="fade-up" id="featured-section" style="scroll-margin-top: 100px;">
         <div class="container grid-2">
             <div ><img src="assets/blog1.webp" alt="Featured Article Graphic" class="rounded-lg shadow-lg tilt-card"></div>
             <div >
@@ -81,7 +81,7 @@
                     <img src="assets/team-1.webp" alt="Jane Doe" style="width:48px; height:48px; border-radius:50%; object-fit:cover;">
                     <div><p class="font-bold text-md m-0">Jane Doe</p><p class="text-sm text-light m-0">Oct 10, 2026 &middot; 8 min read</p></div>
                 </div>
-                <a href="#article-modal" class="btn btn-outline open-article-btn" data-title="The Future of Generative AI in Customer Support (2027 Edition)" data-author="Jane Doe (CEO)" data-category="Featured Report" data-readtime="8 min read"><i class="fa-solid fa-file-lines mr-2"></i> Read Full Report</a>
+                <a href="404.html" class="btn btn-outline"><i class="fa-solid fa-file-lines mr-2"></i> Read Full Report</a>
             </div>
         </div>
     </section>
@@ -97,7 +97,7 @@
                     <img src="assets/team-2.webp" alt="John Smith" style="width:48px; height:48px; border-radius:50%; object-fit:cover;">
                     <div><p class="font-bold text-md m-0">John Smith</p><p class="text-sm text-light m-0">Oct 5, 2026 &middot; 5 min read</p></div>
                 </div>
-                <a href="#article-modal" class="btn btn-primary open-article-btn" data-title="Building a knowledge base that your customers will actually use" data-author="John Smith (CTO)" data-category="Editor's Pick" data-readtime="5 min read"><i class="fa-solid fa-newspaper mr-2"></i> Read Article</a>
+                <a href="404.html" class="btn btn-primary"><i class="fa-solid fa-newspaper mr-2"></i> Read Article</a>
             </div>
             <div ><img src="assets/blog2.webp" alt="Knowledge base concepts" class="rounded-lg shadow-lg tilt-card"></div>
         </div>
@@ -117,7 +117,7 @@
                         <span class="badge badge-success mb-4">Analytics & Metrics</span>
                         <h3 class="mb-4">5 advanced metrics that define true CX success</h3>
                         <p class="text-light mb-6">Move far beyond basic CSAT scores. Discover the advanced, multi-variable metrics that top-tier enterprise support teams use to measure true customer happiness, predict churn before it happens, and justify budget increases to the executive board.</p>
-                        <a href="#article-modal" class="text-primary font-bold open-article-btn" style="font-size: 1.1rem;" data-title="5 advanced metrics that define true CX success" data-author="Sarah Jenkins" data-category="Analytics & Metrics" data-readtime="6 min read">Read Full Guide <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                        <a href="404.html" class="text-primary font-bold" style="font-size: 1.1rem;">Read Full Guide <i class="fa-solid fa-arrow-right ml-1"></i></a>
                     </div>
                 </div>
             </div>
@@ -125,7 +125,7 @@
     </section>
 
     <!-- 7. Support Strategy -->
-    <section data-aos="fade-up" class="bg-light">
+    <section data-aos="fade-up" id="strategy-section" class="bg-light" style="scroll-margin-top: 100px;">
         <div class="container">
             <div class="text-center mb-12">
                 <h2 class="section-title">Support Strategy</h2>
@@ -137,7 +137,7 @@
                         <span class="badge badge-warning mb-4">Scaling Operations</span>
                         <h3 class="mb-4">The exact playbook for scaling support from 1 to 100 agents</h3>
                         <p class="text-light mb-6">Growing pains are real. When you scale from a single founder doing support to a global team of 100+ agents, everything breaks. This is the exact operational playbook we used to scale our own organization without losing the personal touch our early customers loved.</p>
-                        <a href="#article-modal" class="text-primary font-bold open-article-btn" style="font-size: 1.1rem;" data-title="The exact playbook for scaling support from 1 to 100 agents" data-author="Marcus Chen" data-category="Scaling Operations" data-readtime="10 min read">Read Full Guide <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                        <a href="404.html" class="text-primary font-bold" style="font-size: 1.1rem;">Read Full Guide <i class="fa-solid fa-arrow-right ml-1"></i></a>
                     </div>
                     <div><img src="assets/blog-1.webp" alt="Strategy graphic" class="rounded-lg w-full h-full object-cover"></div>
                 </div>
@@ -146,7 +146,7 @@
     </section>
 
     <!-- 8. AI & Automation -->
-    <section data-aos="fade-up">
+    <section data-aos="fade-up" id="automation-section" style="scroll-margin-top: 100px;">
         <div class="container">
             <div class="text-center mb-12">
                 <h2 class="section-title">AI & Automation</h2>
@@ -159,7 +159,7 @@
                         <span class="badge badge-primary mb-4">Workflow Design</span>
                         <h3 class="mb-4">Automating the mundane: 10 macros you need today</h3>
                         <p class="text-light mb-6">Agents spend an average of 40% of their day performing repetitive administrative tasks. Learn how to set up intelligent routing, conditional triggers, and dynamic macros that will literally save your team hundreds of hours per week.</p>
-                        <a href="#article-modal" class="text-primary font-bold open-article-btn" style="font-size: 1.1rem;" data-title="Automating the mundane: 10 macros you need today" data-author="Alex Rivera" data-category="Workflow Design" data-readtime="7 min read">Read Full Guide <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                        <a href="404.html" class="text-primary font-bold" style="font-size: 1.1rem;">Read Full Guide <i class="fa-solid fa-arrow-right ml-1"></i></a>
                     </div>
                 </div>
             </div>
@@ -172,18 +172,18 @@
             <h2 class="section-title">Helpdesk Management</h2>
             <div class="mt-6">
                 <p class="text-light text-lg">Discover the best practices for managing your support infrastructure, maintaining clean ticket taxonomies, and ensuring your software tools don't become a disorganized mess over time.</p>
-                <a href="#latest-articles" class="btn btn-outline mt-8"><i class="fa-solid fa-book-open mr-2"></i> Browse Management Articles</a>
+                <a href="404.html" class="btn btn-outline mt-8"><i class="fa-solid fa-book-open mr-2"></i> Browse Management Articles</a>
             </div>
         </div>
     </section>
 
     <!-- 10. Agent Productivity -->
-    <section data-aos="fade-up">
+    <section data-aos="fade-up" id="productivity-section" style="scroll-margin-top: 100px;">
         <div class="container text-center max-w-3xl mx-auto">
             <h2 class="section-title">Agent Productivity & Wellbeing</h2>
             <div class="mt-6">
                 <p class="text-light text-lg">Tips, tricks, and psychological frameworks to help your team resolve tickets faster while simultaneously preventing burnout. Happy agents create happy customers.</p>
-                <a href="#productivity-section" class="btn btn-outline mt-8"><i class="fa-solid fa-bolt mr-2"></i> Browse Productivity Articles</a>
+                <a href="404.html" class="btn btn-outline mt-8"><i class="fa-solid fa-bolt mr-2"></i> Browse Productivity Articles</a>
             </div>
         </div>
     </section>
@@ -194,13 +194,13 @@
             <h2 class="section-title">Customer Retention Strategy</h2>
             <div class="mt-6">
                 <p class="text-light text-lg">Learn how proactive customer support, targeted check-ins, and data-driven health scoring can drastically reduce your churn rate and turn everyday users into lifelong brand advocates.</p>
-                <a href="#latest-articles" class="btn btn-outline mt-8"><i class="fa-solid fa-users mr-2"></i> Browse Retention Articles</a>
+                <a href="404.html" class="btn btn-outline mt-8"><i class="fa-solid fa-users mr-2"></i> Browse Retention Articles</a>
             </div>
         </div>
     </section>
 
     <!-- 12. Latest Articles -->
-    <section data-aos="fade-up">
+    <section data-aos="fade-up" id="latest-articles" style="scroll-margin-top: 100px;">
         <div class="container">
             <h2 class="mb-12 text-center">Latest Weekly Articles</h2>
             <div class="grid-3">
@@ -209,21 +209,21 @@
                     <h4 class="text-xl mb-4">How to reduce SLA breaches during product launches</h4>
                     <p class="text-sm text-light mb-6">Product launches mean a massive spike in tickets. Here is how to prepare your team and adjust your SLAs to handle the surge without breaking under the pressure.</p>
                     <p class="text-xs font-bold text-light mb-4 uppercase tracking-widest">Oct 5, 2026</p>
-                    <a href="#article-modal" class="text-primary font-bold open-article-btn" data-title="How to reduce SLA breaches during product launches" data-author="David Kim" data-category="SLAs" data-readtime="4 min read">Read Article <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                    <a href="404.html" class="text-primary font-bold">Read Article <i class="fa-solid fa-arrow-right ml-1"></i></a>
                 </div>
                 <div class="card"  >
                     <span class="badge badge-success mb-4">Terminology</span>
                     <h4 class="text-xl mb-4">Omnichannel vs Multichannel: Understanding the difference</h4>
                     <p class="text-sm text-light mb-6">Many companies claim to offer omnichannel support, but they are actually just multichannel. We break down the technical differences and why true omnichannel is critical.</p>
                     <p class="text-xs font-bold text-light mb-4 uppercase tracking-widest">Oct 2, 2026</p>
-                    <a href="#article-modal" class="text-primary font-bold open-article-btn" data-title="Omnichannel vs Multichannel: Understanding the difference" data-author="Maria Garcia" data-category="Terminology" data-readtime="5 min read">Read Article <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                    <a href="404.html" class="text-primary font-bold">Read Article <i class="fa-solid fa-arrow-right ml-1"></i></a>
                 </div>
                 <div class="card"  >
                     <span class="badge badge-primary mb-4">Management</span>
                     <h4 class="text-xl mb-4">Managing remote support teams across timezones</h4>
                     <p class="text-sm text-light mb-6">Building a 'follow-the-sun' support model is difficult. Learn how to manage hand-offs, maintain culture, and ensure quality consistency across a distributed team.</p>
                     <p class="text-xs font-bold text-light mb-4 uppercase tracking-widest">Sep 28, 2026</p>
-                    <a href="#article-modal" class="text-primary font-bold open-article-btn" data-title="Managing remote support teams across timezones" data-author="James Wilson" data-category="Management" data-readtime="6 min read">Read Article <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                    <a href="404.html" class="text-primary font-bold">Read Article <i class="fa-solid fa-arrow-right ml-1"></i></a>
                 </div>
             </div>
         </div>
@@ -238,19 +238,19 @@
                     <h4 class="text-xl mb-4">The ultimate guide to support deflection strategies</h4>
                     <p class="text-sm text-light mb-6">A massive 5,000 word guide detailing every single strategy you can implement today to stop tickets from reaching your agents in the first place.</p>
                     <p class="text-xs font-bold text-light mb-4 uppercase"><i class="fa-solid fa-fire text-danger"></i> 12.4k views</p>
-                    <a href="#article-modal" class="text-primary font-bold open-article-btn" data-title="The ultimate guide to support deflection strategies" data-author="Jane Doe" data-category="Support Deflection" data-readtime="12 min read">Read Article <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                    <a href="404.html" class="text-primary font-bold">Read Article <i class="fa-solid fa-arrow-right ml-1"></i></a>
                 </div>
                 <div class="card"  >
                     <h4 class="text-xl mb-4">Recognizing and preventing agent burnout</h4>
                     <p class="text-sm text-light mb-6">Customer support is emotionally taxing. Learn how to identify the early warning signs of burnout in your team before they decide to quit.</p>
                     <p class="text-xs font-bold text-light mb-4 uppercase"><i class="fa-solid fa-fire text-danger"></i> 8.5k views</p>
-                    <a href="#article-modal" class="text-primary font-bold open-article-btn" data-title="Recognizing and preventing agent burnout" data-author="Alice Wong" data-category="Wellbeing" data-readtime="8 min read">Read Article <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                    <a href="404.html" class="text-primary font-bold">Read Article <i class="fa-solid fa-arrow-right ml-1"></i></a>
                 </div>
                 <div class="card"  >
                     <h4 class="text-xl mb-4">Calculating the true ROI of great customer service</h4>
                     <p class="text-sm text-light mb-6">Support is often viewed as a cost center. Here is the exact mathematical framework to prove to your CEO that support is actually a massive revenue driver.</p>
                     <p class="text-xs font-bold text-light mb-4 uppercase"><i class="fa-solid fa-fire text-danger"></i> 7.2k views</p>
-                    <a href="#article-modal" class="text-primary font-bold open-article-btn" data-title="Calculating the true ROI of great customer service" data-author="John Smith" data-category="Finance & ROI" data-readtime="9 min read">Read Article <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                    <a href="404.html" class="text-primary font-bold">Read Article <i class="fa-solid fa-arrow-right ml-1"></i></a>
                 </div>
             </div>
         </div>
@@ -410,26 +410,7 @@
         document.querySelectorAll('.open-article-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                const title = btn.getAttribute('data-title') || 'Industry Insight';
-                const author = btn.getAttribute('data-author') || 'SupportX Research';
-                const cat = btn.getAttribute('data-category') || 'Publication';
-                const readtime = btn.getAttribute('data-readtime') || '5 min read';
-
-                // Find card description
-                const parentCard = btn.closest('.card') || btn.closest('div');
-                const descP = parentCard ? parentCard.querySelector('p.text-light, p') : null;
-                const snippet = descP ? descP.textContent.trim() : 'Comprehensive industry analysis and strategic framework for high-performance support teams.';
-
-                if (titleElem) titleElem.textContent = title;
-                if (authorElem) authorElem.textContent = author;
-                if (catElem) catElem.textContent = cat;
-                if (readTimeElem) readTimeElem.textContent = readtime;
-                if (snippetElem) snippetElem.textContent = snippet;
-
-                if (modal) {
-                    modal.style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
-                }
+                window.location.href = '404.html';
             });
         });
 
@@ -455,6 +436,63 @@
                     window.location.href = '404.html';
                 }, 600);
             });
+        }
+
+        // 3. Category Filter Badges
+        const categoryBadges = document.querySelectorAll('.category-badge');
+        categoryBadges.forEach(badge => {
+            badge.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Switch active pill styling
+                categoryBadges.forEach(b => b.classList.remove('active'));
+                badge.classList.add('active');
+
+                const targetHash = badge.getAttribute('href');
+                if (targetHash && targetHash.startsWith('#')) {
+                    const targetEl = document.querySelector(targetHash);
+                    if (targetEl) {
+                        const headerOffset = 90;
+                        const elementPosition = targetEl.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+
+                        // Subtle pulse effect on section heading for visual confirmation
+                        const heading = targetEl.querySelector('h2, .section-title');
+                        if (heading) {
+                            heading.style.transition = 'color 0.3s ease, transform 0.3s ease';
+                            const origColor = heading.style.color;
+                            heading.style.color = 'var(--primary-color)';
+                            heading.style.transform = 'translateX(4px)';
+                            setTimeout(() => {
+                                heading.style.color = origColor;
+                                heading.style.transform = 'translateX(0)';
+                            }, 1000);
+                        }
+
+                        // Update URL hash without harsh jumping
+                        if (history.pushState) {
+                            history.pushState(null, null, targetHash);
+                        } else {
+                            location.hash = targetHash;
+                        }
+                    }
+                }
+            });
+        });
+
+        // Initialize active badge from URL hash if present
+        if (window.location.hash) {
+            const initialBadge = document.querySelector(`.category-badge[href="${window.location.hash}"]`);
+            if (initialBadge) {
+                categoryBadges.forEach(b => b.classList.remove('active'));
+                initialBadge.classList.add('active');
+            }
         }
     });
     </script>
