@@ -1,288 +1,179 @@
-/*
-   Stackly Portal Core Javascript (main.js)
-   Accessibility features, responsive controls, slider mechanics, and authentication routing.
-*/
-
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Accessibility: Font Resizing & High Contrast Theme
-    initAccessibility();
+  // Mobile Menu Toggle with Backdrop Overlay
+  const mobileToggle = document.querySelector('.mobile-toggle');
+  const navMenu = document.querySelector('.nav-menu');
+  
+  // Ensure navigation overlay exists
+  let navOverlay = document.querySelector('.main-nav-overlay');
+  if (!navOverlay) {
+    navOverlay = document.createElement('div');
+    navOverlay.className = 'main-nav-overlay';
+    document.body.appendChild(navOverlay);
+  }
 
-    // 2. Mobile Menu Toggle
-    initMobileMenu();
+  function closeMobileNav() {
+    if (navMenu && navMenu.classList.contains('active')) {
+      navMenu.classList.remove('active');
+      if (navOverlay) navOverlay.classList.remove('active');
+      document.body.classList.remove('menu-open');
+      document.documentElement.classList.remove('menu-open');
+      if (mobileToggle) {
+        const icon = mobileToggle.querySelector('i');
+        if (icon) {
+          icon.classList.remove('fa-xmark', 'fa-times');
+          icon.classList.add('fa-bars');
+        }
+      }
+    }
+  }
 
-    // 3. News Ticker Pause/Resume on Hover
-    initNewsTicker();
+  if (mobileToggle && navMenu) {
+    mobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navMenu.classList.toggle('active');
+      const icon = mobileToggle.querySelector('i');
+      const isOpen = navMenu.classList.contains('active');
+      
+      if (isOpen) {
+        if (icon) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-xmark');
+        }
+        if (navOverlay) navOverlay.classList.add('active');
+        document.body.classList.add('menu-open');
+        document.documentElement.classList.add('menu-open');
+      } else {
+        closeMobileNav();
+      }
+    });
 
-    // 4. Hero Slider Autoplay & Dot controls
-    initHeroSlider();
+    if (navOverlay) {
+      navOverlay.addEventListener('click', closeMobileNav);
+      navOverlay.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+      }, { passive: false });
+    }
 
-    // 5. Interactive Services Tabs
-    initServiceTabs();
+    // Close when tapping nav link
+    navMenu.querySelectorAll('.nav-link, .auth-buttons a').forEach(link => {
+      link.addEventListener('click', closeMobileNav);
+    });
 
-    // 6. Interactive Contact / Grievance Redressal form validation
-    initContactForm();
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMobileNav();
+    });
 
-    // 7. Role-Based Login Validation and Redirects
-    initAuthHandlers();
+    // Auto close on window resize above mobile breakpoint
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) closeMobileNav();
+    });
+
+    // Lock background scroll on touch devices while mobile menu is open
+    document.addEventListener('touchmove', (e) => {
+      if (document.body.classList.contains('menu-open')) {
+        if (!e.target.closest('.nav-menu')) {
+          e.preventDefault();
+        }
+      }
+    }, { passive: false });
+  }
+
+  // Sticky Header
+  const header = document.querySelector('.header');
+  if (header) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+  }
+
+  // Init AOS if available
+  if (typeof AOS !== 'undefined') {
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 100,
+    });
+  }
+  
+  // Accordion for FAQ
+  const accordions = document.querySelectorAll('.accordion-header');
+  accordions.forEach(acc => {
+    acc.addEventListener('click', function() {
+      this.classList.toggle('active');
+      const content = this.nextElementSibling;
+      if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    });
+  });
+
+  // Toast notification fallback
+  function safeToast(message, type = 'success') {
+    if (typeof showToast === 'function') {
+      showToast(message, type);
+      return;
+    }
+    let container = document.querySelector('.toast-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.className = 'toast-container';
+      document.body.appendChild(container);
+    }
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = message;
+    container.appendChild(toast);
+    setTimeout(() => toast.classList.add('show'), 10);
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  }
+
+  // Handle Global CTA Buttons -> Redirect to 404.html
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('button, .btn, .btn-cta, .action-cta, a.btn, [data-cta]');
+    if (!btn) return;
+
+    // Ignore interactive UI components, normal navigation, and sidebar components
+    if (btn.classList.contains('mobile-toggle') ||
+        btn.classList.contains('sidebar-toggle') ||
+        btn.classList.contains('accordion-header') ||
+        btn.classList.contains('open-article-btn') ||
+        btn.classList.contains('close-reader') ||
+        btn.classList.contains('sidebar-link') ||
+        btn.closest('.sidebar')) {
+      return;
+    }
+
+    const href = btn.getAttribute('href');
+
+    // Allow Login link and Home / Back navigation
+    if (href === 'login.html' || (href && href.endsWith('login.html'))) {
+      return;
+    }
+
+    if (btn.textContent.trim().toLowerCase().includes('go back') || 
+        btn.textContent.trim().toLowerCase().includes('return to home')) {
+      return;
+    }
+
+    // Form submit button inside a form: let form validation handle it!
+    if (btn.closest('form') && (btn.type === 'submit' || !btn.getAttribute('type'))) {
+      return;
+    }
+
+    // Every other CTA button on the website redirects to 404.html
+    e.preventDefault();
+    e.stopPropagation();
+    window.location.href = '404.html';
+  });
 });
 
-/* --- 1. Accessibility Functions --- */
-function initAccessibility() {
-    const htmlEl = document.documentElement;
-    const bodyEl = document.body;
-
-    // Load saved preferences
-    const savedContrast = localStorage.getItem('stackly-high-contrast');
-    if (savedContrast === 'true') {
-        bodyEl.classList.add('high-contrast');
-    }
-
-    const savedFontScale = localStorage.getItem('stackly-font-scale');
-    if (savedFontScale) {
-        htmlEl.className = savedFontScale;
-    }
-
-    // Contrast Toggle Button
-    const contrastBtn = document.getElementById('toggle-contrast');
-    if (contrastBtn) {
-        contrastBtn.addEventListener('click', () => {
-            bodyEl.classList.toggle('high-contrast');
-            const isHighContrast = bodyEl.classList.contains('high-contrast');
-            localStorage.setItem('stackly-high-contrast', isHighContrast);
-        });
-    }
-
-    // Font Scaling Buttons
-    const fontDecreaseBtn = document.getElementById('font-decrease');
-    const fontNormalBtn = document.getElementById('font-normal');
-    const fontIncreaseBtn = document.getElementById('font-increase');
-
-    if (fontDecreaseBtn && fontNormalBtn && fontIncreaseBtn) {
-        fontDecreaseBtn.addEventListener('click', () => {
-            htmlEl.className = 'font-scale-down';
-            localStorage.setItem('stackly-font-scale', 'font-scale-down');
-        });
-
-        fontNormalBtn.addEventListener('click', () => {
-            htmlEl.className = '';
-            localStorage.setItem('stackly-font-scale', '');
-        });
-
-        fontIncreaseBtn.addEventListener('click', () => {
-            if (htmlEl.className === 'font-scale-up') {
-                htmlEl.className = 'font-scale-up-more';
-                localStorage.setItem('stackly-font-scale', 'font-scale-up-more');
-            } else {
-                htmlEl.className = 'font-scale-up';
-                localStorage.setItem('stackly-font-scale', 'font-scale-up');
-            }
-        });
-    }
-}
-
-/* --- 2. Mobile Menu Toggle --- */
-function initMobileMenu() {
-    const toggleBtn = document.querySelector('.menu-toggle');
-    const mainNav = document.querySelector('.main-nav');
-
-    if (toggleBtn && mainNav) {
-        toggleBtn.addEventListener('click', () => {
-            mainNav.classList.toggle('active');
-            const isOpen = mainNav.classList.contains('active');
-            toggleBtn.innerHTML = isOpen ? '&#10005;' : '&#9776;'; // X mark vs Hamburger icon
-        });
-    }
-}
-
-/* --- 3. News Ticker Hover --- */
-function initNewsTicker() {
-    const tickerContent = document.querySelector('.ticker-content');
-    if (tickerContent) {
-        tickerContent.addEventListener('mouseenter', () => {
-            tickerContent.style.animationPlayState = 'paused';
-        });
-        tickerContent.addEventListener('mouseleave', () => {
-            tickerContent.style.animationPlayState = 'running';
-        });
-    }
-}
-
-/* --- 4. Hero Slider Autoplay --- */
-function initHeroSlider() {
-    const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.slider-dot');
-    
-    if (slides.length === 0) return;
-
-    let currentSlide = 0;
-    let slideInterval = setInterval(nextSlide, 5000);
-
-    function showSlide(index) {
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
-
-        slides[index].classList.add('active');
-        if (dots[index]) {
-            dots[index].classList.add('active');
-        }
-        currentSlide = index;
-    }
-
-    function nextSlide() {
-        let index = (currentSlide + 1) % slides.length;
-        showSlide(index);
-    }
-
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            showSlide(index);
-            clearInterval(slideInterval);
-            slideInterval = setInterval(nextSlide, 6000); // Restart interval
-        });
-    });
-}
-
-/* --- 5. Interactive Services Tabs --- */
-function initServiceTabs() {
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
-
-    if (tabBtns.length === 0) return;
-
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const targetTab = btn.getAttribute('data-tab');
-
-            // Deactivate all
-            tabBtns.forEach(b => b.classList.remove('active'));
-            tabContents.forEach(c => c.classList.remove('active'));
-
-            // Activate specific
-            btn.classList.add('active');
-            const activeContent = document.getElementById(targetTab);
-            if (activeContent) {
-                activeContent.classList.add('active');
-            }
-        });
-    });
-}
-
-/* --- 6. Contact Form Validation --- */
-function initContactForm() {
-    const contactForm = document.getElementById('portal-contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const name = document.getElementById('form-name').value.trim();
-            const email = document.getElementById('form-email').value.trim();
-            const subject = document.getElementById('form-subject').value;
-            const message = document.getElementById('form-message').value.trim();
-
-            if (!name || !email || !message) {
-                alert('Please fill out all required fields.');
-                return;
-            }
-
-            // Mock submission success
-            const responseDiv = document.getElementById('form-response');
-            if (responseDiv) {
-                responseDiv.innerHTML = `
-                    <div style="background-color: var(--success-color); color: white; padding: 15px; border-radius: 4px; margin-top: 15px;">
-                        <strong>Thank You, ${name}!</strong> Your request has been successfully registered on the Stackly Portal. 
-                        A confirmation email has been sent to ${email}. Track ID: STK-${Math.floor(100000 + Math.random() * 900000)}.
-                    </div>
-                `;
-                contactForm.reset();
-            }
-        });
-    }
-}
-
-/* --- 7. Role-Based Login Validation and Redirects --- */
-function initAuthHandlers() {
-    // Tab toggles on login page
-    const roleTabs = document.querySelectorAll('.role-tab');
-    const loginRoleInput = document.getElementById('login-role');
-    const roleHeader = document.getElementById('role-header-text');
-
-    if (roleTabs.length > 0 && loginRoleInput) {
-        roleTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                roleTabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                
-                const selectedRole = tab.getAttribute('data-role');
-                loginRoleInput.value = selectedRole;
-
-                if (roleHeader) {
-                    roleHeader.textContent = selectedRole === 'admin' 
-                        ? 'Administrator/Officer Login' 
-                        : 'Citizen/User Secure Login';
-                }
-            });
-        });
-    }
-
-    // Handle Login Simulation
-    const loginForm = document.getElementById('portal-login-form');
-    if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const role = loginRoleInput.value;
-            const username = document.getElementById('login-username').value.trim();
-            const password = document.getElementById('login-password').value.trim();
-            const captcha = document.getElementById('login-captcha-input').value.trim();
-
-            if (!username || !password || !captcha) {
-                alert('Please enter all credentials and the verification code.');
-                return;
-            }
-
-            // Simulate loading
-            const submitBtn = loginForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = 'Authenticating with Secure Gateway...';
-
-            setTimeout(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
-
-                // Simple simulated authorization
-                if (role === 'admin') {
-                    // Redirect to Admin Dashboard
-                    alert('Access Granted. Redirecting to Stackly Officer Dashboard...');
-                    window.location.href = 'dashboard-admin.html';
-                } else {
-                    // Redirect to User Dashboard
-                    alert('Access Granted. Redirecting to Stackly Citizen Portal...');
-                    window.location.href = 'dashboard-user.html';
-                }
-            }, 1000);
-        });
-    }
-
-    // Handle Signup Multi-step
-    const signupForm = document.getElementById('portal-signup-form');
-    if (signupForm) {
-        signupForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const username = document.getElementById('signup-username').value.trim();
-            const email = document.getElementById('signup-email').value.trim();
-            const name = document.getElementById('signup-fullname').value.trim();
-            const role = document.getElementById('signup-role').value;
-            const captcha = document.getElementById('signup-captcha-input').value.trim();
-
-            if (!username || !email || !name || !captcha) {
-                alert('Please complete all steps of the registration form.');
-                return;
-            }
-
-            alert(`Registration successful for ${name}! Please login.`);
-            window.location.href = 'login.html';
-        });
-    }
-}

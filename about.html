@@ -3,496 +3,331 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn about Stackly cloud history, core values, national certification frameworks and operational leadership team.">
-    <title>About Stackly - Sovereign Cloud Services</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-    <!-- AOS CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <!-- Custom Style -->
-    <link rel="stylesheet" href="assets/style.css">
-    <link rel="stylesheet" href="assets/responsive.css">
+    <title>About Us - SupportX</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
 </head>
-<body style="background-color: var(--primary-navy);">
+<body>
+<div class="orb-1"></div>
+<div class="orb-2"></div>
+<div class="orb-3"></div>
 
-    <!-- HEADER (PUBLIC NAVBAR) -->
-    <header class="header-public">
-        <div class="header-container">
-            <a href="index.html" class="logo-link">
-                <img src="assets/stackly_logo.webp" alt="Stackly Cloud Logo" class="logo-img">
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.webp" alt="Stackly Logo" class="logo-img">
             </a>
-            <ul class="nav-public-menu">
-                <li class="nav-public-item"><a href="index.html"><i class="fas fa-house me-1"></i> Home</a></li>
-                <li class="nav-public-item"><a href="about.html" class="active"><i class="fas fa-building me-1"></i> About Us</a></li>
-                <li class="nav-public-item"><a href="blog.html"><i class="fas fa-newspaper me-1"></i> Blog</a></li>
-                <li class="nav-public-item"><a href="cloud-services.html"><i class="fas fa-server me-1"></i> Services</a></li>
-                <li class="nav-public-item"><a href="contact.html"><i class="fas fa-envelope me-1"></i> Contact</a></li>
-            </ul>
-            <div class="header-actions">
-                <a href="login.html" class="btn-login-header"><i class="fas fa-right-to-bracket me-1"></i> Login</a>
-                <a href="signup.html" class="btn-cta-header"><i class="fas fa-user-plus me-1"></i> Register</a>
-            </div>
-            <button class="hamburger-public" aria-label="Toggle Navigation"><i class="fas fa-bars"></i></button>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="services.html" class="nav-link"><i class="fa-solid fa-layer-group"></i> Services</a>
+                <a href="about.html" class="nav-link active"><i class="fa-solid fa-circle-info"></i> About</a>
+                <a href="blog.html" class="nav-link"><i class="fa-solid fa-newspaper"></i> Blog</a>
+                <a href="contact.html" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact</a>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-outline"><i class="fa-solid fa-right-to-bracket mr-1"></i> Login</a>
+                    <a href="signup.html" class="btn btn-primary"><i class="fa-solid fa-user-plus mr-1"></i> Sign Up</a>
+                </div>
+            </nav>
+            <button class="mobile-toggle" aria-label="Toggle Menu"><i class="fa-solid fa-bars"></i></button>
         </div>
     </header>
 
-    <!-- MOBILE NAVIGATION SIDE DRAWER -->
-    <div class="mobile-nav-drawer" id="mobile-nav-drawer">
-        <div class="mobile-drawer-header">
-            <a href="index.html" class="logo-link">
-                <img src="assets/stackly_logo.webp" alt="Stackly Cloud Logo" class="logo-img">
-            </a>
-            <button class="close-drawer-btn" aria-label="Close Drawer"><i class="fas fa-times"></i></button>
+    <!-- 1. About Hero -->
+    <section class="hero" style="background: var(--bg-main); min-height: 50vh; padding-bottom: 4rem;">
+        <div class="container text-center">
+            <span class="badge badge-primary mb-4" >Our Identity</span>
+            <h1 class="hero-title" >We are SupportX</h1>
+            <p class="hero-desc mx-auto" style="max-width: 700px;"  >Building the future of customer relationships, one meaningful conversation at a time. We believe software should feel human.</p>
         </div>
-        <ul class="mobile-drawer-menu">
-            <li class="mobile-drawer-item"><a href="index.html"><i class="fas fa-house me-1"></i> Home</a></li>
-            <li class="mobile-drawer-item"><a href="about.html" class="active"><i class="fas fa-building me-1"></i> About Us</a></li>
-            <li class="mobile-drawer-item"><a href="blog.html"><i class="fas fa-newspaper me-1"></i> Blog</a></li>
-            <li class="mobile-drawer-item"><a href="cloud-services.html"><i class="fas fa-server me-1"></i> Services</a></li>
-            <li class="mobile-drawer-item"><a href="contact.html"><i class="fas fa-envelope me-1"></i> Contact</a></li>
-            <li class="mobile-drawer-item"><a href="login.html"><i class="fas fa-right-to-bracket me-1"></i> Login</a></li>
-            <li class="mobile-drawer-item"><a href="signup.html" style="color: var(--cyan-accent);"><i class="fas fa-user-plus me-1"></i> Register</a></li>
-        </ul>
-    </div>
+    </section>
 
-    <main>
-        
-        <!-- SECTION 1: BREADCRUMBS HERO BANNER -->
-        <section id="sec-breadcrumbs" class="page-hero text-center py-5" style="background: linear-gradient(180deg, rgba(3, 7, 18, 0.75) 0%, rgba(3, 7, 18, 0.85) 100%), url('assets/govtech_cloud.webp'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-            <div class="container py-4">
-                <h1 class="text-white font-weight-800 display-4 mb-2">About Stackly</h1>
-                <div class="breadcrumbs d-flex justify-content-center align-items-center gap-2 text-white-50 font-size-0.9">
-                    <a href="index.html" class="text-cyan text-decoration-none"><i class="fas fa-house me-1"></i> Home</a>
-                    <span><i class="fas fa-chevron-right fs-9"></i></span>
-                    <span class="text-white font-weight-600">About Us</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 2: COMPANY PROFILE (DARK OBSIDIAN #081226) -->
-        <section id="sec-profile" class="py-5" style="background-color: #081226;">
-            <div class="container py-5">
-                <div class="row align-items-center g-5">
-                    <div class="col-lg-6" data-aos="fade-right">
-                        <span class="text-cyan font-weight-700 uppercase tracking-widest font-size-0.85">Sovereign Charter</span>
-                        <h2 class="text-white font-weight-800 fs-1 mt-2 mb-4">Enterprise Sovereign Cloud Charter</h2>
-                        <p class="text-white-50 fs-6 leading-relaxed mb-4">Established with a mandate to deliver resilient cloud environments within domestic physical zones, Stackly represents trust and architectural excellence. We operate secure networks serving public organizations, developers, and global enterprise operations.</p>
-                        <div class="d-flex gap-4">
-                            <div>
-                                <h3 class="text-cyan font-weight-800 mb-0">100%</h3>
-                                <span class="text-white-50 font-size-0.85">Jurisdictional Privacy</span>
-                            </div>
-                            <div>
-                                <h3 class="text-cyan font-weight-800 mb-0">14</h3>
-                                <span class="text-white-50 font-size-0.85">Global Edge Zones</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6" data-aos="fade-left">
-                        <img src="assets/engineers.webp" alt="Stackly Engineering Team" class="img-fluid rounded-4 border border-white/10 shadow-2xl" loading="lazy">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 3: MISSION & VISION (DARK EMERALD #021a15) -->
-        <section id="sec-mission-vision" class="py-5 text-center" style="background-color: #021a15;">
-            <div class="container py-5">
-                <div class="row justify-content-center g-4">
-                    <div class="col-md-5" data-aos="fade-up">
-                        <div class="p-5 rounded-4 border border-emerald-500/30 h-100 shadow-xl" style="background: rgba(4, 38, 31, 0.7);">
-                            <div class="w-12 h-12 rounded-3 bg-emerald-950 text-emerald flex-center mx-auto mb-4 fs-3"><i class="fas fa-bullseye"></i></div>
-                            <h3 class="text-white font-weight-700 fs-4 mb-3">Our Sovereign Mission</h3>
-                            <p class="text-white-50 font-size-0.95 leading-relaxed mb-0">To supply zero-outage, SOC2-certified cloud services that insulate citizen data files from dynamic global routing risks.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-5" data-aos="fade-up" data-aos-delay="100">
-                        <div class="p-5 rounded-4 border border-emerald-500/30 h-100 shadow-xl" style="background: rgba(4, 38, 31, 0.7);">
-                            <div class="w-12 h-12 rounded-3 bg-emerald-950 text-emerald flex-center mx-auto mb-4 fs-3"><i class="fas fa-eye"></i></div>
-                            <h3 class="text-white font-weight-700 fs-4 mb-3">Our Platform Vision</h3>
-                            <p class="text-white-50 font-size-0.95 leading-relaxed mb-0">To enable developers and enterprises to spin up database sync layers and virtual networks inside seconds using local border APIs.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 4: CORE VALUES (ELECTRIC VIOLET #0f0926) -->
-        <section id="sec-values" class="py-5 text-center" style="background: linear-gradient(135deg, #0f0926 0%, #170d38 100%);">
-            <div class="container py-5">
-                <div class="text-center max-w-3xl mx-auto mb-5" data-aos="fade-up">
-                    <span class="text-cyan font-weight-700 uppercase tracking-widest font-size-0.85">Pillars of Excellence</span>
-                    <h2 class="text-white font-weight-800 fs-1 mt-2">Values of Stackly</h2>
-                </div>
-                <div class="row g-4">
-                    <div class="col-md-4" data-aos="fade-up">
-                        <div class="ui-glass-card p-4 h-100" style="background: rgba(255,255,255,0.03);">
-                            <i class="fas fa-shield-halved text-cyan display-5 mb-4"></i>
-                            <h4 class="text-white font-weight-700 fs-5 mb-3">Sovereign Security</h4>
-                            <p class="text-white-50 font-size-0.9 leading-relaxed mb-0">No external access tokens, certified isolated physical locations inside sovereign borders.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="ui-glass-card p-4 h-100" style="background: rgba(255,255,255,0.03);">
-                            <i class="fas fa-code-branch text-cyan display-5 mb-4"></i>
-                            <h4 class="text-white font-weight-700 fs-5 mb-3">Architectural Innovation</h4>
-                            <p class="text-white-50 font-size-0.9 leading-relaxed mb-0">Dynamic APIs, container automation structures, DevSecOps pipelines integrated natively.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="ui-glass-card p-4 h-100" style="background: rgba(255,255,255,0.03);">
-                            <i class="fas fa-scale-balanced text-cyan display-5 mb-4"></i>
-                            <h4 class="text-white font-weight-700 fs-5 mb-3">Legal Compliance</h4>
-                            <p class="text-white-50 font-size-0.9 leading-relaxed mb-0">Rigorous alignment with SOC2, GDPR, HIPAA data retention frameworks.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 5: ENGINEERING CERTIFICATION MATRIX (RICH SAPPHIRE #0a1128) -->
-        <section id="sec-certifications" class="py-5 text-center" style="background-color: #0a1128;">
-            <div class="container py-5">
-                <div class="text-center max-w-3xl mx-auto mb-5" data-aos="fade-up">
-                    <span class="text-cyan font-weight-700 uppercase tracking-widest font-size-0.85">Verified Audits</span>
-                    <h2 class="text-white font-weight-800 fs-1 mt-2">Certified Compliance Metrics</h2>
-                </div>
-                <div class="row g-4 justify-content-center">
-                    <div class="col-lg-3 col-md-6" data-aos="zoom-in">
-                        <div class="ui-glass-card p-4 h-100 d-flex flex-column justify-content-center align-items-center text-center" style="background: rgba(255,255,255,0.03); min-height: 160px;">
-                            <i class="fas fa-certificate text-cyan fs-2 mb-2 d-block"></i>
-                            <h3 class="text-white font-weight-700 fs-4 mb-1">SOC2 Type II</h3>
-                            <span class="text-cyan font-size-0.85 font-weight-600">Audited Annually</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="ui-glass-card p-4 h-100 d-flex flex-column justify-content-center align-items-center text-center" style="background: rgba(255,255,255,0.03); min-height: 160px;">
-                            <i class="fas fa-notes-medical text-emerald fs-2 mb-2 d-block"></i>
-                            <h3 class="text-white font-weight-700 fs-4 mb-1">HIPAA Compliant</h3>
-                            <span class="text-emerald font-size-0.85 font-weight-600">Health Vault Certified</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="ui-glass-card p-4 h-100 d-flex flex-column justify-content-center align-items-center text-center" style="background: rgba(255,255,255,0.03); min-height: 160px;">
-                            <i class="fas fa-shield-halved text-purple fs-2 mb-2 d-block"></i>
-                            <h3 class="text-white font-weight-700 fs-4 mb-1">ISO 27001</h3>
-                            <span class="text-purple font-size-0.85 font-weight-600">Information Security</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="ui-glass-card p-4 h-100 d-flex flex-column justify-content-center align-items-center text-center" style="background: rgba(255,255,255,0.03); min-height: 160px;">
-                            <i class="fas fa-credit-card text-warning fs-2 mb-2 d-block"></i>
-                            <h3 class="text-white font-weight-700 fs-4 mb-1">PCI-DSS Level 1</h3>
-                            <span class="text-warning font-size-0.85 font-weight-600">Fintech Vault Security</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 6: EXECUTIVE LEADERSHIP TEAM (NEW SECTION 1 - DARK OBSIDIAN #060d1f) -->
-        <section id="sec-leadership" class="py-5" style="background-color: #060d1f;">
-            <div class="container py-5">
-                <div class="text-center max-w-3xl mx-auto mb-5" data-aos="fade-up">
-                    <span class="text-cyan font-weight-700 uppercase tracking-widest font-size-0.85">Leadership Board</span>
-                    <h2 class="text-white font-weight-800 fs-1 mt-2">Executive Engineering Board</h2>
-                </div>
-                <div class="row g-4">
-                    <div class="col-md-3" data-aos="fade-up">
-                        <div class="ui-glass-card p-4 h-100">
-                            <div class="author-avatar-badge mb-3">EV</div>
-                            <h4 class="text-white font-weight-700 fs-5 mb-1">Dr. Evelyn Vance</h4>
-                            <span class="text-cyan font-size-0.8 d-block font-weight-600 mb-3">Chief Executive Officer</span>
-                            <p class="text-white-50 font-size-0.85 mb-0">15+ years leading sovereign cloud initiatives and defense encryption protocols.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
-                        <div class="ui-glass-card p-4 h-100">
-                            <div class="author-avatar-badge mb-3" style="background: linear-gradient(135deg, #7c3aed 0%, #00e5ff 100%);">MT</div>
-                            <h4 class="text-white font-weight-700 fs-5 mb-1">Marcus Thorne</h4>
-                            <span class="text-cyan font-size-0.8 d-block font-weight-600 mb-3">Chief Systems Architect</span>
-                            <p class="text-white-50 font-size-0.85 mb-0">Former Distributed Systems Lead for hyper-scaler BGP Anycast routing networks.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
-                        <div class="ui-glass-card p-4 h-100">
-                            <div class="author-avatar-badge mb-3" style="background: linear-gradient(135deg, #059669 0%, #00e5ff 100%);">SL</div>
-                            <h4 class="text-white font-weight-700 fs-5 mb-1">Sarah Lin</h4>
-                            <span class="text-cyan font-size-0.8 d-block font-weight-600 mb-3">Chief Security Officer</span>
-                            <p class="text-white-50 font-size-0.85 mb-0">Certified Information Systems Security Professional (CISSP) & Zero-Trust lead.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
-                        <div class="ui-glass-card p-4 h-100">
-                            <div class="author-avatar-badge mb-3" style="background: linear-gradient(135deg, #d97706 0%, #7c3aed 100%);">DK</div>
-                            <h4 class="text-white font-weight-700 fs-5 mb-1">David K.</h4>
-                            <span class="text-cyan font-size-0.8 d-block font-weight-600 mb-3">VP Global Infrastructure</span>
-                            <p class="text-white-50 font-size-0.85 mb-0">Oversees physical datacenter security, power redundancy, and liquid cooling.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 7: HISTORICAL ROADMAP & MILESTONES (NEW SECTION 2 - ELECTRIC INDIGO #0f092b) -->
-        <section id="sec-timeline" class="py-5" style="background: linear-gradient(135deg, #0f092b 0%, #180e3b 100%);">
-            <div class="container py-5">
-                <div class="text-center max-w-3xl mx-auto mb-5" data-aos="fade-up">
-                    <span class="text-cyan font-weight-700 uppercase tracking-widest font-size-0.85">Our Growth</span>
-                    <h2 class="text-white font-weight-800 fs-1 mt-2">Platform Evolution Timeline</h2>
-                </div>
-                <div class="row g-4">
-                    <div class="col-md-3" data-aos="fade-up">
-                        <div class="ui-glass-card p-4 h-100" style="background: rgba(255,255,255,0.03);">
-                            <span class="text-gold font-weight-800 display-6 d-block mb-2">2020</span>
-                            <h5 class="text-white font-weight-700 mb-2">Charter Founded</h5>
-                            <p class="text-white-50 font-size-0.85 mb-0">Initiated sovereign data residency mandate with primary datacenter tier.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
-                        <div class="ui-glass-card p-4 h-100" style="background: rgba(255,255,255,0.03);">
-                            <span class="text-gold font-weight-800 display-6 d-block mb-2">2022</span>
-                            <h5 class="text-white font-weight-700 mb-2">10 Gbps Anycast</h5>
-                            <p class="text-white-50 font-size-0.85 mb-0">Deployed sub-20ms Anycast fiber network across domestic regions.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
-                        <div class="ui-glass-card p-4 h-100" style="background: rgba(255,255,255,0.03);">
-                            <span class="text-gold font-weight-800 display-6 d-block mb-2">2024</span>
-                            <h5 class="text-white font-weight-700 mb-2">SKE Kubernetes</h5>
-                            <p class="text-white-50 font-size-0.85 mb-0">Launched Sovereign Kubernetes Engine and automated S3 Vault ACLs.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
-                        <div class="ui-glass-card p-4 h-100" style="background: rgba(255,255,255,0.03);">
-                            <span class="text-gold font-weight-800 display-6 d-block mb-2">2026</span>
-                            <h5 class="text-white font-weight-700 mb-2">14 Global Zones</h5>
-                            <p class="text-white-50 font-size-0.85 mb-0">Achieved 99.999% SLA across 14 sovereign global edge locations.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 8: GREEN DATACENTER INITIATIVE (NEW SECTION 3 - EMERALD DARK #021f19) -->
-        <section id="sec-green" class="py-5" style="background-color: #021f19;">
-            <div class="container py-5">
-                <div class="row align-items-center g-5">
-                    <div class="col-lg-6" data-aos="fade-right">
-                        <span class="text-emerald font-weight-700 uppercase tracking-widest font-size-0.85">Sustainability Commitment</span>
-                        <h2 class="text-white font-weight-800 fs-1 mt-2 mb-4">100% Green Energy Cloud Infrastructure</h2>
-                        <p class="text-white-50 fs-6 leading-relaxed mb-4">Stackly datacenters are powered entirely by certified renewable hydro and solar energy grids. Our advanced liquid submersion cooling loops achieve an industry-leading Power Usage Effectiveness (PUE) rating of 1.12.</p>
-                        <div class="d-flex gap-4">
-                            <div>
-                                <h3 class="text-emerald font-weight-800 mb-0">1.12 PUE</h3>
-                                <span class="text-white-50 font-size-0.85">Power Efficiency Rating</span>
-                            </div>
-                            <div>
-                                <h3 class="text-emerald font-weight-800 mb-0">100%</h3>
-                                <span class="text-white-50 font-size-0.85">Renewable Hydro / Solar</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6" data-aos="fade-left">
-                        <div class="p-4 rounded-4 border border-emerald-500/30 text-center" style="background: rgba(4, 38, 31, 0.6);">
-                            <i class="fas fa-leaf text-emerald display-3 mb-3"></i>
-                            <h4 class="text-white font-weight-700 fs-4 mb-2">Zero-Carbon Sovereign Hosting</h4>
-                            <p class="text-white-50 font-size-0.9 mb-0">Certified eco-friendly datacenter operations reducing enterprise carbon footprints.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 9: GLOBAL R&D & OPEN SOURCE (NEW SECTION 4 - DEEP SAPPHIRE #08142c) -->
-        <section id="sec-rnd" class="py-5 text-center" style="background-color: #08142c;">
-            <div class="container py-5">
-                <div class="text-center max-w-3xl mx-auto mb-5" data-aos="fade-up">
-                    <span class="text-cyan font-weight-700 uppercase tracking-widest font-size-0.85">Community Commitment</span>
-                    <h2 class="text-white font-weight-800 fs-1 mt-2">Open Source & R&D Contributions</h2>
-                    <p class="text-white-50 fs-6">Actively contributing micro-kernel security patches, Kubernetes CRDs, and Rust encryption libraries.</p>
-                </div>
-                <div class="row g-4 justify-content-center">
-                    <div class="col-md-4" data-aos="zoom-in">
-                        <div class="ui-glass-card p-4" style="background: rgba(255,255,255,0.03);">
-                            <i class="fab fa-linux text-cyan display-5 mb-3"></i>
-                            <h5 class="text-white font-weight-700 mb-2">Linux Kernel Security</h5>
-                            <p class="text-white-50 font-size-0.85 mb-0">Direct upstream patches for eBPF kernel network filters.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="ui-glass-card p-4" style="background: rgba(255,255,255,0.03);">
-                            <i class="fab fa-rust text-cyan display-5 mb-3"></i>
-                            <h5 class="text-white font-weight-700 mb-2">Rust SHA-256 Vaults</h5>
-                            <p class="text-white-50 font-size-0.85 mb-0">High-performance Rust libraries for zero-memory leakage encryption.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 11: ABOUT US FREQUENTLY ASKED QUESTIONS (FAQ) -->
-        <section id="sec-about-faq" class="py-5" style="background-color: #030a1a;">
-            <div class="container py-4">
-                <div class="text-center max-w-3xl mx-auto mb-5" data-aos="fade-up">
-                    <span class="text-cyan font-weight-700 uppercase tracking-widest font-size-0.85">Got Questions?</span>
-                    <h2 class="text-white font-weight-800 fs-1 mt-2">Frequently Asked Questions</h2>
-                    <p class="text-white-50 fs-6">Learn more about our sovereign infrastructure, data center facilities, and compliance guarantees.</p>
-                </div>
-                <div class="max-w-4xl mx-auto d-flex flex-column gap-3" data-aos="fade-up">
-                    <div class="faq-item">
-                        <button class="faq-header-btn" onclick="toggleFAQ('afaq-1')">
-                            <span>Where are Stackly's primary sovereign data centers located?</span>
-                            <i class="fas fa-chevron-down" id="afaq-1-icon"></i>
-                        </button>
-                        <div class="faq-body" id="afaq-1">
-                            Stackly operates primary Tier-IV sovereign datacenters in Salem, Tamil Nadu, India, with high-speed BGP Anycast edge routing hubs in Mumbai and Singapore.
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-header-btn" onclick="toggleFAQ('afaq-2')">
-                            <span>What security compliance standards do Stackly facilities meet?</span>
-                            <i class="fas fa-chevron-down" id="afaq-2-icon"></i>
-                        </button>
-                        <div class="faq-body" id="afaq-2">
-                            All facilities are certified for ISO 27001, SOC 2 Type II, HIPAA enterprise compliance, and enforce Zero-Trust Hardware Security Module (HSM) data encryption.
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-header-btn" onclick="toggleFAQ('afaq-3')">
-                            <span>How does Stackly achieve a 1.12 PUE green energy rating?</span>
-                            <i class="fas fa-chevron-down" id="afaq-3-icon"></i>
-                        </button>
-                        <div class="faq-body" id="afaq-3">
-                            We utilize closed-loop liquid submersion cooling technology combined with 100% certified renewable hydro and solar power purchasing agreements.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 10: CAREERS CTA BANNER (NEW SECTION 5 - CYAN-VIOLET GRADIENT #071026) -->
-        <section id="sec-careers" class="py-5 text-center" style="background: linear-gradient(135deg, #071026 0%, #150936 100%);">
-            <div class="container py-5" data-aos="zoom-in">
-                <span class="badge bg-cyan-950 text-cyan border border-cyan-500/30 px-3 py-2 rounded-full font-size-0.85 uppercase tracking-widest font-weight-700 mb-3 d-inline-block">We Are Hiring</span>
-                <h2 class="text-white font-weight-800 display-5 mb-4">Shape the Future of Sovereign Cloud Infrastructure</h2>
-                <p class="text-white-50 fs-5 max-w-2xl mx-auto mb-4">24 open engineering roles across Distributed Systems, DevSecOps, and Rust kernel development.</p>
-                <a href="404.html" class="btn btn-cta-header px-5 py-3 font-weight-700 fs-5"><i class="fas fa-briefcase me-2"></i> View Open Roles</a>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER (EXACT MATCH TO REFERENCE SCREENSHOT) -->
-    <footer class="footer-public" style="background-color: #060c1c; border-top: 1px solid rgba(255,255,255,0.08); padding: 60px 0 30px;">
-        <div class="footer-container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px;">
-            
-            <!-- BRAND COLUMN -->
-            <div class="footer-brand-col">
-                <a href="index.html" class="logo-link d-inline-block mb-3">
-                    <img src="assets/stackly_logo.webp" alt="Stackly Logo" class="logo-img" style="height: 38px;">
-                </a>
-                <p class="footer-desc text-white-50 font-size-0.9 mb-4" style="line-height: 1.6;">The intelligent enterprise management platform built for scale.</p>
-                <div class="footer-socials d-flex gap-3">
-                    <a href="404.html" class="footer-social-link text-white-50 hover-cyan" style="font-size: 1.1rem;"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="404.html" class="footer-social-link text-white-50 hover-cyan" style="font-size: 1.1rem;"><i class="fab fa-twitter"></i></a>
-                    <a href="404.html" class="footer-social-link text-white-50 hover-cyan" style="font-size: 1.1rem;"><i class="fab fa-youtube"></i></a>
-                    <a href="404.html" class="footer-social-link text-white-50 hover-cyan" style="font-size: 1.1rem;"><i class="fab fa-github"></i></a>
-                </div>
-            </div>
-
-            <!-- COLUMN 2: QUICK LINKS (REDIRECT TO HEADER LINKS) -->
-            <div class="footer-col">
-                <h4 class="text-white font-weight-700 fs-5 mb-3">Quick Links</h4>
-                <ul class="footer-links list-unstyled d-flex flex-column gap-2" style="padding-left: 0;">
-                    <li><a href="index.html" class="text-white-50 text-decoration-none hover-cyan">Home</a></li>
-                    <li><a href="about.html" class="text-white-50 text-decoration-none hover-cyan">About</a></li>
-                    <li><a href="blog.html" class="text-white-50 text-decoration-none hover-cyan">Blog</a></li>
-                    <li><a href="cloud-services.html" class="text-white-50 text-decoration-none hover-cyan">Services</a></li>
-                    <li><a href="contact.html" class="text-white-50 text-decoration-none hover-cyan">Contact</a></li>
-                </ul>
-            </div>
-
-            <!-- COLUMN 3: SUPPORT (ALL REDIRECT TO 404) -->
-            <div class="footer-col">
-                <h4 class="text-white font-weight-700 fs-5 mb-3">Support</h4>
-                <ul class="footer-links list-unstyled d-flex flex-column gap-2" style="padding-left: 0;">
-                    <li><a href="404.html" class="text-white-50 text-decoration-none hover-cyan">Help Center</a></li>
-                    <li><a href="404.html" class="text-white-50 text-decoration-none hover-cyan">FAQ</a></li>
-                    <li><a href="404.html" class="text-white-50 text-decoration-none hover-cyan">Documentation</a></li>
-                    <li><a href="404.html" class="text-white-50 text-decoration-none hover-cyan">Privacy Policy</a></li>
-                    <li><a href="404.html" class="text-white-50 text-decoration-none hover-cyan">Terms of Service</a></li>
-                </ul>
-            </div>
-
-            <!-- COLUMN 4: CONNECT -->
-            <div class="footer-col">
-                <h4 class="text-white font-weight-700 fs-5 mb-3">Connect</h4>
-                <div class="d-flex flex-column gap-3 text-white-50 font-size-0.9">
-                    <div class="d-flex align-items-start gap-3">
-                        <i class="fas fa-location-dot mt-1" style="color: var(--cyan-accent); font-size: 1.1rem;"></i>
-                        <div>
-                            <strong class="text-white d-block">Office Address:</strong>
-                            <span>Salem, India</span>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-start gap-3">
-                        <i class="fas fa-phone mt-1" style="color: var(--cyan-accent); font-size: 1.1rem;"></i>
-                        <div>
-                            <strong class="text-white d-block">Phone:</strong>
-                            <span>+91 98765 43210</span>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-start gap-3">
-                        <i class="fas fa-envelope mt-1" style="color: var(--cyan-accent); font-size: 1.1rem;"></i>
-                        <div>
-                            <strong class="text-white d-block">Sales Email:</strong>
-                            <span>info@stackly.com</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+    <!-- 2. Company Intro -->
+    <section data-aos="fade-up">
+        <div class="container text-center max-w-4xl mx-auto">
+            <h2 class="mb-6 text-4xl">A Global Team on a Mission</h2>
+            <p class="text-light text-xl mb-4">Founded in 2026, SupportX started with a simple but profound belief: customer support shouldn't feel like a cold transaction. It should feel like a genuine relationship.</p>
+            <p class="text-light text-lg">Today, our platform powers the support operations of over 10,000 companies across 150 countries, facilitating millions of successful customer interactions every single day.</p>
         </div>
+    </section>
 
-        <div class="footer-bottom mt-5 pt-4 border-top border-secondary text-center text-white-50 font-size-0.85">
-            <div class="max-w-7xl mx-auto px-4 d-flex flex-wrap justify-content-between align-items-center gap-3">
-                <p class="mb-0">&copy; 2026 Stackly Inc. All Rights Reserved.</p>
-                <div class="d-flex gap-4">
-                    <a href="404.html" class="text-white-50 text-decoration-none hover-cyan">Privacy Policy</a>
-                    <a href="404.html" class="text-white-50 text-decoration-none hover-cyan">Terms of Service</a>
+    <!-- 3. Why it matters -->
+    <section data-aos="fade-up" class="bg-light">
+        <div class="container grid-2">
+            <div >
+                <img src="assets/about-hero.webp" alt="Why Customer Support Matters" class="shadow-lg tilt-card">
+            </div>
+            <div >
+                <span class="badge badge-warning mb-4">The Differentiator</span>
+                <h2>Why Customer Support Matters</h2>
+                <p class="mt-4 text-light">In a modern world of infinite choices and commoditized features, the only true differentiator left for businesses is how they treat their customers.</p>
+                <p class="mt-4 text-light">Great support isn't just about closing tickets; it's about building brand loyalty, preventing churn, and turning frustrated users into your most vocal advocates. We build the tools that make this possible.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Our Story -->
+    <section data-aos="fade-up">
+        <div class="container grid-2">
+            <div >
+                <h2>Our Story</h2>
+                <p class="mt-4 text-light">We started as a frustrated team of support agents who were tired of clicking through 5 different browser tabs just to answer a simple question about a customer's billing status.</p>
+                <p class="mt-4 text-light">We realized that existing helpdesks were built for management reporting, not for the agents actually doing the hard work. We decided to flip the script and build a platform focused entirely on agent productivity and happiness.</p>
+            </div>
+            <div >
+                <img src="assets/team.webp" alt="The early SupportX team" class="shadow-lg">
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Product Origin -->
+    <section data-aos="fade-up" class="bg-light">
+        <div class="container text-center max-w-4xl mx-auto">
+            <h2 class="section-title">Born out of necessity</h2>
+            <p class="section-subtitle">We didn't just study the problem—we lived it. We built the exact tool we always wished we had when we were working in the support trenches.</p>
+            <p class="text-light">Every feature in SupportX exists because a real agent needed it to solve a real problem. No bloatware, no gimmicks. Just pure, refined utility.</p>
+        </div>
+    </section>
+
+    <!-- 6. Mission -->
+    <section data-aos="fade-up">
+        <div class="container text-center bg-primary text-white shadow-float" style="border-radius: var(--radius); position:relative; overflow:hidden; padding: 4.5rem 2rem;">
+            <div class="bg-mesh" style="opacity: 0.2;"></div>
+            <h2 style="color: white; margin-bottom: 1.5rem; position:relative; z-index:2;">Our Mission</h2>
+            <p class="mx-auto" style="font-size: 1.5rem; font-weight: 500; position:relative; z-index:2; max-width: 800px; margin: 0 auto; line-height: 1.6;">To eliminate friction in customer communication globally, empowering businesses to serve their users with unprecedented speed and deep empathy.</p>
+        </div>
+    </section>
+
+    <!-- 7. Vision -->
+    <section data-aos="fade-up">
+        <div class="container grid-2">
+            <div >
+                <h2>Our Vision</h2>
+                <p class="text-light mt-4">A world where every customer feels heard and valued instantly, and where support agents are elevated from 'ticket-closers' to strategic brand ambassadors.</p>
+                <p class="text-light mt-4">We envision a future where AI handles the routine, freeing human agents to handle the emotional nuance and complex problem-solving that computers never will.</p>
+            </div>
+            <div ><img src="assets/office.webp" alt="SupportX Global Office" class="shadow-md tilt-card"></div>
+        </div>
+    </section>
+
+    <!-- 8. Philosophy -->
+    <section data-aos="fade-up" class="bg-light">
+        <div class="container text-center max-w-3xl mx-auto">
+            <h2 class="section-title">The Customer-First Philosophy</h2>
+            <p class="section-subtitle">If a feature doesn't ultimately serve the end-customer, it doesn't belong in our product.</p>
+            <p class="text-light">We constantly ask ourselves: "How does this button make the customer's day better?" This relentless focus prevents our software from becoming bloated and keeps our interface lightning fast.</p>
+        </div>
+    </section>
+
+    <!-- 9. Product Philosophy -->
+    <section data-aos="fade-up">
+        <div class="container grid-3">
+            <div class="card text-center" >
+                <i class="fa-solid fa-wand-magic-sparkles fa-3x mb-6 text-primary"></i>
+                <h3 class="mb-4">Simplicity</h3>
+                <p class="text-light">Incredibly complex logic operating under the hood, presented as a brilliantly simple interface on the screen. We abstract the difficult parts away.</p>
+            </div>
+            <div class="card text-center"  >
+                <i class="fa-solid fa-gauge-high fa-3x mb-6 text-primary"></i>
+                <h3 class="mb-4">Speed</h3>
+                <p class="text-light">Milliseconds matter in support. Our application architecture is obsessively optimized for immediate feedback and zero-latency loading times.</p>
+            </div>
+            <div class="card text-center"  >
+                <i class="fa-solid fa-heart fa-3x mb-6 text-primary"></i>
+                <h3 class="mb-4">Empathy</h3>
+                <p class="text-light">Software designed for human connection. We surface sentiment analysis and rich context so agents can respond with appropriate emotional intelligence.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Dev Journey -->
+    <section data-aos="fade-up" class="bg-light">
+        <div class="container text-center max-w-4xl mx-auto">
+            <h2 class="section-title">The Development Journey</h2>
+            <p class="text-light mt-4 text-lg">From a weekend hackathon prototype to a globally distributed enterprise platform, our engineering journey has been defined by rewriting, iterating, and relentlessly optimizing for scale.</p>
+        </div>
+    </section>
+
+    <!-- 11. Timeline -->
+    <section data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title text-center mb-12">Our Milestones</h2>
+            <div class="mx-auto" style="max-width: 600px; position:relative;">
+                <div style="border-left: 3px solid var(--primary-color); padding-left: 2.5rem; margin-bottom: 3rem; position:relative;">
+                    <div style="position:absolute; left:-10px; top:0; width:18px; height:18px; border-radius:50%; background:var(--primary-color);"></div>
+                    <h4 class="text-primary" style="font-size:1.5rem;">2023</h4>
+                    <p class="font-bold mb-2">The Weekend Hackathon</p>
+                    <p class="text-light">Initial prototype built by our founders in a tiny apartment. It crashed constantly, but the core idea was proven.</p>
                 </div>
+                <div style="border-left: 3px solid var(--primary-color); padding-left: 2.5rem; margin-bottom: 3rem; position:relative;">
+                    <div style="position:absolute; left:-10px; top:0; width:18px; height:18px; border-radius:50%; background:var(--primary-color);"></div>
+                    <h4 class="text-primary" style="font-size:1.5rem;">2024</h4>
+                    <p class="font-bold mb-2">Seed Funding & Series A</p>
+                    <p class="text-light">Secured $15M in funding from top-tier VC firms. Reached our first 1,000 paying customers and expanded the team to 50 people.</p>
+                </div>
+                <div style="border-left: 3px solid var(--primary-color); padding-left: 2.5rem; position:relative;">
+                    <div style="position:absolute; left:-10px; top:0; width:18px; height:18px; border-radius:50%; background:var(--primary-color);"></div>
+                    <h4 class="text-primary" style="font-size:1.5rem;">2026</h4>
+                    <p class="font-bold mb-2">Launch of SupportX 2.0 Enterprise</p>
+                    <p class="text-light">Complete rewrite of the platform introducing generative AI, omnichannel routing, and enterprise-grade security protocols.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. Team -->
+    <section data-aos="fade-up" class="bg-light">
+        <div class="container">
+            <h2 class="section-title text-center mb-12">Leadership Team</h2>
+            <div class="grid-3 text-center">
+                <div >
+                    <img src="assets/team-1.webp" alt="CEO Jane Doe" class="rounded-full mx-auto mb-6" style="width:180px; height:180px; object-fit:cover; border-radius:50%; border: 4px solid white; box-shadow: var(--shadow-md);">
+                    <h4>Jane Doe</h4>
+                    <p class="text-primary font-bold mb-2">Co-Founder & CEO</p>
+                    <p class="text-light text-sm px-4">Former Head of Customer Experience at a Fortune 500 company. Jane brings 15 years of operational expertise.</p>
+                </div>
+                <div  >
+                    <img src="assets/team-2.webp" alt="CTO John Smith" class="rounded-full mx-auto mb-6" style="width:180px; height:180px; object-fit:cover; border-radius:50%; border: 4px solid white; box-shadow: var(--shadow-md);">
+                    <h4>John Smith</h4>
+                    <p class="text-primary font-bold mb-2">Co-Founder & CTO</p>
+                    <p class="text-light text-sm px-4">Distributed systems architect. John ensures SupportX stays online and lightning fast for millions of concurrent users.</p>
+                </div>
+                <div  >
+                    <img src="assets/team-3.webp" alt="COO Alice Wong" class="rounded-full mx-auto mb-6" style="width:180px; height:180px; object-fit:cover; border-radius:50%; border: 4px solid white; box-shadow: var(--shadow-md);">
+                    <h4>Alice Wong</h4>
+                    <p class="text-primary font-bold mb-2">Chief Operating Officer</p>
+                    <p class="text-light text-sm px-4">Scaling expert. Alice manages our global expansion, compliance, and our own internal support operations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. Values -->
+    <section data-aos="fade-up">
+        <div class="container text-center max-w-4xl mx-auto">
+            <h2 class="section-title">Our Core Values</h2>
+            <p class="section-subtitle">These aren't just words on a wall. This is how we hire, fire, and build.</p>
+            <div class="grid-3 mt-8">
+                <div class="card p-6"><h4 class="mb-2">Radical Transparency</h4><p class="text-light text-sm">We share everything internally. Context is crucial.</p></div>
+                <div class="card p-6"><h4 class="mb-2">Extreme Ownership</h4><p class="text-light text-sm">No finger-pointing. We own our mistakes and fix them.</p></div>
+                <div class="card p-6"><h4 class="mb-2">Quiet Excellence</h4><p class="text-light text-sm">We let our product and our service do the talking.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 14. Trust -->
+    <section data-aos="fade-up" class="bg-light">
+        <div class="container grid-2">
+            <div >
+                <span class="badge badge-success mb-4">Security</span>
+                <h2>Built on Absolute Trust</h2>
+                <p class="text-light mt-4">When you use SupportX, you are trusting us with your company's most sensitive data—your customer conversations.</p>
+                <p class="text-light mt-4">We do not take this responsibility lightly. From our independent third-party penetration testing to our strict internal access policies, security is woven into the very fabric of our culture.</p>
+            </div>
+            <div  class="text-center">
+                <i class="fa-solid fa-shield-halved fa-8x text-primary" style="filter: drop-shadow(0 20px 30px rgba(99,102,241,0.3));"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- 15. FAQ -->
+    <section data-aos="fade-up">
+        <div class="container max-w-3xl mx-auto">
+            <h2 class="section-title text-center">Company FAQ</h2>
+            <div class="mt-8">
+                <div class="card mb-4" style="padding: 0; overflow: hidden;">
+                    <h4 class="accordion-header cursor-pointer">Where are you located? <i class="fa-solid fa-chevron-down float-right"></i></h4>
+                    <div class="accordion-content text-light" style="max-height:0; overflow:hidden; transition: max-height 0.3s ease; padding: 0 2rem;">
+                        <p style="padding-bottom: 1.5rem;">While our official headquarters is in San Francisco, CA, we are a digital-first, fully remote company. Our team is distributed across 14 different time zones, which perfectly enables us to provide true 24/7 support to our own customers.</p>
+                    </div>
+                </div>
+                <div class="card mb-4" style="padding: 0; overflow: hidden;">
+                    <h4 class="accordion-header cursor-pointer">Are you currently hiring? <i class="fa-solid fa-chevron-down float-right"></i></h4>
+                    <div class="accordion-content text-light" style="max-height:0; overflow:hidden; transition: max-height 0.3s ease; padding: 0 2rem;">
+                        <p style="padding-bottom: 1.5rem;">Yes! We are always looking for exceptionally talented engineers, designers, and customer success managers who share our obsession with reducing friction. Check out our careers portal for open roles.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 16. Final CTA -->
+    <section data-aos="fade-up" class="bg-primary text-white">
+        <div class="container text-center py-12">
+            <h2 style="color: white; font-size: 3rem; margin-bottom: 1.5rem;">Join our journey</h2>
+            <p class="mb-8 max-w-2xl mx-auto" style="color: rgba(255,255,255,0.9); font-size: 1.2rem;">Help us build the next generation of customer experience software.</p>
+            <div style="display:flex; justify-content:center; gap: 1rem;">
+                <a href="404.html" class="btn btn-secondary mt-4"><i class="fa-solid fa-briefcase mr-2"></i> View Open Careers</a>
+                <a href="404.html" class="btn btn-outline mt-4" style="border-color: rgba(255,255,255,0.5); color:white;"><i class="fa-solid fa-rocket mr-2"></i> Try Our Product</a>
+            </div>
+        </div>
+    </section>
+
+            <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Brand Column -->
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom: 1rem; display: inline-block;">
+                        <img src="assets/logo.webp" alt="Stackly Logo" class="logo-img">
+                    </a>
+                    <p class="text-light" style="color: #94A3B8; margin-top: 1rem; line-height: 1.6; max-width: 320px;">
+                        Enterprise-grade customer support platform designed to streamline ticket management, automate workflows, and deliver delightful support experiences.
+                    </p>
+                    <div class="social-icons" style="margin-top: 1.5rem; display: flex; gap: 0.85rem;">
+                        <a href="404.html" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="404.html" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="404.html" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    </div>
+                </div>
+
+                <!-- Platform / Capabilities Column -->
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="404.html"><i class="fa-solid fa-inbox"></i> Omnichannel Inbox</a></li>
+                        <li><a href="404.html"><i class="fa-solid fa-ticket"></i> Ticketing System</a></li>
+                        <li><a href="404.html"><i class="fa-solid fa-robot"></i> AI Automation</a></li>
+                        <li><a href="404.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a></li>
+                        <li><a href="404.html"><i class="fa-solid fa-chart-line"></i> CSAT Analytics</a></li>
+                    </ul>
+                </div>
+
+                <!-- Navigation Links (Nav Links, No Header Auth Links) -->
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                        <li><a href="services.html"><i class="fa-solid fa-layer-group"></i> Services</a></li>
+                        <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
+                        <li><a href="blog.html"><i class="fa-solid fa-newspaper"></i> Blog</a></li>
+                        <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support & Legal Column -->
+                <div class="footer-col">
+                    <h4>Support & Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="404.html"><i class="fa-solid fa-headset"></i> Help & Support</a></li>
+                        <li><a href="404.html"><i class="fa-solid fa-comments"></i> Contact Sales</a></li>
+                        <li><a href="404.html"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a></li>
+                        <li><a href="404.html"><i class="fa-solid fa-file-contract"></i> Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom with Copyright -->
+            <div class="footer-bottom">
+                &copy; 2026 Stackly Inc. All rights reserved. Designed for exceptional customer support.
             </div>
         </div>
     </footer>
-
-    <!-- FLOATING INTERACTIVE COLOR THEME SWITCHER WIDGET -->
-    <div class="color-theme-widget">
-        <span class="color-theme-title"><i class="fas fa-palette me-1"></i> Palette:</span>
-        <button class="theme-btn theme-btn-cyan" data-theme-val="cyan" title="Sovereign Cyan"></button>
-        <button class="theme-btn theme-btn-purple" data-theme-val="purple" title="Electric Purple"></button>
-        <button class="theme-btn theme-btn-emerald" data-theme-val="emerald" title="Emerald Tech"></button>
-    </div>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="assets/validation.js"></script>
-<script src="assets/main.js"></script>
-    <script src="assets/animations.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="validation.js"></script>
+    <script src="auth.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-

@@ -3,459 +3,461 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Read the latest Stackly engineering updates, cloud architecture articles, DevSecOps insights, and database tuning guides.">
-    <title>Cloud Engineering Blog - Stackly Insights</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-    <!-- AOS CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <!-- Custom Style -->
-    <link rel="stylesheet" href="assets/style.css">
-    <link rel="stylesheet" href="assets/responsive.css">
+    <title>Blog & Insights - SupportX</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
 </head>
-<body style="background-color: var(--primary-navy);">
+<body>
+<div class="orb-1"></div>
+<div class="orb-2"></div>
+<div class="orb-3"></div>
 
-    <!-- HEADER (PUBLIC NAVBAR) -->
-    <header class="header-public">
-        <div class="header-container">
-            <a href="index.html" class="logo-link">
-                <img src="assets/stackly_logo.webp" alt="Stackly Cloud Logo" class="logo-img">
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.webp" alt="Stackly Logo" class="logo-img">
             </a>
-            <ul class="nav-public-menu">
-                <li class="nav-public-item"><a href="index.html"><i class="fas fa-house me-1"></i> Home</a></li>
-                <li class="nav-public-item"><a href="about.html"><i class="fas fa-building me-1"></i> About Us</a></li>
-                <li class="nav-public-item"><a href="blog.html" class="active"><i class="fas fa-newspaper me-1"></i> Blog</a></li>
-                <li class="nav-public-item"><a href="cloud-services.html"><i class="fas fa-server me-1"></i> Services</a></li>
-                <li class="nav-public-item"><a href="contact.html"><i class="fas fa-envelope me-1"></i> Contact</a></li>
-            </ul>
-            <div class="header-actions">
-                <a href="login.html" class="btn-login-header"><i class="fas fa-right-to-bracket me-1"></i> Login</a>
-                <a href="signup.html" class="btn-cta-header"><i class="fas fa-user-plus me-1"></i> Register</a>
-            </div>
-            <button class="hamburger-public" aria-label="Toggle Navigation"><i class="fas fa-bars"></i></button>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="services.html" class="nav-link"><i class="fa-solid fa-layer-group"></i> Services</a>
+                <a href="about.html" class="nav-link"><i class="fa-solid fa-circle-info"></i> About</a>
+                <a href="blog.html" class="nav-link active"><i class="fa-solid fa-newspaper"></i> Blog</a>
+                <a href="contact.html" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact</a>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-outline"><i class="fa-solid fa-right-to-bracket mr-1"></i> Login</a>
+                    <a href="signup.html" class="btn btn-primary"><i class="fa-solid fa-user-plus mr-1"></i> Sign Up</a>
+                </div>
+            </nav>
+            <button class="mobile-toggle" aria-label="Toggle Menu"><i class="fa-solid fa-bars"></i></button>
         </div>
     </header>
 
-    <!-- MOBILE NAVIGATION SIDE DRAWER -->
-    <div class="mobile-nav-drawer" id="mobile-nav-drawer">
-        <div class="mobile-drawer-header">
-            <a href="index.html" class="logo-link">
-                <img src="assets/stackly_logo.webp" alt="Stackly Cloud Logo" class="logo-img">
-            </a>
-            <button class="close-drawer-btn" aria-label="Close Drawer"><i class="fas fa-times"></i></button>
+    <!-- 1. Blog Hero -->
+    <section class="hero" style="background: var(--bg-main); min-height: 40vh; padding-bottom: 3rem;">
+        <div class="container text-center">
+            <span class="badge badge-primary mb-4" >Industry Publication</span>
+            <h1 class="hero-title"  >SupportX Insights</h1>
+            <p class="hero-desc mx-auto" style="max-width: 650px;"  >The premier publication for customer experience professionals. Discover the latest industry trends, deeply researched guides, and actionable insights to elevate your support strategy.</p>
         </div>
-        <ul class="mobile-drawer-menu">
-            <li class="mobile-drawer-item"><a href="index.html"><i class="fas fa-house me-1"></i> Home</a></li>
-            <li class="mobile-drawer-item"><a href="about.html"><i class="fas fa-building me-1"></i> About Us</a></li>
-            <li class="mobile-drawer-item"><a href="blog.html" class="active"><i class="fas fa-newspaper me-1"></i> Blog</a></li>
-            <li class="mobile-drawer-item"><a href="cloud-services.html"><i class="fas fa-server me-1"></i> Services</a></li>
-            <li class="mobile-drawer-item"><a href="contact.html"><i class="fas fa-envelope me-1"></i> Contact</a></li>
-            <li class="mobile-drawer-item"><a href="login.html"><i class="fas fa-right-to-bracket me-1"></i> Login</a></li>
-            <li class="mobile-drawer-item"><a href="signup.html" style="color: var(--cyan-accent);"><i class="fas fa-user-plus me-1"></i> Register</a></li>
-        </ul>
-    </div>
+    </section>
 
-    <main>
-        
-        <!-- SECTION 1: BREADCRUMBS BANNER -->
-        <section id="sec-breadcrumbs" class="page-hero text-center py-5" style="background: linear-gradient(180deg, rgba(3, 7, 18, 0.75) 0%, rgba(3, 7, 18, 0.85) 100%), url('assets/engineers.webp'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-            <div class="container py-4">
-                <h1 class="text-white font-weight-800 display-4 mb-2">Cloud Engineering Blog</h1>
-                <div class="breadcrumbs d-flex justify-content-center align-items-center gap-2 text-white-50 font-size-0.9">
-                    <a href="index.html" class="text-cyan text-decoration-none"><i class="fas fa-house me-1"></i> Home</a>
-                    <span><i class="fas fa-chevron-right fs-9"></i></span>
-                    <span class="text-white font-weight-600">Technical Insights</span>
+    <!-- 2. Search -->
+    <section data-aos="fade-up" class="py-4 bg-white border-b border-color" style="padding-top: 2rem; padding-bottom: 2rem;">
+        <div class="container text-center">
+            <form id="blogSearchForm" class="search-form" style="display:flex; flex-direction:column; align-items:center; max-width:600px; margin:auto; gap:0.5rem;" novalidate>
+                <div style="display:flex; gap:1rem; width:100%;">
+                    <input id="blogSearchInput" type="text" placeholder="Search across 500+ articles, guides, and reports..." class="form-control" style="flex:1;" required>
+                    <button type="submit" class="btn btn-primary">Search</button>
                 </div>
-            </div>
-        </section>
-
-        <!-- SECTION 2: FEATURED ARTICLE (#081226) -->
-        <section id="sec-featured" class="py-5" style="background-color: #081226;">
-            <div class="container py-5">
-                <div class="row align-items-center g-5">
-                    <div class="col-lg-6" data-aos="fade-right">
-                        <span class="badge bg-cyan-950 text-cyan mb-3">Featured Deep Dive</span>
-                        <h2 class="text-white font-weight-800 fs-1 mb-3">Building Microsecond Anycast BGP Routing Networks</h2>
-                        <p class="text-white-50 fs-6 leading-relaxed mb-4">An inside look at how Stackly engineers designed a zero-packet-loss BGP Anycast mesh across 14 sovereign global edge data centers.</p>
-                        <a href="404.html" class="btn btn-cta-header px-4 py-3 font-weight-700"><i class="fas fa-book-open me-2"></i> Read Full Article</a>
-                    </div>
-                    <div class="col-lg-6" data-aos="fade-left">
-                        <img src="assets/network_topology.webp" alt="Global Network Topology" class="img-fluid rounded-4 border border-white/10 shadow-2xl">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 3: RECENT TECHNICAL ARTICLES GRID (#021a15) -->
-        <section id="sec-recent" class="py-5" style="background-color: #021a15;">
-            <div class="container py-5">
-                <div class="text-center max-w-3xl mx-auto mb-5" data-aos="fade-up">
-                    <span class="text-emerald font-weight-700 uppercase tracking-widest font-size-0.85">Latest Publications</span>
-                    <h2 class="text-white font-weight-800 fs-1 mt-2">Engineering Articles & Benchmarks</h2>
-                </div>
-                <div class="row g-4">
-                    <div class="col-md-4" data-aos="fade-up">
-                        <div class="ui-glass-card p-0 h-100 overflow-hidden" style="background: rgba(255,255,255,0.03);">
-                            <img src="assets/cybersecurity.webp" alt="DevSecOps Encryption" class="w-100 object-cover" style="height: 180px;">
-                            <div class="p-4">
-                                <span class="text-cyan font-size-0.8 font-weight-600 d-block mb-2"><i class="fas fa-shield-halved me-1"></i> DevSecOps &bull; Aug 28, 2026</span>
-                                <h4 class="text-white font-weight-700 fs-5 mb-3">SHA-256 Object Vault Encryption Benchmarks</h4>
-                                <p class="text-white-50 font-size-0.85 mb-4">Comparing hardware-accelerated AES-NI CPU instructions with software cryptographic keys.</p>
-                                <a href="404.html" class="text-cyan text-decoration-none font-weight-600 font-size-0.9">Read Full Post <i class="fas fa-arrow-right ms-1"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="ui-glass-card p-0 h-100 overflow-hidden" style="background: rgba(255,255,255,0.03);">
-                            <img src="assets/kubernetes_containers.webp" alt="Kubernetes Containers" class="w-100 object-cover" style="height: 180px;">
-                            <div class="p-4">
-                                <span class="text-cyan font-size-0.8 font-weight-600 d-block mb-2"><i class="fas fa-cubes me-1"></i> Kubernetes &bull; Aug 20, 2026</span>
-                                <h4 class="text-white font-weight-700 fs-5 mb-3">Autoscaling 10,000 Pods in SKE Under 30 Seconds</h4>
-                                <p class="text-white-50 font-size-0.85 mb-4">Optimizing Kubernetes Custom Resource Definitions (CRDs) for high-frequency trading workloads.</p>
-                                <a href="404.html" class="text-cyan text-decoration-none font-weight-600 font-size-0.9">Read Full Post <i class="fas fa-arrow-right ms-1"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="ui-glass-card p-0 h-100 overflow-hidden" style="background: rgba(255,255,255,0.03);">
-                            <img src="assets/database_sync.webp" alt="Database Sync" class="w-100 object-cover" style="height: 180px;">
-                            <div class="p-4">
-                                <span class="text-cyan font-size-0.8 font-weight-600 d-block mb-2"><i class="fas fa-database me-1"></i> Databases &bull; Aug 12, 2026</span>
-                                <h4 class="text-white font-weight-700 fs-5 mb-3">Multi-Region PostgreSQL Active-Active Replication</h4>
-                                <p class="text-white-50 font-size-0.85 mb-4">Solving distributed consensus locking conflicts across sovereign cloud borders.</p>
-                                <a href="404.html" class="text-cyan text-decoration-none font-weight-600 font-size-0.9">Read Full Post <i class="fas fa-arrow-right ms-1"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="fade-up">
-                        <div class="ui-glass-card p-0 h-100 overflow-hidden" style="background: rgba(255,255,255,0.03);">
-                            <img src="assets/devops_pipeline.webp" alt="CI/CD Pipeline" class="w-100 object-cover" style="height: 180px;">
-                            <div class="p-4">
-                                <span class="text-purple font-size-0.8 font-weight-600 d-block mb-2"><i class="fas fa-code-branch me-1"></i> CI/CD Pipeline &bull; Aug 05, 2026</span>
-                                <h4 class="text-white font-weight-700 fs-5 mb-3">Zero-Downtime Blue-Green Deployments</h4>
-                                <p class="text-white-50 font-size-0.85 mb-4">Implementing automated canary releases with real-time latency monitoring and instant rollback triggers.</p>
-                                <a href="404.html" class="text-purple text-decoration-none font-weight-600 font-size-0.9">Read Full Post <i class="fas fa-arrow-right ms-1"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="ui-glass-card p-0 h-100 overflow-hidden" style="background: rgba(255,255,255,0.03);">
-                            <img src="assets/disaster_recovery.webp" alt="Disaster Recovery" class="w-100 object-cover" style="height: 180px;">
-                            <div class="p-4">
-                                <span class="text-emerald font-size-0.8 font-weight-600 d-block mb-2"><i class="fas fa-rotate-left me-1"></i> Disaster Recovery &bull; Jul 29, 2026</span>
-                                <h4 class="text-white font-weight-700 fs-5 mb-3">Ransomware Mitigation & Point-in-Time Restores</h4>
-                                <p class="text-white-50 font-size-0.85 mb-4">Immutable S3 object locking strategies preventing unauthorized data encryption and deletion.</p>
-                                <a href="404.html" class="text-emerald text-decoration-none font-weight-600 font-size-0.9">Read Full Post <i class="fas fa-arrow-right ms-1"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="ui-glass-card p-0 h-100 overflow-hidden" style="background: rgba(255,255,255,0.03);">
-                            <img src="assets/ai_compute_cluster.webp" alt="AI Compute Supercomputing" class="w-100 object-cover" style="height: 180px;">
-                            <div class="p-4">
-                                <span class="text-warning font-size-0.8 font-weight-600 d-block mb-2"><i class="fas fa-microchip me-1"></i> AI Supercomputing &bull; Jul 18, 2026</span>
-                                <h4 class="text-white font-weight-700 fs-5 mb-3">Benchmarking NVIDIA H100 Tensor Core Clusters</h4>
-                                <p class="text-white-50 font-size-0.85 mb-4">Measuring FLOPS throughput and InfiniBand interconnect latency for large language model (LLM) training.</p>
-                                <a href="404.html" class="text-warning text-decoration-none font-weight-600 font-size-0.9">Read Full Post <i class="fas fa-arrow-right ms-1"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 4: ARCHITECTURE BLUEPRINTS & WHITE PAPERS (#0f0926) -->
-        <section id="sec-whitepapers" class="py-5 text-center" style="background: linear-gradient(135deg, #0f0926 0%, #170d38 100%);">
-            <div class="container py-5">
-                <div class="text-center max-w-3xl mx-auto mb-5" data-aos="fade-up">
-                    <span class="text-cyan font-weight-700 uppercase tracking-widest font-size-0.85">Free Downloads</span>
-                    <h2 class="text-white font-weight-800 fs-1 mt-2">Technical White Papers</h2>
-                </div>
-                <div class="row g-4 justify-content-center">
-                    <div class="col-lg-5 col-md-6" data-aos="zoom-in">
-                        <div class="ui-glass-card p-4 h-100 d-flex flex-column justify-content-between text-center" style="background: rgba(255,255,255,0.03); min-height: 260px;">
-                            <div>
-                                <i class="fas fa-file-pdf text-gold display-5 mb-3"></i>
-                                <h4 class="text-white font-weight-700 fs-5 mb-2">Sovereign Data Security White Paper</h4>
-                                <p class="text-white-50 font-size-0.85 mb-4">Detailed technical analysis of national data sovereignty compliance & encryption frameworks.</p>
-                            </div>
-                            <div>
-                                <a href="404.html" class="btn btn-outline-cyan text-cyan border-cyan-500/40 px-4 py-2 rounded-full font-weight-600 w-100"><i class="fas fa-download me-2"></i> Download PDF (3.2 MB)</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-md-6" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="ui-glass-card p-4 h-100 d-flex flex-column justify-content-between text-center" style="background: rgba(255,255,255,0.03); min-height: 260px;">
-                            <div>
-                                <i class="fas fa-file-pdf text-gold display-5 mb-3"></i>
-                                <h4 class="text-white font-weight-700 fs-5 mb-2">Zero-Trust Network Blueprint</h4>
-                                <p class="text-white-50 font-size-0.85 mb-4">Reference BGP Anycast network architecture diagrams for banking & government clouds.</p>
-                            </div>
-                            <div>
-                                <a href="404.html" class="btn btn-outline-cyan text-cyan border-cyan-500/40 px-4 py-2 rounded-full font-weight-600 w-100"><i class="fas fa-download me-2"></i> Download PDF (4.8 MB)</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 5: CATEGORY FILTERING (#0a1128) -->
-        <section id="sec-categories" class="py-5 text-center" style="background-color: #0a1128;">
-            <div class="container py-4" data-aos="fade-up">
-                <span class="text-white-50 font-size-0.85 uppercase tracking-widest font-weight-700 d-block mb-3">Filter Articles by Topic</span>
-                <div class="d-flex flex-wrap justify-content-center gap-2">
-                    <a href="404.html" class="btn btn-outline-cyan active px-3 py-1.5 rounded-full font-size-0.85">All Articles</a>
-                    <a href="404.html" class="btn btn-outline-cyan px-3 py-1.5 rounded-full font-size-0.85">Infrastructure & BGP</a>
-                    <a href="404.html" class="btn btn-outline-cyan px-3 py-1.5 rounded-full font-size-0.85">Kubernetes & Containers</a>
-                    <a href="404.html" class="btn btn-outline-cyan px-3 py-1.5 rounded-full font-size-0.85">DevSecOps & Zero-Trust</a>
-                    <a href="404.html" class="btn btn-outline-cyan px-3 py-1.5 rounded-full font-size-0.85">Database Sync</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 6: GUEST ENGINEERING AUTHORS (NEW SECTION 1 - DARK NAVY #061024) -->
-        <section id="sec-authors" class="py-5" style="background-color: #061024;">
-            <div class="container py-5">
-                <div class="text-center max-w-3xl mx-auto mb-5" data-aos="fade-up">
-                    <span class="text-cyan font-weight-700 uppercase tracking-widest font-size-0.85">Engineering Voices</span>
-                    <h2 class="text-white font-weight-800 fs-1 mt-2">Principal Blog Contributors</h2>
-                </div>
-                <div class="row g-4 text-center">
-                    <div class="col-md-3" data-aos="fade-up">
-                        <div class="ui-glass-card p-4 h-100">
-                            <div class="author-avatar-badge mb-3">AK</div>
-                            <h5 class="text-white font-weight-700 mb-1">Alex K.</h5>
-                            <span class="text-cyan font-size-0.8 d-block font-weight-600">Principal BGP Engineer</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
-                        <div class="ui-glass-card p-4 h-100">
-                            <div class="author-avatar-badge mb-3" style="background: linear-gradient(135deg, #7c3aed 0%, #00e5ff 100%);">PM</div>
-                            <h5 class="text-white font-weight-700 mb-1">Priya M.</h5>
-                            <span class="text-cyan font-size-0.8 d-block font-weight-600">Kubernetes SKE Lead</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
-                        <div class="ui-glass-card p-4 h-100">
-                            <div class="author-avatar-badge mb-3" style="background: linear-gradient(135deg, #059669 0%, #00e5ff 100%);">RT</div>
-                            <h5 class="text-white font-weight-700 mb-1">Robert T.</h5>
-                            <span class="text-cyan font-size-0.8 d-block font-weight-600">Zero-Trust Architect</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
-                        <div class="ui-glass-card p-4 h-100">
-                            <div class="author-avatar-badge mb-3" style="background: linear-gradient(135deg, #d97706 0%, #7c3aed 100%);">NL</div>
-                            <h5 class="text-white font-weight-700 mb-1">Nina L.</h5>
-                            <span class="text-cyan font-size-0.8 d-block font-weight-600">Database Replication Lead</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 7: WEEKLY ARCHITECTURE NEWSLETTER (#021a15) -->
-        <section id="sec-newsletter" class="py-5 text-center" style="background-color: #021a15;">
-            <div class="container py-5 max-w-xl mx-auto" data-aos="fade-up">
-                <span class="text-cyan font-weight-700 uppercase tracking-widest font-size-0.85">Stay Updated</span>
-                <h2 class="text-white font-weight-800 fs-2 mt-2 mb-3">Subscribe to Stackly Engineering Dispatch</h2>
-                <p class="text-white-50 font-size-0.9 mb-4">Weekly technical articles, Rust benchmarks, and Kubernetes release notes delivered to your inbox.</p>
-                <form id="blog-newsletter-form" class="d-flex gap-2" novalidate>
-                    <input type="email" class="form-control bg-dark text-white border-secondary py-2" required placeholder="engineer@company.com">
-                    <button type="submit" class="btn btn-cta-header px-4 font-weight-700">Subscribe</button>
-                </form>
-            </div>
-        </section>
-
-        <!-- SECTION 8: PODCAST & TECH TALKS (#0f0926) -->
-        <section id="sec-podcast" class="py-5" style="background: linear-gradient(135deg, #0f0926 0%, #170d38 100%);">
-            <div class="container py-5">
-                <div class="row align-items-center g-5">
-                    <div class="col-lg-6" data-aos="fade-right">
-                        <span class="text-cyan font-weight-700 uppercase tracking-widest font-size-0.85">Audio & Video</span>
-                        <h2 class="text-white font-weight-800 fs-1 mt-2 mb-4">Sovereign Cloud Engineering Podcast</h2>
-                        <p class="text-white-50 fs-6 leading-relaxed mb-4">Listen to deep-dive conversations with distributed systems architects, security researchers, and kernel contributors.</p>
-                        <a href="404.html" class="btn btn-cta-header px-4 py-3 font-weight-700"><i class="fas fa-podcast me-2"></i> Listen on Spotify</a>
-                    </div>
-                    <div class="col-lg-6" data-aos="fade-left">
-                        <div class="ui-glass-card p-5" style="background: rgba(255,255,255,0.03);">
-                            <i class="fas fa-headphones text-cyan display-3 mb-3"></i>
-                            <h4 class="text-white font-weight-700 fs-4 mb-2">Episode #42: Kernel-Level eBPF Filtering</h4>
-                            <span class="text-white-50 font-size-0.85">45 Mins &bull; Released Yesterday</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 9: POPULAR ARCHITECTURE TAGS (#071024) -->
-        <section id="sec-tags" class="py-5 text-center" style="background-color: #071024;">
-            <div class="container py-4" data-aos="fade-up">
-                <span class="text-white-50 font-size-0.85 uppercase tracking-widest font-weight-700 d-block mb-3">Popular Topics & Keywords</span>
-                <div class="d-flex flex-wrap justify-content-center gap-2">
-                    <span class="badge bg-dark-glass border border-white/10 px-3 py-2 text-white">#Rust</span>
-                    <span class="badge bg-dark-glass border border-white/10 px-3 py-2 text-white">#BGP-Anycast</span>
-                    <span class="badge bg-dark-glass border border-white/10 px-3 py-2 text-white">#Kubernetes-SKE</span>
-                    <span class="badge bg-dark-glass border border-white/10 px-3 py-2 text-white">#PostgreSQL-Sync</span>
-                    <span class="badge bg-dark-glass border border-white/10 px-3 py-2 text-white">#Zero-Trust</span>
-                    <span class="badge bg-dark-glass border border-white/10 px-3 py-2 text-white">#SOC2-Compliance</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 11: BLOG FREQUENTLY ASKED QUESTIONS (FAQ) -->
-        <section id="sec-blog-faq" class="py-5" style="background-color: #030718;">
-            <div class="container py-4">
-                <div class="text-center max-w-3xl mx-auto mb-5" data-aos="fade-up">
-                    <span class="text-cyan font-weight-700 uppercase tracking-widest font-size-0.85">Publication FAQ</span>
-                    <h2 class="text-white font-weight-800 fs-1 mt-2">Engineering Blog Questions</h2>
-                    <p class="text-white-50 fs-6">Find details on technical article guidelines, benchmarking methods, and guest submissions.</p>
-                </div>
-                <div class="max-w-4xl mx-auto d-flex flex-column gap-3" data-aos="fade-up">
-                    <div class="faq-item">
-                        <button class="faq-header-btn" onclick="toggleFAQ('bfaq-1')">
-                            <span>How often are new cloud engineering benchmarks published?</span>
-                            <i class="fas fa-chevron-down" id="bfaq-1-icon"></i>
-                        </button>
-                        <div class="faq-body" id="bfaq-1">
-                            Our core architecture team publishes peer-reviewed benchmarks and white papers bi-weekly.
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-header-btn" onclick="toggleFAQ('bfaq-2')">
-                            <span>Can community engineers submit guest technical white papers?</span>
-                            <i class="fas fa-chevron-down" id="bfaq-2-icon"></i>
-                        </button>
-                        <div class="faq-body" id="bfaq-2">
-                            Yes! We welcome deep-dive technical submissions on distributed systems, Rust security, and Kubernetes orchestration.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 10: WRITE FOR STACKLY CTA (NEW SECTION 5 - CYAN-VIOLET GRADIENT #071026) -->
-        <section id="sec-blog-cta" class="py-5 text-center" style="background: linear-gradient(135deg, #071026 0%, #150936 100%);">
-            <div class="container py-5" data-aos="zoom-in">
-                <span class="badge bg-cyan-950 text-cyan border border-cyan-500/30 px-3 py-2 rounded-full font-size-0.85 uppercase tracking-widest font-weight-700 mb-3 d-inline-block">Guest Authors</span>
-                <h2 class="text-white font-weight-800 display-5 mb-4">Write a Guest Engineering Post for Stackly</h2>
-                <p class="text-white-50 fs-5 max-w-2xl mx-auto mb-4">Share your technical benchmarks and cloud architecture insights with 50,000+ engineers.</p>
-                <a href="404.html" class="btn btn-cta-header px-5 py-3 font-weight-700 fs-5"><i class="fas fa-pen-nib me-2"></i> Submit Article Proposal</a>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER (EXACT MATCH TO REFERENCE SCREENSHOT) -->
-    <footer class="footer-public" style="background-color: #060c1c; border-top: 1px solid rgba(255,255,255,0.08); padding: 60px 0 30px;">
-        <div class="footer-container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px;">
-            
-            <!-- BRAND COLUMN -->
-            <div class="footer-brand-col">
-                <a href="index.html" class="logo-link d-inline-block mb-3">
-                    <img src="assets/stackly_logo.webp" alt="Stackly Logo" class="logo-img" style="height: 38px;">
-                </a>
-                <p class="footer-desc text-white-50 font-size-0.9 mb-4" style="line-height: 1.6;">The intelligent enterprise management platform built for scale.</p>
-                <div class="footer-socials d-flex gap-3">
-                    <a href="404.html" class="footer-social-link text-white-50 hover-cyan" style="font-size: 1.1rem;"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="404.html" class="footer-social-link text-white-50 hover-cyan" style="font-size: 1.1rem;"><i class="fab fa-twitter"></i></a>
-                    <a href="404.html" class="footer-social-link text-white-50 hover-cyan" style="font-size: 1.1rem;"><i class="fab fa-youtube"></i></a>
-                    <a href="404.html" class="footer-social-link text-white-50 hover-cyan" style="font-size: 1.1rem;"><i class="fab fa-github"></i></a>
-                </div>
-            </div>
-
-            <!-- COLUMN 2: QUICK LINKS (REDIRECT TO HEADER LINKS) -->
-            <div class="footer-col">
-                <h4 class="text-white font-weight-700 fs-5 mb-3">Quick Links</h4>
-                <ul class="footer-links list-unstyled d-flex flex-column gap-2" style="padding-left: 0;">
-                    <li><a href="index.html" class="text-white-50 text-decoration-none hover-cyan">Home</a></li>
-                    <li><a href="about.html" class="text-white-50 text-decoration-none hover-cyan">About</a></li>
-                    <li><a href="blog.html" class="text-white-50 text-decoration-none hover-cyan">Blog</a></li>
-                    <li><a href="cloud-services.html" class="text-white-50 text-decoration-none hover-cyan">Services</a></li>
-                    <li><a href="contact.html" class="text-white-50 text-decoration-none hover-cyan">Contact</a></li>
-                </ul>
-            </div>
-
-            <!-- COLUMN 3: SUPPORT (ALL REDIRECT TO 404) -->
-            <div class="footer-col">
-                <h4 class="text-white font-weight-700 fs-5 mb-3">Support</h4>
-                <ul class="footer-links list-unstyled d-flex flex-column gap-2" style="padding-left: 0;">
-                    <li><a href="404.html" class="text-white-50 text-decoration-none hover-cyan">Help Center</a></li>
-                    <li><a href="404.html" class="text-white-50 text-decoration-none hover-cyan">FAQ</a></li>
-                    <li><a href="404.html" class="text-white-50 text-decoration-none hover-cyan">Documentation</a></li>
-                    <li><a href="404.html" class="text-white-50 text-decoration-none hover-cyan">Privacy Policy</a></li>
-                    <li><a href="404.html" class="text-white-50 text-decoration-none hover-cyan">Terms of Service</a></li>
-                </ul>
-            </div>
-
-            <!-- COLUMN 4: CONNECT -->
-            <div class="footer-col">
-                <h4 class="text-white font-weight-700 fs-5 mb-3">Connect</h4>
-                <div class="d-flex flex-column gap-3 text-white-50 font-size-0.9">
-                    <div class="d-flex align-items-start gap-3">
-                        <i class="fas fa-location-dot mt-1" style="color: var(--cyan-accent); font-size: 1.1rem;"></i>
-                        <div>
-                            <strong class="text-white d-block">Office Address:</strong>
-                            <span>Salem, India</span>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-start gap-3">
-                        <i class="fas fa-phone mt-1" style="color: var(--cyan-accent); font-size: 1.1rem;"></i>
-                        <div>
-                            <strong class="text-white d-block">Phone:</strong>
-                            <span>+91 98765 43210</span>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-start gap-3">
-                        <i class="fas fa-envelope mt-1" style="color: var(--cyan-accent); font-size: 1.1rem;"></i>
-                        <div>
-                            <strong class="text-white d-block">Sales Email:</strong>
-                            <span>info@stackly.com</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+                <p class="error-message" style="margin-top:0.25rem;"></p>
+            </form>
         </div>
+    </section>
 
-        <div class="footer-bottom mt-5 pt-4 border-top border-secondary text-center text-white-50 font-size-0.85">
-            <div class="max-w-7xl mx-auto px-4 d-flex flex-wrap justify-content-between align-items-center gap-3">
-                <p class="mb-0">&copy; 2026 Stackly Inc. All Rights Reserved.</p>
-                <div class="d-flex gap-4">
-                    <a href="404.html" class="text-white-50 text-decoration-none hover-cyan">Privacy Policy</a>
-                    <a href="404.html" class="text-white-50 text-decoration-none hover-cyan">Terms of Service</a>
+    <!-- 3. Categories -->
+    <section data-aos="fade-up" class="py-4 bg-light" style="padding-top: 3rem; padding-bottom: 3rem;">
+        <div class="container text-center">
+            <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+                <a href="#featured-section" class="badge badge-primary" style="padding: 0.75rem 1.5rem; font-size: 0.95rem;">All Articles</a>
+                <a href="#strategy-section" class="badge" style="background:white; border:1px solid #ccc; color:var(--text-main); padding: 0.75rem 1.5rem; font-size: 0.95rem;">Support Strategy</a>
+                <a href="#automation-section" class="badge" style="background:white; border:1px solid #ccc; color:var(--text-main); padding: 0.75rem 1.5rem; font-size: 0.95rem;">AI & Automation</a>
+                <a href="#productivity-section" class="badge" style="background:white; border:1px solid #ccc; color:var(--text-main); padding: 0.75rem 1.5rem; font-size: 0.95rem;">Productivity</a>
+                <a href="#latest-articles" class="badge" style="background:white; border:1px solid #ccc; color:var(--text-main); padding: 0.75rem 1.5rem; font-size: 0.95rem;">Team Leadership</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Featured Article -->
+    <section data-aos="fade-up">
+        <div class="container grid-2">
+            <div ><img src="assets/blog1.webp" alt="Featured Article Graphic" class="rounded-lg shadow-lg tilt-card"></div>
+            <div >
+                <span class="text-primary font-bold tracking-widest uppercase text-sm mb-2 inline-block"><i class="fa-solid fa-star"></i> Featured Report</span>
+                <h2 class="mt-2 mb-4">The Future of Generative AI in Customer Support (2027 Edition)</h2>
+                <p class="text-light mb-6 text-lg">How Large Language Models are completely reshaping the way businesses interact with their customers, moving far beyond simple chat deflection into complex, autonomous issue resolution.</p>
+                <div style="display:flex; align-items:center; gap:1rem; margin-bottom:2rem;">
+                    <img src="assets/team-1.webp" alt="Jane Doe" style="width:48px; height:48px; border-radius:50%; object-fit:cover;">
+                    <div><p class="font-bold text-md m-0">Jane Doe</p><p class="text-sm text-light m-0">Oct 10, 2026 &middot; 8 min read</p></div>
                 </div>
+                <a href="#article-modal" class="btn btn-outline open-article-btn" data-title="The Future of Generative AI in Customer Support (2027 Edition)" data-author="Jane Doe (CEO)" data-category="Featured Report" data-readtime="8 min read"><i class="fa-solid fa-file-lines mr-2"></i> Read Full Report</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Editor's Pick -->
+    <section data-aos="fade-up" class="bg-light">
+        <div class="container grid-2">
+            <div >
+                <span class="text-primary font-bold tracking-widest uppercase text-sm mb-2 inline-block"><i class="fa-solid fa-pen-nib"></i> Editor's Pick</span>
+                <h2 class="mt-2 mb-4">Building a knowledge base that your customers will actually use</h2>
+                <p class="text-light mb-6 text-lg">Stop writing support articles that no one reads. Here is our proven, data-backed framework for creating self-service content that reduces your inbound ticket volume by over 30% within the first month.</p>
+                <div style="display:flex; align-items:center; gap:1rem; margin-bottom:2rem;">
+                    <img src="assets/team-2.webp" alt="John Smith" style="width:48px; height:48px; border-radius:50%; object-fit:cover;">
+                    <div><p class="font-bold text-md m-0">John Smith</p><p class="text-sm text-light m-0">Oct 5, 2026 &middot; 5 min read</p></div>
+                </div>
+                <a href="#article-modal" class="btn btn-primary open-article-btn" data-title="Building a knowledge base that your customers will actually use" data-author="John Smith (CTO)" data-category="Editor's Pick" data-readtime="5 min read"><i class="fa-solid fa-newspaper mr-2"></i> Read Article</a>
+            </div>
+            <div ><img src="assets/blog2.webp" alt="Knowledge base concepts" class="rounded-lg shadow-lg tilt-card"></div>
+        </div>
+    </section>
+
+    <!-- 6. Customer Experience -->
+    <section data-aos="fade-up">
+        <div class="container">
+            <div class="text-center mb-12">
+                <h2 class="section-title">Customer Experience (CX)</h2>
+                <p class="text-light max-w-2xl mx-auto">Deep dives into the psychology of customer satisfaction and loyalty.</p>
+            </div>
+            <div class="card max-w-5xl mx-auto text-left" >
+                <div class="grid-2" style="gap:2.5rem;">
+                    <div><img src="assets/blog3.webp" alt="CX Metrics" class="rounded-lg w-full h-full object-cover"></div>
+                    <div style="display:flex; flex-direction:column; justify-content:center;">
+                        <span class="badge badge-success mb-4">Analytics & Metrics</span>
+                        <h3 class="mb-4">5 advanced metrics that define true CX success</h3>
+                        <p class="text-light mb-6">Move far beyond basic CSAT scores. Discover the advanced, multi-variable metrics that top-tier enterprise support teams use to measure true customer happiness, predict churn before it happens, and justify budget increases to the executive board.</p>
+                        <a href="#article-modal" class="text-primary font-bold open-article-btn" style="font-size: 1.1rem;" data-title="5 advanced metrics that define true CX success" data-author="Sarah Jenkins" data-category="Analytics & Metrics" data-readtime="6 min read">Read Full Guide <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Support Strategy -->
+    <section data-aos="fade-up" class="bg-light">
+        <div class="container">
+            <div class="text-center mb-12">
+                <h2 class="section-title">Support Strategy</h2>
+                <p class="text-light max-w-2xl mx-auto">Operational playbooks for scaling your department efficiently.</p>
+            </div>
+            <div class="card max-w-5xl mx-auto text-left" >
+                <div class="grid-2" style="gap:2.5rem;">
+                    <div style="display:flex; flex-direction:column; justify-content:center;">
+                        <span class="badge badge-warning mb-4">Scaling Operations</span>
+                        <h3 class="mb-4">The exact playbook for scaling support from 1 to 100 agents</h3>
+                        <p class="text-light mb-6">Growing pains are real. When you scale from a single founder doing support to a global team of 100+ agents, everything breaks. This is the exact operational playbook we used to scale our own organization without losing the personal touch our early customers loved.</p>
+                        <a href="#article-modal" class="text-primary font-bold open-article-btn" style="font-size: 1.1rem;" data-title="The exact playbook for scaling support from 1 to 100 agents" data-author="Marcus Chen" data-category="Scaling Operations" data-readtime="10 min read">Read Full Guide <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                    </div>
+                    <div><img src="assets/blog-1.webp" alt="Strategy graphic" class="rounded-lg w-full h-full object-cover"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. AI & Automation -->
+    <section data-aos="fade-up">
+        <div class="container">
+            <div class="text-center mb-12">
+                <h2 class="section-title">AI & Automation</h2>
+                <p class="text-light max-w-2xl mx-auto">Learn how to leverage machines so your humans can focus on empathy.</p>
+            </div>
+            <div class="card max-w-5xl mx-auto text-left" >
+                <div class="grid-2" style="gap:2.5rem;">
+                    <div><img src="assets/blog-2.webp" alt="Automation graphic" class="rounded-lg w-full h-full object-cover"></div>
+                    <div style="display:flex; flex-direction:column; justify-content:center;">
+                        <span class="badge badge-primary mb-4">Workflow Design</span>
+                        <h3 class="mb-4">Automating the mundane: 10 macros you need today</h3>
+                        <p class="text-light mb-6">Agents spend an average of 40% of their day performing repetitive administrative tasks. Learn how to set up intelligent routing, conditional triggers, and dynamic macros that will literally save your team hundreds of hours per week.</p>
+                        <a href="#article-modal" class="text-primary font-bold open-article-btn" style="font-size: 1.1rem;" data-title="Automating the mundane: 10 macros you need today" data-author="Alex Rivera" data-category="Workflow Design" data-readtime="7 min read">Read Full Guide <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. Helpdesk Management -->
+    <section data-aos="fade-up" class="bg-light">
+        <div class="container text-center max-w-3xl mx-auto">
+            <h2 class="section-title">Helpdesk Management</h2>
+            <div class="mt-6">
+                <p class="text-light text-lg">Discover the best practices for managing your support infrastructure, maintaining clean ticket taxonomies, and ensuring your software tools don't become a disorganized mess over time.</p>
+                <a href="#latest-articles" class="btn btn-outline mt-8"><i class="fa-solid fa-book-open mr-2"></i> Browse Management Articles</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Agent Productivity -->
+    <section data-aos="fade-up">
+        <div class="container text-center max-w-3xl mx-auto">
+            <h2 class="section-title">Agent Productivity & Wellbeing</h2>
+            <div class="mt-6">
+                <p class="text-light text-lg">Tips, tricks, and psychological frameworks to help your team resolve tickets faster while simultaneously preventing burnout. Happy agents create happy customers.</p>
+                <a href="#productivity-section" class="btn btn-outline mt-8"><i class="fa-solid fa-bolt mr-2"></i> Browse Productivity Articles</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. Customer Retention -->
+    <section data-aos="fade-up" class="bg-light">
+        <div class="container text-center max-w-3xl mx-auto">
+            <h2 class="section-title">Customer Retention Strategy</h2>
+            <div class="mt-6">
+                <p class="text-light text-lg">Learn how proactive customer support, targeted check-ins, and data-driven health scoring can drastically reduce your churn rate and turn everyday users into lifelong brand advocates.</p>
+                <a href="#latest-articles" class="btn btn-outline mt-8"><i class="fa-solid fa-users mr-2"></i> Browse Retention Articles</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. Latest Articles -->
+    <section data-aos="fade-up">
+        <div class="container">
+            <h2 class="mb-12 text-center">Latest Weekly Articles</h2>
+            <div class="grid-3">
+                <div class="card" >
+                    <span class="badge badge-warning mb-4">SLAs</span>
+                    <h4 class="text-xl mb-4">How to reduce SLA breaches during product launches</h4>
+                    <p class="text-sm text-light mb-6">Product launches mean a massive spike in tickets. Here is how to prepare your team and adjust your SLAs to handle the surge without breaking under the pressure.</p>
+                    <p class="text-xs font-bold text-light mb-4 uppercase tracking-widest">Oct 5, 2026</p>
+                    <a href="#article-modal" class="text-primary font-bold open-article-btn" data-title="How to reduce SLA breaches during product launches" data-author="David Kim" data-category="SLAs" data-readtime="4 min read">Read Article <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                </div>
+                <div class="card"  >
+                    <span class="badge badge-success mb-4">Terminology</span>
+                    <h4 class="text-xl mb-4">Omnichannel vs Multichannel: Understanding the difference</h4>
+                    <p class="text-sm text-light mb-6">Many companies claim to offer omnichannel support, but they are actually just multichannel. We break down the technical differences and why true omnichannel is critical.</p>
+                    <p class="text-xs font-bold text-light mb-4 uppercase tracking-widest">Oct 2, 2026</p>
+                    <a href="#article-modal" class="text-primary font-bold open-article-btn" data-title="Omnichannel vs Multichannel: Understanding the difference" data-author="Maria Garcia" data-category="Terminology" data-readtime="5 min read">Read Article <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                </div>
+                <div class="card"  >
+                    <span class="badge badge-primary mb-4">Management</span>
+                    <h4 class="text-xl mb-4">Managing remote support teams across timezones</h4>
+                    <p class="text-sm text-light mb-6">Building a 'follow-the-sun' support model is difficult. Learn how to manage hand-offs, maintain culture, and ensure quality consistency across a distributed team.</p>
+                    <p class="text-xs font-bold text-light mb-4 uppercase tracking-widest">Sep 28, 2026</p>
+                    <a href="#article-modal" class="text-primary font-bold open-article-btn" data-title="Managing remote support teams across timezones" data-author="James Wilson" data-category="Management" data-readtime="6 min read">Read Article <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. Popular Articles -->
+    <section data-aos="fade-up" class="bg-light">
+        <div class="container">
+            <h2 class="mb-12 text-center">Most Popular This Month</h2>
+            <div class="grid-3">
+                <div class="card" >
+                    <h4 class="text-xl mb-4">The ultimate guide to support deflection strategies</h4>
+                    <p class="text-sm text-light mb-6">A massive 5,000 word guide detailing every single strategy you can implement today to stop tickets from reaching your agents in the first place.</p>
+                    <p class="text-xs font-bold text-light mb-4 uppercase"><i class="fa-solid fa-fire text-danger"></i> 12.4k views</p>
+                    <a href="#article-modal" class="text-primary font-bold open-article-btn" data-title="The ultimate guide to support deflection strategies" data-author="Jane Doe" data-category="Support Deflection" data-readtime="12 min read">Read Article <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                </div>
+                <div class="card"  >
+                    <h4 class="text-xl mb-4">Recognizing and preventing agent burnout</h4>
+                    <p class="text-sm text-light mb-6">Customer support is emotionally taxing. Learn how to identify the early warning signs of burnout in your team before they decide to quit.</p>
+                    <p class="text-xs font-bold text-light mb-4 uppercase"><i class="fa-solid fa-fire text-danger"></i> 8.5k views</p>
+                    <a href="#article-modal" class="text-primary font-bold open-article-btn" data-title="Recognizing and preventing agent burnout" data-author="Alice Wong" data-category="Wellbeing" data-readtime="8 min read">Read Article <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                </div>
+                <div class="card"  >
+                    <h4 class="text-xl mb-4">Calculating the true ROI of great customer service</h4>
+                    <p class="text-sm text-light mb-6">Support is often viewed as a cost center. Here is the exact mathematical framework to prove to your CEO that support is actually a massive revenue driver.</p>
+                    <p class="text-xs font-bold text-light mb-4 uppercase"><i class="fa-solid fa-fire text-danger"></i> 7.2k views</p>
+                    <a href="#article-modal" class="text-primary font-bold open-article-btn" data-title="Calculating the true ROI of great customer service" data-author="John Smith" data-category="Finance & ROI" data-readtime="9 min read">Read Article <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 14. Newsletter -->
+    <section data-aos="fade-up">
+        <div class="container text-center max-w-4xl mx-auto card bg-primary text-white shadow-float" style="position:relative; overflow:hidden;">
+            <div class="bg-mesh" style="opacity:0.2;"></div>
+            <h2 style="color:white; margin-bottom: 1rem; position:relative; z-index:2;">Subscribe to the SupportX Newsletter</h2>
+            <p class="mb-8" style="color:rgba(255,255,255,0.9); font-size: 1.15rem; position:relative; z-index:2;">Join 50,000+ support professionals who receive our weekly deep-dive into customer experience tactics.</p>
+            <form class="newsletter-form" style="display:flex; flex-direction:column; align-items:center; gap:0.75rem; position:relative; z-index:2;" novalidate>
+                <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; width:100%;">
+                    <div style="flex:1; max-width:350px;">
+                        <input type="email" placeholder="Your work email address" class="form-control" style="color:black; padding: 1rem 1.5rem; font-size: 1.05rem;" required>
+                        <p class="error-message"></p>
+                    </div>
+                    <button type="submit" class="btn btn-secondary" style="padding: 1rem 2.5rem; height:fit-content;"><i class="fa-solid fa-paper-plane mr-2"></i> Subscribe</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- 15. Final CTA -->
+    <section data-aos="fade-up" class="text-center py-12 bg-light">
+        <div class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <h2 style="font-size: 2.25rem; margin-bottom: 2.5rem; font-weight: 800; letter-spacing: -0.02em;">Ready to upgrade your support?</h2>
+            <a href="404.html" class="btn btn-primary" style="padding: 1.15rem 3.5rem; font-size: 1.15rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; border-radius: 9999px; box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.4);"><i class="fa-solid fa-rocket mr-1"></i> Try SupportX Free for 14 Days</a>
+        </div>
+    </section>
+
+            <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Brand Column -->
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom: 1rem; display: inline-block;">
+                        <img src="assets/logo.webp" alt="Stackly Logo" class="logo-img">
+                    </a>
+                    <p class="text-light" style="color: #94A3B8; margin-top: 1rem; line-height: 1.6; max-width: 320px;">
+                        Enterprise-grade customer support platform designed to streamline ticket management, automate workflows, and deliver delightful support experiences.
+                    </p>
+                    <div class="social-icons" style="margin-top: 1.5rem; display: flex; gap: 0.85rem;">
+                        <a href="404.html" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="404.html" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="404.html" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    </div>
+                </div>
+
+                <!-- Platform / Capabilities Column -->
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="404.html"><i class="fa-solid fa-inbox"></i> Omnichannel Inbox</a></li>
+                        <li><a href="404.html"><i class="fa-solid fa-ticket"></i> Ticketing System</a></li>
+                        <li><a href="404.html"><i class="fa-solid fa-robot"></i> AI Automation</a></li>
+                        <li><a href="404.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a></li>
+                        <li><a href="404.html"><i class="fa-solid fa-chart-line"></i> CSAT Analytics</a></li>
+                    </ul>
+                </div>
+
+                <!-- Navigation Links (Nav Links, No Header Auth Links) -->
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                        <li><a href="services.html"><i class="fa-solid fa-layer-group"></i> Services</a></li>
+                        <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
+                        <li><a href="blog.html"><i class="fa-solid fa-newspaper"></i> Blog</a></li>
+                        <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support & Legal Column -->
+                <div class="footer-col">
+                    <h4>Support & Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="404.html"><i class="fa-solid fa-headset"></i> Help & Support</a></li>
+                        <li><a href="404.html"><i class="fa-solid fa-comments"></i> Contact Sales</a></li>
+                        <li><a href="404.html"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a></li>
+                        <li><a href="404.html"><i class="fa-solid fa-file-contract"></i> Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom with Copyright -->
+            <div class="footer-bottom">
+                &copy; 2026 Stackly Inc. All rights reserved. Designed for exceptional customer support.
             </div>
         </div>
     </footer>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="validation.js"></script>
+    <script src="auth.js"></script>
+    <script src="main.js"></script>
 
-    <!-- FLOATING INTERACTIVE COLOR THEME SWITCHER WIDGET -->
-    <div class="color-theme-widget">
-        <span class="color-theme-title"><i class="fas fa-palette me-1"></i> Palette:</span>
-        <button class="theme-btn theme-btn-cyan" data-theme-val="cyan" title="Sovereign Cyan"></button>
-        <button class="theme-btn theme-btn-purple" data-theme-val="purple" title="Electric Purple"></button>
-        <button class="theme-btn theme-btn-emerald" data-theme-val="emerald" title="Emerald Tech"></button>
+    <!-- Interactive Article Reader Modal -->
+    <div id="articleModal" style="display:none; position:fixed; inset:0; background:rgba(15,23,42,0.75); z-index:9999; backdrop-filter:blur(4px); align-items:center; justify-content:center; padding:1.25rem;">
+        <div style="background:white; max-width:720px; width:100%; border-radius:1rem; padding:2.5rem; max-height:88vh; overflow-y:auto; position:relative; box-shadow:0 25px 50px -12px rgba(0,0,0,0.25); border:1px solid #e2e8f0;">
+            <button id="closeArticleModal" type="button" aria-label="Close article modal" style="position:absolute; top:1.25rem; right:1.25rem; background:#f1f5f9; border:none; width:38px; height:38px; border-radius:50%; font-size:1.25rem; cursor:pointer; color:#64748b; display:flex; align-items:center; justify-content:center; transition:background 0.2s;">&times;</button>
+            <span id="articleModalCategory" class="badge badge-primary mb-3" style="display:inline-block;">Article Category</span>
+            <h2 id="articleModalTitle" style="font-size:1.75rem; margin-bottom:0.75rem; color:var(--secondary-color); line-height:1.3;">Article Title</h2>
+            <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.5rem; font-size:0.875rem; color:#64748b; border-bottom:1px solid #e2e8f0; padding-bottom:1rem;">
+                <span><i class="fa-solid fa-user-circle mr-1"></i> <strong id="articleModalAuthor">Author Name</strong></span>
+                <span>•</span>
+                <span><i class="fa-solid fa-clock mr-1"></i> <span id="articleModalReadTime">5 min read</span></span>
+                <span>•</span>
+                <span style="color:#059669; font-weight:600;"><i class="fa-solid fa-check-circle mr-1"></i> Verified Research</span>
+            </div>
+            <div id="articleModalBody" style="line-height:1.8; color:var(--text-light); font-size:1.025rem;">
+                <p id="articleModalSnippet" style="margin-bottom:1.25rem; font-weight:500; color:var(--text-main); font-size:1.1rem;"></p>
+                <div style="background:#f8fafc; border-left:4px solid var(--primary-color); padding:1rem 1.25rem; border-radius:0.5rem; margin-bottom:1.5rem;">
+                    <h4 style="margin:0 0 0.5rem 0; font-size:0.95rem; color:var(--secondary-color);"><i class="fa-solid fa-lightbulb text-warning mr-1"></i> Key Executive Takeaway:</h4>
+                    <p style="margin:0; font-size:0.925rem; color:#475569;">Modern customer experience operations require unified omnichannel data feeds, proactive health monitoring, and AI-assisted triage to maximize customer retention and reduce team burnout.</p>
+                </div>
+                <p style="margin-bottom:1.25rem;">Our customer success telemetry indicates that organizations implementing automated workflow routing experience an average 42% reduction in initial ticket response times and a 19-point increase in quarterly Net Promoter Scores.</p>
+                <p>To dive deeper into tailored implementation patterns or integrate SupportX into your technical stack, explore our full platform documentation or schedule an architecture briefing with our engineering leadership.</p>
+            </div>
+            <div style="margin-top:2rem; padding-top:1.5rem; border-top:1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                <button id="dismissArticleModalBtn" type="button" class="btn btn-outline" style="padding:0.6rem 1.5rem;">Close Reader</button>
+                <a href="404.html" class="btn btn-primary" style="padding:0.6rem 1.5rem;"><i class="fa-solid fa-rocket mr-1"></i> Try SupportX Free</a>
+            </div>
+        </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="assets/validation.js"></script>
-<script src="assets/main.js"></script>
-    <script src="assets/animations.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. Article Reader Modal logic
+        const modal = document.getElementById('articleModal');
+        const closeBtn = document.getElementById('closeArticleModal');
+        const dismissBtn = document.getElementById('dismissArticleModalBtn');
+        const titleElem = document.getElementById('articleModalTitle');
+        const authorElem = document.getElementById('articleModalAuthor');
+        const catElem = document.getElementById('articleModalCategory');
+        const readTimeElem = document.getElementById('articleModalReadTime');
+        const snippetElem = document.getElementById('articleModalSnippet');
+
+        function closeModal() {
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        }
+
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+        if (dismissBtn) dismissBtn.addEventListener('click', closeModal);
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal && modal.style.display === 'flex') closeModal();
+        });
+
+        document.querySelectorAll('.open-article-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const title = btn.getAttribute('data-title') || 'Industry Insight';
+                const author = btn.getAttribute('data-author') || 'SupportX Research';
+                const cat = btn.getAttribute('data-category') || 'Publication';
+                const readtime = btn.getAttribute('data-readtime') || '5 min read';
+
+                // Find card description
+                const parentCard = btn.closest('.card') || btn.closest('div');
+                const descP = parentCard ? parentCard.querySelector('p.text-light, p') : null;
+                const snippet = descP ? descP.textContent.trim() : 'Comprehensive industry analysis and strategic framework for high-performance support teams.';
+
+                if (titleElem) titleElem.textContent = title;
+                if (authorElem) authorElem.textContent = author;
+                if (catElem) catElem.textContent = cat;
+                if (readTimeElem) readTimeElem.textContent = readtime;
+                if (snippetElem) snippetElem.textContent = snippet;
+
+                if (modal) {
+                    modal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        // 2. Blog Search Form handling
+        const searchForm = document.getElementById('blogSearchForm');
+        const searchInput = document.getElementById('blogSearchInput');
+        if (searchForm) {
+            searchForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const q = searchInput ? searchInput.value.trim() : '';
+                if (!q) {
+                    if (window.validationUtils && searchInput) {
+                        window.validationUtils.showFieldError(searchInput, 'Please enter a search topic or keyword.');
+                    }
+                    if (typeof showToast === 'function') showToast('Please enter a search topic or keyword.', 'error');
+                    if (searchInput) searchInput.focus();
+                    return;
+                }
+                if (typeof showToast === 'function') {
+                    showToast(`Searching publications for "${q}"... Redirecting...`, 'success');
+                }
+                setTimeout(() => {
+                    window.location.href = '404.html';
+                }, 600);
+            });
+        }
+    });
+    </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
